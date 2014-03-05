@@ -1,4 +1,4 @@
-package edu.iastate.cs362.iteration1;
+package edu.iastate.cs362.RentalCenter;
 
 public interface RentalCenterInterface {
 	boolean addEquipment(String eid, String equipType, double cost, String description);

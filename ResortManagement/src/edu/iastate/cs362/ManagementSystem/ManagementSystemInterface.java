@@ -1,4 +1,4 @@
-package edu.iastate.cs362.iteration1;
+package edu.iastate.cs362.ManagementSystem;
 
 public interface ManagementSystemInterface {
 	boolean createBudget(int numOfCategories, int profit);
