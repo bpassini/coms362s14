@@ -13,21 +13,26 @@ public class RentalCenter implements RentalCenterInterface {
 	@Override
 	public boolean addEquipment(String eid, String equipType, double cost,
 			String description) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		Equipment e = new Equipment(eid, equipType, cost, description);
+		return (new RentalCenterDBSupport().putEquipment(e));
 	}
 
 	@Override
 	public boolean createEquipInvoice(String eid, String msg) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		EquipmentInvoice i = new EquipmentInvoice(eid, msg);
+		return (new RentalCenterDBSupport().putInvoice(i));
 	}
 
 	@Override
 	public boolean createRentalReservation(String eid, String cname,
 			Date start, Date end) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		RentalReservation r = new RentalReservation(eid, cname, start, end);
+		return (new RentalCenterDBSupport().putReservation(r));
 	}
+	
+	//TODO add getter and setter methods
 
 }
