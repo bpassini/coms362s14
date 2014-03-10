@@ -1,5 +1,7 @@
 package edu.iastate.cs362.Resort;
 
+import edu.iastate.cs362.RentalCenter.RentalCenter;
+
 public class ResortDBSupport implements ResortDBSupportInterface {
 
 	@Override

@@ -1,11 +1,12 @@
 package edu.iastate.cs362.Resort;
 
+import edu.iastate.cs362.RentalCenter.*;
+
 public class Resort implements ResortInterface {
 
 	@Override
 	public boolean createRentalCenter(String rid, String name) {
-		// TODO Auto-generated method stub
-		return false;
+		return new ResortDBSupport().putRentalCenter(new RentalCenter(rid, name));
 	}
 
 	@Override
@@ -17,21 +18,23 @@ public class Resort implements ResortInterface {
 	@Override
 	public boolean addEquipment(String rid, String eid, String equipType,
 			double cost, String description) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		return rc.addEquipment(eid, equipType, cost, description);
 	}
 
 	@Override
 	public boolean createEquipInvoice(String rid, String eid, String msg) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		return rc.createEquipInvoice(eid, msg);
 
 	@Override
 	public boolean createRentalReservation(String rid, String eid,
 			String cname, Date start, Date end) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		return rc.createRentalReservation(eid, cname, start, end);
 	}
 
 	@Override
