@@ -1,6 +1,7 @@
 package edu.iastate.cs362.ManagementSystem;
 
 import java.util.ArrayList;
+import org.joda.time.*;
 
 /**
  * Represents a payroll that is used by the resort to track the earnings of each employee. A resort may have more than one payroll.
@@ -21,18 +22,23 @@ public class Payroll implements PayrollInterface {
 	/**
 	 * The start date of this payroll.
 	 */
-	private Date startDate;
+	private DateTime startDate;
 	/**
 	 * The end date of this payroll.
 	 */
-	private Date endDate;
+	private DateTime endDate;
 	
 	/**
 	 * Creates a new payroll object with an empty payroll table.
+	 * @param payrollId The id of this payroll.
+	 * @param startDate The start date of this payroll.
+	 * @param endDate The end date of this payroll.
 	 */
-	public Payroll(String payrollId) {
+	public Payroll(String payrollId, DateTime startDate, DateTime endDate) {
 		payroll = new ArrayList<EmployeeInfo>();
 		this.payrollId = payrollId;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 	
 	/**
