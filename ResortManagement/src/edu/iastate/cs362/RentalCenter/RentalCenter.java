@@ -1,5 +1,7 @@
 package edu.iastate.cs362.RentalCenter;
 
+import org.joda.time.*;
+
 public class RentalCenter implements RentalCenterInterface {
 	
 	private String id;
@@ -27,7 +29,7 @@ public class RentalCenter implements RentalCenterInterface {
 
 	@Override
 	public boolean createRentalReservation(String eid, String cname,
-			Date start, Date end) {
+			DateTime start, DateTime end) {
 		
 		RentalReservation r = new RentalReservation(eid, cname, start, end);
 		return (new RentalCenterDBSupport().putReservation(r));
