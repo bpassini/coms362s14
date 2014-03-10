@@ -1,5 +1,12 @@
 package edu.iastate.cs362.ManagementSystem;
 
+/**
+ * A class used to connect the ManagementSystem to the database.  This class is used to separate the database
+ * operations from the model.
+ * 
+ * @author Bryan Passini
+ *
+ */
 public class ManagementSystemDBSupport implements ManagementSystemDBSupportInterface {
 
 	@Override
