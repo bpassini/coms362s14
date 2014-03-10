@@ -22,16 +22,25 @@ public class RentalCenter implements RentalCenterInterface {
 	 */
 	private String name;
 	
-	/**
-	 * Creates a new RentalCenter object.
-	 * @param id - The id for this Rental Center.
-	 * @param name - The name of this Rental Center.
-	 */
 	
+	/**
+	 * The equipment this RentalCenter holds.
+	 */
 	private ArrayList<Equipment> equipment;
+	/**
+	 * The invoices this RentalCenter has for its equipment.
+	 */
 	private ArrayList<EquipmentInvoice> invoices;
+	/**
+	 * The reservations this RentalCenter has for its equipment.
+	 */
 	private ArrayList<RentalReservation> reservations;
 	
+	/**
+	 * Creates a new RentalCenter object.
+	 * @param rId - The id for this Rental Center.
+	 * @param name - The name of this Rental Center.
+	 */
 	public RentalCenter(String rId, String name) {
 		this.rId = rId;
 		this.name = name;

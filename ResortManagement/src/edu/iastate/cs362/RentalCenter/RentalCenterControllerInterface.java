@@ -12,42 +12,42 @@ public interface RentalCenterControllerInterface {
 	
 	/**
 	 * Creates a new RentalCenter.
-	 * @param rid - The id for this Rental Center.
+	 * @param rId - The id for this Rental Center.
 	 * @param name - The name of this Rental Center.
-	 * @return a boolean value telling success/failure of creating a new RentalCenter
+	 * @return true if RentalCenter was created successfully, false otherwise
 	 */
-	boolean createRentalCenter(String rid, String name);
+	boolean createRentalCenter(String rId, String name);
 	
 	/**
 	 * Creates a new piece of Equipment and adds it to a specific RentalCenter.
-	 * @param rid - The id of the specific RentalCenter this equipment will be stored in.
-	 * @param eid - The id of the new piece of equipment
+	 * @param rId - The id of the specific RentalCenter this equipment will be stored in.
+	 * @param equipId - The id of the new piece of equipment
 	 * @param equipType - The type of this equipment.
 	 * @param cost - The rental cost of this piece of equipment.
 	 * @param description - The description of this piece of equipment.
-	 * @return a boolean value telling success/failure of adding a new piece of equipment
+	 * @return true if Equipment was created and added successfully, false otherwise
 	 */
-	boolean addEquipment(String rid, String eid, String equipType, double cost, String description);
+	boolean addEquipment(String rId, String equipId, String equipType, double cost, String description);
 	
 	/**
 	 * Creates a new EquipmentInvoice for a specific piece of Equipment.
-	 * @param rid - The id of the specific RentalCenter this invoice is for.
-	 * @param id -  The id for this invoice.
-	 * @param eId - The id for the corresponding equipment of this invoice. 
+	 * @param rId - The id of the specific RentalCenter this invoice is for.
+	 * @param invoiceId -  The id for this invoice.
+	 * @param equipId - The id for the corresponding equipment of this invoice. 
 	 * @param msg - The message of the invoice. 
-	 * @return a boolean value telling success/failure of creating a new invoice.
+	 * @return true if EquipmentInvoice was created and added successfully, false otherwise
 	 */
-	boolean createEquipInvoice(String rid, String iId, String eid, String msg);
+	boolean createEquipInvoice(String rId, String invoiceId, String equipId, String msg);
 	
 	/**
 	 * Creates a RentalReservation for a specific piece of Equipment in one of the RentalCenters.
-	 * @param rid - The id of the specific RentalCenter this invoice is for.
+	 * @param rId - The id of the specific RentalCenter this invoice is for.
 	 * @param rentalId - the id for this specific rentalReservation
-	 * @param eid - The id for the corresponding equipment of this invoice. 
+	 * @param equipId - The id for the corresponding equipment of this invoice. 
 	 * @param cname - The customer name for this reservation.
 	 * @param startDate - The start date for this reservation.
 	 * @param endDate - The end date for this reservation.
-	 * @return a boolean value telling success/failure of creating a new reservation.
+	 * @return true if RentalReservation was created and added successfully, false otherwise
 	 */
-	boolean createRentalReservation(String rid, String rentalId, String eid, String cname, String startDate, String endDate);
+	boolean createRentalReservation(String rId, String rentalId, String equipId, String cname, String startDate, String endDate);
 }

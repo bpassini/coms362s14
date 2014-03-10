@@ -17,7 +17,7 @@ public class RentalReservation implements RentalReservationInterface {
 	/**
 	 * Id for the corresponding piece of equipment for this reservation.
 	 */
-	private String eId;
+	private String equipId;
 	/**
 	 * Customer name for this reservation.
 	 */
@@ -36,13 +36,14 @@ public class RentalReservation implements RentalReservationInterface {
 	/**
 	 * Creates a new RentalReservation.
 	 * @param rentalId - Id for this rental reservation.
-	 * @param eId - Id for the corresponding piece of equipment for this reservation.
+	 * @param equipId - Id for the corresponding piece of equipment for this reservation.
 	 * @param cname - Customer name for this reservation.
 	 * @param start - Start time for the reservation.
 	 * @param end - End time for the reservation.
 	 */
-	public RentalReservation(String rentalId, String eId, String cname, DateTime start, DateTime end) {
-		this.eId = eId;
+	public RentalReservation(String rentalId, String equipId, String cname, DateTime start, DateTime end) {
+		this.rentalId = rentalId;
+		this.equipId = equipId;
 		this.cname = cname;
 		this.start = start;
 		this.end = end;
