@@ -17,11 +17,16 @@ public class Budget implements BudgetInterface {
 	 * A list of the different expenses of the resort.
 	 */
 	private final ArrayList<Category> expenses;
+	/**
+	 * The id of this budget.
+	 */
+	private final String budgetId;
 	
 	/**
 	 * Creates a budget object.
 	 */
-	public Budget() {
+	public Budget(String budgetId) {
+		this.budgetId = budgetId;
 		revenues = new ArrayList<Category>();
 		expenses = new ArrayList<Category>();
 	}
