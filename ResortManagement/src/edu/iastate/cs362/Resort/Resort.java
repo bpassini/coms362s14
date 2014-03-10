@@ -8,7 +8,6 @@ import edu.iastate.cs362.Hotel.Attribute;
 import edu.iastate.cs362.Hotel.Customer;
 import edu.iastate.cs362.Hotel.Hotel;
 
-
 public class Resort implements ResortInterface {
 
 	@Override
@@ -31,18 +30,19 @@ public class Resort implements ResortInterface {
 	}
 
 	@Override
-	public boolean createEquipInvoice(String rid, String eid, String msg) {
+	public boolean createEquipInvoice(String rid, String invoiceId, String eid, String msg) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
-		return rc.createEquipInvoice(eid, msg);
+
+		return rc.createEquipInvoice(invoiceId, eid, msg);
 	}
 
 	@Override
-	public boolean createRentalReservation(String rid, String eid,
-			String cname, Date start, Date end) {
+	public boolean createRentalReservation(String rid, String rentalId, String eid,
+			String cname, DateTime start, DateTime end) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
-		return rc.createRentalReservation(eid, cname, start, end);
+		return rc.createRentalReservation(rentalId, eid, cname, start, end);
 	}
 
 	@Override

@@ -1,12 +1,30 @@
 package edu.iastate.cs362.RentalCenter;
 
+import org.joda.time.*;
+/**
+ * Class representing a RentalCenter.  Our resort can own many different RentalCenters.
+ * @author Cameron Johnston
+ *
+ */
 public class RentalCenter implements RentalCenterInterface {
 	
-	private String id;
+	/**
+	 * The id for this Rental Center.
+	 */
+	private String rId;
+	
+	/**
+	 *  The name of this Rental Center.
+	 */
 	private String name;
 	
-	public RentalCenter(String id, String name) {
-		this.id = id;
+	/**
+	 * Creates a new RentalCenter object.
+	 * @param id - The id for this Rental Center.
+	 * @param name - The name of this Rental Center.
+	 */
+	public RentalCenter(String rId, String name) {
+		this.rId = rId;
 		this.name = name;
 	}
 
@@ -15,22 +33,22 @@ public class RentalCenter implements RentalCenterInterface {
 			String description) {
 		
 		Equipment e = new Equipment(eid, equipType, cost, description);
-		return (new RentalCenterDBSupport().putEquipment(e));
+		return (new RentalCenterDBSupport().putEquipment(rId, e));
 	}
 
 	@Override
-	public boolean createEquipInvoice(String eid, String msg) {
+	public boolean createEquipInvoice(String invoiceId, String eid, String msg) {
 		
-		EquipmentInvoice i = new EquipmentInvoice(eid, msg);
-		return (new RentalCenterDBSupport().putInvoice(i));
+		EquipmentInvoice i = new EquipmentInvoice(invoiceId, eid, msg);
+		return (new RentalCenterDBSupport().putInvoice(rId, i));
 	}
 
 	@Override
-	public boolean createRentalReservation(String eid, String cname,
-			Date start, Date end) {
+	public boolean createRentalReservation(String rentalId, String eid, String cname,
+			DateTime start, DateTime end) {
 		
 		RentalReservation r = new RentalReservation(eid, cname, start, end);
-		return (new RentalCenterDBSupport().putReservation(r));
+		return (new RentalCenterDBSupport().putReservation(rId, r));
 	}
 	
 	//TODO add getter and setter methods

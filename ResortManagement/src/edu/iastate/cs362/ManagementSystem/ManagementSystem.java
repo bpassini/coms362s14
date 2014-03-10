@@ -1,5 +1,6 @@
 package edu.iastate.cs362.ManagementSystem;
 
+import org.joda.time.*;
 /**
  * A class used to represent a management system for a resort.
  * 
@@ -9,13 +10,13 @@ package edu.iastate.cs362.ManagementSystem;
 public class ManagementSystem implements ManagementSystemInterface {
 
 	@Override
-	public boolean createBudget() {
-		return (new ManagementSystemDBSupport()).putBudget(new Budget());
+	public boolean createBudget(String budgetId) {
+		return (new ManagementSystemDBSupport()).putBudget(new Budget(budgetId));
 	}
 
 	@Override
-	public boolean createPayroll() {
-		return (new ManagementSystemDBSupport()).putPayroll(new Payroll());
+	public boolean createPayroll(String payrollId, DateTime startDate, DateTime endDate) {
+		return (new ManagementSystemDBSupport()).putPayroll(new Payroll(payrollId, startDate, endDate));
 	}
 
 	@Override

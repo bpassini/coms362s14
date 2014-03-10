@@ -1,14 +1,40 @@
 package edu.iastate.cs362.RentalCenter;
 
+/**
+ *  Represents a piece of equipment the Resort may store in it's Rental Center and rent to customers.
+ *  
+ * @author Cameron Johnston
+ *
+ */
 public class Equipment implements EquipmentInterface {
 	
-	private String id;
+	/**
+	 * The id of this piece of equipment.
+	 */
+	private String eId;
+	/**
+	 * The type of this equipment.
+	 */
 	private String equipType;
+	/**
+	 * The rental cost of this piece of equipment. 
+	 */
 	private double cost;
+	
+	/**
+	 * The description of this piece of equipment.
+	 */
 	private String description;
 	
-	public Equipment(String id, String equipType, double cost, String description) {
-		this.id = id;
+	/**
+	 * Creates an equipment object. 
+	 * @param eId - The id of this piece of equipment.
+	 * @param equipType - The type of this equipment.
+	 * @param cost - The rental cost of this piece of equipment.
+	 * @param description - The description of this piece of equipment.
+	 */
+	public Equipment(String eId, String equipType, double cost, String description) {
+		this.eId = eId;
 		this.equipType = equipType;
 		this.cost = cost;
 		this.description = description;

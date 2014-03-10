@@ -1,5 +1,8 @@
 package edu.iastate.cs362.ManagementSystem;
 
+import org.joda.time.*;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 /**
  * A class used to connect the user of the system to the Management System class.
  * 
@@ -11,13 +14,14 @@ package edu.iastate.cs362.ManagementSystem;
 public class ManagementSystemController implements ManagementSystemControllerInterface {
 
 	@Override
-	public boolean createBudget() {
-		return (new ManagementSystem()).createBudget();
+	public boolean createBudget(String budgetId) {
+		return (new ManagementSystem()).createBudget(budgetId);
 	}
 
 	@Override
-	public boolean createPayroll() {
-		return (new ManagementSystem()).createPayroll();
+	public boolean createPayroll(String payrollId, String startDate, String endDate) {
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+		return (new ManagementSystem()).createPayroll(payrollId, formatter.parseDateTime(startDate), formatter.parseDateTime(endDate));
 	}
 
 	@Override
