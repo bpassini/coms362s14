@@ -7,4 +7,5 @@ public interface ResortDBSupportInterface {
 	RentalCenter getRentalCenter(String rid);
 	boolean putRentalCenter(RentalCenter r);
 	Hotel getHotel(String hid);
+	boolean putHotel(Hotel h);
 }

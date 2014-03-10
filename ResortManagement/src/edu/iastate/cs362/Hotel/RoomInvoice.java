@@ -20,7 +20,7 @@ public class RoomInvoice implements RoomInvoiceInterface {
 	 * @param notes - Description of the issue or notes
 	 */
 	public RoomInvoice(int rmid, String notes) {
-		
+			
 		this.rmid = rmid;
 		this.notes = notes;
 	}

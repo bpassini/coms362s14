@@ -1,5 +1,6 @@
 package edu.iastate.cs362.Resort;
 
+import edu.iastate.cs362.Hotel.Hotel;
 import edu.iastate.cs362.RentalCenter.RentalCenter;
 
 public class ResortDBSupport implements ResortDBSupportInterface {
@@ -20,6 +21,12 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 	public Hotel getHotel(String hid) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean putHotel(Hotel h) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

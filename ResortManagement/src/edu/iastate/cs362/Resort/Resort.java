@@ -1,9 +1,12 @@
 package edu.iastate.cs362.Resort;
 
+import org.joda.time.*;
+import org.joda.time.format.DateTimeFormat;
 
 import edu.iastate.cs362.RentalCenter.*;
 import edu.iastate.cs362.Hotel.Attribute;
 import edu.iastate.cs362.Hotel.Customer;
+import edu.iastate.cs362.Hotel.Hotel;
 
 
 public class Resort implements ResortInterface {
@@ -15,8 +18,8 @@ public class Resort implements ResortInterface {
 
 	@Override
 	public boolean createHotel(String hid, String name) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return new ResortDBSupport().putHotel(new Hotel(hid, name));
 	}
 
 	@Override
@@ -32,6 +35,7 @@ public class Resort implements ResortInterface {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
 		return rc.createEquipInvoice(eid, msg);
+	}
 
 	@Override
 	public boolean createRentalReservation(String rid, String eid,
@@ -42,22 +46,24 @@ public class Resort implements ResortInterface {
 	}
 
 	@Override
-	public boolean addRoom(int beds, int occup, String desc, int rmid) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addRoom(String hid, int beds, int occup, String desc, int rmid) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hid);
+		return h.addRoom(beds, occup, desc, rmid);
 	}
 
 	@Override
-	public boolean createRoomInvoice(int rmid, String notes) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean createRoomInvoice(String hid, int rmid, String notes) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hid);
+		return h.createRoomInvoice(rmid, notes);
 	}
 
 	@Override
-	public boolean createRoomReservation(String hotel, Date start, Date end,
-			Customer cust, Attribute attr) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean createRoomReservation(String hid, DateTime start, DateTime end, Customer cust, Attribute attr) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hid);
+		return h.createRoomReservation(start, end, cust, attr);
 	}
 
 }

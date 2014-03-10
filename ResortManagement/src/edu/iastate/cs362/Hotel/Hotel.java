@@ -1,6 +1,6 @@
 package edu.iastate.cs362.Hotel;
 
-import java.util.Date;
+import org.joda.time.*;
 
 public class Hotel implements HotelInterface{
 
@@ -39,9 +39,9 @@ public class Hotel implements HotelInterface{
 	}
 
 	@Override
-	public boolean createRoomReservation(String hotel, Date start, Date end, Customer cust, Attribute attr) {
+	public boolean createRoomReservation(DateTime start, DateTime end, Customer cust, Attribute attr) {
 			
-		RoomReservation res = new RoomReservation(hotel, start, end, cust, attr);
+		RoomReservation res = new RoomReservation(start, end, cust, attr);
 		
 		// Check here if hotel has room available during these dates?
 
