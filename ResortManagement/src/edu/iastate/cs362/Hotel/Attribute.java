@@ -12,14 +12,17 @@ public class Attribute {
 		 */
 		int occupancy;
 		
-		/**
-		 * Room has kitchen?
-		 */
-		boolean hasKitchen = false;
 		
 		/**
-		 * Room is handicap accessible?
+		 * Creates an attribute object (for a hotel room) based on the given values
+		 * 
+		 * @param numBeds - Number of beds in hotel room
+		 * @param occupancy - Max occupancy of hotel room
 		 */
-		boolean handicapAccess = false;
+		public Attribute(int numBeds, int occupancy) {
+			
+			this.numBeds = numBeds;
+			this.occupancy = occupancy;
+		}
 		
 }

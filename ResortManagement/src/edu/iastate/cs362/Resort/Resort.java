@@ -1,5 +1,8 @@
 package edu.iastate.cs362.Resort;
 
+import edu.iastate.cs362.Hotel.Attribute;
+import edu.iastate.cs362.Hotel.Customer;
+
 public class Resort implements ResortInterface {
 
 	@Override
@@ -35,7 +38,7 @@ public class Resort implements ResortInterface {
 	}
 
 	@Override
-	public boolean addRoom(int beds, int baths, String desc, int rmid) {
+	public boolean addRoom(int beds, int occup, String desc, int rmid) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -48,7 +51,7 @@ public class Resort implements ResortInterface {
 
 	@Override
 	public boolean createRoomReservation(String hotel, Date start, Date end,
-			Customer cust, AttributeList attr) {
+			Customer cust, Attribute attr) {
 		// TODO Auto-generated method stub
 		return false;
 	}
