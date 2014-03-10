@@ -1,5 +1,13 @@
 package edu.iastate.cs362.ManagementSystem;
 
+/**
+ * A class used to connect the user of the system to the Management System class.
+ * 
+ * Note: this class is a controller class.
+ * 
+ * @author Bryan Passini
+ *
+ */
 public class ManagementSystemController implements ManagementSystemControllerInterface {
 
 	@Override

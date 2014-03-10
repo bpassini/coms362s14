@@ -1,5 +1,11 @@
 package edu.iastate.cs362.ManagementSystem;
 
+/**
+ * A class used to represent a management system for a resort.
+ * 
+ * @author Bryan Passini
+ *
+ */
 public class ManagementSystem implements ManagementSystemInterface {
 
 	@Override
