@@ -36,7 +36,7 @@ public class Payroll implements PayrollInterface {
 		 */
 		public String empName;
 		/**
-		 * The hourly payrate of the employee.
+		 * The hourly pay rate of the employee.
 		 */
 		public double payRate;
 		/**
