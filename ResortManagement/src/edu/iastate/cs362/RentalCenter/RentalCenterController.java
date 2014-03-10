@@ -1,6 +1,8 @@
 package edu.iastate.cs362.RentalCenter;
 
-import edu.iastate.cs362.Resort.*;
+import org.joda.time.DateTime;
+
+import edu.iastate.cs362.Resort.Resort;
 
 public class RentalCenterController implements RentalCenterControllerInterface {
 
@@ -23,7 +25,7 @@ public class RentalCenterController implements RentalCenterControllerInterface {
 
 	@Override
 	public boolean createRentalReservation(String rid, String eid,
-			String cname, Date start, Date end) {
+			String cname, DateTime start, DateTime end) {
 		
 		return (new Resort().createRentalReservation(rid, eid, cname, start, end));
 	}

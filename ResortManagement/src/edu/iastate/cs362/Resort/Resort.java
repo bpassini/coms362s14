@@ -5,6 +5,7 @@ import edu.iastate.cs362.RentalCenter.*;
 import edu.iastate.cs362.Hotel.Attribute;
 import edu.iastate.cs362.Hotel.Customer;
 
+import org.joda.time.*;
 
 public class Resort implements ResortInterface {
 
@@ -35,7 +36,7 @@ public class Resort implements ResortInterface {
 
 	@Override
 	public boolean createRentalReservation(String rid, String eid,
-			String cname, Date start, Date end) {
+			String cname, DateTime start, DateTime end) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
 		return rc.createRentalReservation(eid, cname, start, end);
