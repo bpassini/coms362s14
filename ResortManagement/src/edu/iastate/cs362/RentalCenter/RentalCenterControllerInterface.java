@@ -40,7 +40,7 @@ public interface RentalCenterControllerInterface {
 	boolean createEquipInvoice(String rid, String iId, String eid, String msg);
 	
 	/**
-	 * Creates a RentalReservation for a specifice Equipment in one of the RentalCenters.
+	 * Creates a RentalReservation for a specific piece of Equipment in one of the RentalCenters.
 	 * @param rid - The id of the specific RentalCenter this invoice is for.
 	 * @param rentalId - the id for this specific rentalReservation
 	 * @param eid - The id for the corresponding equipment of this invoice. 
