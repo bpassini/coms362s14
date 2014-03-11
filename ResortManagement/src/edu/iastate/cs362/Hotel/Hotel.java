@@ -55,17 +55,17 @@ public class Hotel implements HotelInterface{
 	}
 
 	@Override
-	public boolean createRoomInvoice(int rmid, String notes) {
+	public boolean createRoomInvoice(String hid, int rmid, String notes) {
 		
-		RoomInvoice ri = new RoomInvoice(rmid, notes);
+		RoomInvoice ri = new RoomInvoice(hid, rmid, notes);
 		
 		return invoices.add(ri);
 	}
 
 	@Override
-	public boolean createRoomReservation(DateTime start, DateTime end, Customer cust, Attribute attr) {
+	public boolean createRoomReservation(String hid, DateTime start, DateTime end, Customer cust, Attribute attr) {
 			
-		RoomReservation res = new RoomReservation(start, end, cust, attr);
+		RoomReservation res = new RoomReservation(hid, start, end, cust, attr);
 
 		return reservations.add(res);
 	}
