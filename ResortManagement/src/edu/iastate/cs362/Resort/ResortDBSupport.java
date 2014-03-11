@@ -20,6 +20,9 @@ import edu.iastate.cs362.RentalCenter.RentalReservation;
 
 public class ResortDBSupport implements ResortDBSupportInterface {
 	
+	/**
+	 * JDBC connection to the database
+	 */
 	private Connection connection = null;
 	
 	
@@ -121,19 +124,21 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				Statement stmt = connection.createStatement();
 				stmt.executeUpdate(qs);
 		
-				
+				// place Equipment in Database
 				for(int i=0;i<rc.getEquipmentList().size();i++){
 					Equipment e = rc.getEquipmentList().get(i);
 					qs = "insert into Equipment values ('"+e.getEquipId()+"','"+ e.getEquipType()+"',"+e.getCost() + ",'"+e.getDescription()+"')";
 					stmt.executeUpdate(qs);
 				}
 				
+				//place EquipmentInvoices in Database
 				for(int j=0;j<rc.getInvoicesList().size();j++){
 					EquipmentInvoice i = rc.getInvoicesList().get(j);
 					qs = "insert into EquipmentInvoice values ('"+i.getInvoiceId()+"','"+ i.getEquipId()+"','"+i.getInvoiceMsg()+"')";
 					stmt.executeUpdate(qs);
 				}
 				
+				//place RentalReservations in Database
 				for(int j=0;j<rc.getReservationsList().size();j++){
 					RentalReservation r = rc.getReservationsList().get(j);
 					qs = "insert into RentalReservation values ('"+ r.getEquipId()+"','"+r.getCustomer().getCmid()+"','" + r.getCustomer().getFirstName()
@@ -174,6 +179,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 			  if(connection==null)
 				returnValue=false;
 			  else{
+				  //create statements 
 				Statement stmt = connection.createStatement();
 				Statement stmtERead = connection.createStatement();
 				Statement stmtEWrite = connection.createStatement();
@@ -193,23 +199,27 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				rsRRead.next();
 				int rCount = rsRRead.getInt("count3");
 				
+				//there has been a change to EquipmentList, so add the last one to the Database
 				if(rc.getEquipmentList().size() - eCount == 1) {
 					Equipment e = rc.getEquipmentList().get(rc.getEquipmentList().size()-1);
 					stmtEWrite.executeUpdate("insert into Equipment values ('"+e.getEquipId()+"','"+ e.getEquipType()+"',"+e.getCost() + ",'"+e.getDescription()+"','" + rc.getId()+ "')");
 				}
 				
+				//there has been a change to InvoicesList, so add the last one to the Database
 				if(rc.getInvoicesList().size() - iCount == 1) {
 					EquipmentInvoice i = rc.getInvoicesList().get(rc.getInvoicesList().size()-1);
 					stmtIWrite.executeUpdate("insert into EquipmentInvoice values ('"+i.getInvoiceId()+"','"+ i.getEquipId()+"','"+i.getInvoiceMsg()+"','" + rc.getId() + "')");
 				}
 				
 				DateTimeFormatter df = DateTimeFormat.forPattern("dd/MM/yyyy hh::mm");
+				//there has been a change to ReservationsList, so add the last one to the Database
 				if(rc.getReservationsList().size() - rCount == 1) {
 					RentalReservation r = rc.getReservationsList().get(rc.getReservationsList().size() - 1);
 					stmtRWrite.executeUpdate("insert into RentalReservation values ('" +r.getRentalId()+"','" + r.getEquipId()+"','"+r.getCustomer().getCmid()+"','" + r.getCustomer().getFirstName()
 							+ "','" + r.getCustomer().getLastName()+ "','" + r.getStart().toString(df)+"','" + r.getEnd().toString(df)+"','" + rc.getId() + "')");
 				}
 				
+				//close statements and connections
 				stmt.close();
 				stmtERead.close();
 				stmtEWrite.close();
@@ -249,7 +259,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 	}
 	
 	/**
-	 * makes a connection to our database
+	 * makes a JDBC connection to our database
 	 * @return the Connection to the database
 	 */
 	private Connection getConnection() {

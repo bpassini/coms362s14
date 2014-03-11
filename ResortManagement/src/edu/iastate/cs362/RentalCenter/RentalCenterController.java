@@ -34,10 +34,15 @@ public class RentalCenterController implements RentalCenterControllerInterface {
 	public boolean createRentalReservation(String rId, String rentalId, String equipId,
 			Customer customer, String start, String end) {
 		
-		DateTimeFormatter df =  DateTimeFormat.forPattern("dd/MM/yyyy HH::mm");
-		DateTime startDate = df.parseDateTime(start);
-		DateTime endDate = df.parseDateTime(end);
-		return (new Resort().createRentalReservation(rId, rentalId, equipId, customer, startDate, endDate));
+		try {
+			DateTimeFormatter df =  DateTimeFormat.forPattern("dd/MM/yyyy HH::mm");
+			DateTime startDate = df.parseDateTime(start);
+			DateTime endDate = df.parseDateTime(end);
+			return (new Resort().createRentalReservation(rId, rentalId, equipId, customer, startDate, endDate));
+		}
+		catch(IllegalArgumentException iae) {
+			return false;
+		}
 	}
 
 }
