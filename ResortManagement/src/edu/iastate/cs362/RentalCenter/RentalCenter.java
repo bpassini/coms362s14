@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
-import edu.iastate.cs362.Resort.ResortDBSupport;
+import edu.iastate.cs362.Hotel.Customer;
 /**
  * Class representing a RentalCenter.  Our resort can own many different RentalCenters.
  * @author Cameron Johnston
@@ -66,10 +66,10 @@ public class RentalCenter implements RentalCenterInterface {
 	}
 
 	@Override
-	public boolean createRentalReservation(String rentalId, String eid, String cname,
+	public boolean createRentalReservation(String rentalId, String eid, Customer cust,
 			DateTime start, DateTime end) {
 		
-		RentalReservation r = new RentalReservation(rentalId, eid, cname, start, end);
+		RentalReservation r = new RentalReservation(rentalId, eid, cust, start, end);
 		return reservations.add(r);
 	}
 	
@@ -93,26 +93,11 @@ public class RentalCenter implements RentalCenterInterface {
 	public List<Equipment> getEquipmentList() {
 		return equipment;
 	}
-
-	/**
-	 * @param equipment the equipment to set
-	 */
-	public void setEquipmentList(List<Equipment> equipment) {
-		this.equipment = equipment;
-	}
-
 	/**
 	 * @return the invoices
 	 */
 	public List<EquipmentInvoice> getInvoicesList() {
 		return invoices;
-	}
-
-	/**
-	 * @param invoices the invoices to set
-	 */
-	public void setInvoicesList(List<EquipmentInvoice> invoices) {
-		this.invoices = invoices;
 	}
 
 	/**
@@ -122,12 +107,6 @@ public class RentalCenter implements RentalCenterInterface {
 		return reservations;
 	}
 
-	/**
-	 * @param reservations the reservations to set
-	 */
-	public void setReservationsList(List<RentalReservation> reservations) {
-		this.reservations = reservations;
-	}
 
 	/**
 	 * @return the name of the RentalCenter

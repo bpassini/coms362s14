@@ -1,6 +1,8 @@
 package edu.iastate.cs362.RentalCenter;
 
 import org.joda.time.DateTime;
+
+import edu.iastate.cs362.Hotel.Customer;
 /**
  * Interface for RentalCenter.
  * @author Cameron Johnston
@@ -30,10 +32,10 @@ public interface RentalCenterInterface {
 	 * Creates a RentalReservation for a specific piece of equipment
 	 * @param rentalId - the reservation id
 	 * @param equipId - corresponding equipment id
-	 * @param cname - the customer name for the reservation
+	 * @param customer - the customer for the reservation
 	 * @param start - start time for the reservation
 	 * @param end - end time for the reservation
 	 * @return true if RentalReservation was created and added successfully, false otherwise
 	 */
-	boolean createRentalReservation(String rentalId, String equipId, String cname, DateTime start, DateTime end);
+	boolean createRentalReservation(String rentalId, String equipId, Customer customer, DateTime start, DateTime end);
 }
