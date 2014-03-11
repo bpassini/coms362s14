@@ -1,6 +1,6 @@
 package edu.iastate.cs362.RentalCenter;
 
-import org.joda.time.DateTime;
+import edu.iastate.cs362.Hotel.Customer;
 /**
  * Interface for our RentalCenterController.
  * 
@@ -44,10 +44,10 @@ public interface RentalCenterControllerInterface {
 	 * @param rId - The id of the specific RentalCenter this invoice is for.
 	 * @param rentalId - the id for this specific rentalReservation
 	 * @param equipId - The id for the corresponding equipment of this invoice. 
-	 * @param cname - The customer name for this reservation.
+	 * @param customer - The customer for this reservation.
 	 * @param startDate - The start date for this reservation.
 	 * @param endDate - The end date for this reservation.
 	 * @return true if RentalReservation was created and added successfully, false otherwise
 	 */
-	boolean createRentalReservation(String rId, String rentalId, String equipId, String cname, String startDate, String endDate);
+	boolean createRentalReservation(String rId, String rentalId, String equipId, Customer customer, String startDate, String endDate);
 }

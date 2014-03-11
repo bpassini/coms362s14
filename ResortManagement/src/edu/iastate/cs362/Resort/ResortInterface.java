@@ -51,10 +51,10 @@ public interface ResortInterface {
 	 * @param rId - the RentalCenter id
 	 * @param rentalId - the RentalReservation id
 	 * @param equipId - the corresponding Equipment id
-	 * @param cname - the customer name 
+	 * @param customer - the customer
 	 * @param start - the start time of the reservation
 	 * @param end - the end time of the reservation
 	 * @return true if RentalReservation was created successfully, false otherwise
 	 */
-	boolean createRentalReservation(String rId, String rentalId, String equipId, String cname, DateTime start, DateTime end);
+	boolean createRentalReservation(String rId, String rentalId, String equipId, Customer customer, DateTime start, DateTime end);
 }

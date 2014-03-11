@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import edu.iastate.cs362.Hotel.Customer;
 import edu.iastate.cs362.Resort.Resort;
 /**
  * Controller class dealing with RentalCenter.
@@ -31,12 +32,12 @@ public class RentalCenterController implements RentalCenterControllerInterface {
 
 	@Override
 	public boolean createRentalReservation(String rId, String rentalId, String equipId,
-			String cname, String start, String end) {
+			Customer customer, String start, String end) {
 		
 		DateTimeFormatter df =  DateTimeFormat.forPattern("dd/MM/yyyy HH::mm");
 		DateTime startDate = df.parseDateTime(start);
 		DateTime endDate = df.parseDateTime(end);
-		return (new Resort().createRentalReservation(rId, rentalId, equipId, cname, startDate, endDate));
+		return (new Resort().createRentalReservation(rId, rentalId, equipId, customer, startDate, endDate));
 	}
 
 }
