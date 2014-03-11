@@ -74,6 +74,7 @@ public class RentalCenter implements RentalCenterInterface {
 	}
 	
 	/**
+	 * Gets the RentalCenter id
 	 * @return the rId
 	 */
 	public String getId() {
@@ -81,19 +82,22 @@ public class RentalCenter implements RentalCenterInterface {
 	}
 
 	/**
-	 * @param rId the rId to set
+	 * Gets the RentalCenter name
+	 * @return the name of the RentalCenter
 	 */
-	public void setId(String rId) {
-		this.rId = rId;
+	public String getName() {
+		return name;
 	}
-
+	
 	/**
+	 * Gets the list of Equipment
 	 * @return the equipment
 	 */
 	public List<Equipment> getEquipmentList() {
 		return equipment;
 	}
 	/**
+	 * Gets the list of Invoices
 	 * @return the invoices
 	 */
 	public List<EquipmentInvoice> getInvoicesList() {
@@ -101,6 +105,7 @@ public class RentalCenter implements RentalCenterInterface {
 	}
 
 	/**
+	 * Gets the list of RentalReservations
 	 * @return the reservations
 	 */
 	public List<RentalReservation> getReservationsList() {
@@ -108,19 +113,7 @@ public class RentalCenter implements RentalCenterInterface {
 	}
 
 
-	/**
-	 * @return the name of the RentalCenter
-	 */
-	public String getName() {
-		return name;
-	}
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	
+
 	
 
 }

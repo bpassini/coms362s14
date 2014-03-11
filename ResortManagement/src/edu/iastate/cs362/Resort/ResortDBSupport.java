@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import edu.iastate.cs362.Hotel.Customer;
 import edu.iastate.cs362.Hotel.Hotel;
@@ -57,10 +59,11 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					while(rsR.next()) {
 						
 						Customer customer = new Customer(rsR.getInt("cmId"), rsR.getString("firstName"), rsR.getString("lastName"));
-						DateTime start = DateTime.parse(rsR.getString("startDate"));
-						DateTime end = DateTime.parse(rsR.getString("endDate"));
+						DateTimeFormatter df = DateTimeFormat.forPattern("dd/MM/yyyy hh::mm");
+						DateTime start = df.parseDateTime((rsR.getString("startDate")));
+						DateTime end = df.parseDateTime((rsR.getString("endDate")));
 						
-						rc.createRentalReservation(rsR.getString("rentalId"), rsE.getString("equipId"), customer, start, end);
+						rc.createRentalReservation(rsR.getString("rentalId"), rsR.getString("equipId"), customer, start, end);
 					}
 				}
 				else {
@@ -102,18 +105,16 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				return false;//trying to add a duplicate key
 	}	
 	
+	/**
+	 * Writes the Rental Center to the database
+	 * @param rc - the RentalCenter
+	 * @return boolean value true if successful, false otherwise
+	 */
 	private boolean writeRentalCenter(RentalCenter rc) {
 		boolean returnValue=true;
-		//we are using the try/catch block to determine if there was an error.
-		//the boolean returnValue starts out as true and will only be set to 
-		//false if there is an SQL error (exception).
 		
 		try {
-			
-			System.out.println("WRITING RENTAL CENTER.");
 			connection=this.getConnection();
-			
-	       //  Define the insert query for the basic student data
 	           
 	            String qs = "insert into RentalCenter values ('"+rc.getId()+"',"+"'"+rc.getName()
                 +"')";
@@ -159,12 +160,14 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 		
 		return returnValue;
 	}
-	
+	/**
+	 * If the RentalCenter already exists, just update the Lists in the tables
+	 * @param rc - the RentalCenter with lists
+	 * @return boolean value true if successful, false otherwise
+	 */
 	private boolean addRCLists(RentalCenter rc) {
+		
 		boolean returnValue=true;
-		//we are using the try/catch block to determine if there was an error.
-		//the boolean returnValue starts out as true and will only be set to 
-		//false if there is an SQL error (exception).
 		
 		try {
 			  connection=this.getConnection();
@@ -178,10 +181,6 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				Statement stmtIWrite = connection.createStatement();
 				Statement stmtRRead = connection.createStatement();
 				Statement stmtRWrite = connection.createStatement();
-			
-				List<Equipment> newEquip = rc.getEquipmentList();
-				List<EquipmentInvoice> newInvo = rc.getInvoicesList();
-				List<RentalReservation> newReser = rc.getReservationsList();
 				
 				ResultSet rsERead = stmtERead.executeQuery("select count(*) as count1 from Equipment where rId='" + rc.getId() + "'");
 				ResultSet rsIRead = stmtIRead.executeQuery("select count(*) as count2 from EquipmentInvoice where rId='" + rc.getId() + "'");
@@ -204,10 +203,11 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					stmtIWrite.executeUpdate("insert into EquipmentInvoice values ('"+i.getInvoiceId()+"','"+ i.getEquipId()+"','"+i.getInvoiceMsg()+"','" + rc.getId() + "')");
 				}
 				
+				DateTimeFormatter df = DateTimeFormat.forPattern("dd/MM/yyyy hh::mm");
 				if(rc.getReservationsList().size() - rCount == 1) {
 					RentalReservation r = rc.getReservationsList().get(rc.getReservationsList().size() - 1);
 					stmtRWrite.executeUpdate("insert into RentalReservation values ('" +r.getRentalId()+"','" + r.getEquipId()+"','"+r.getCustomer().getCmid()+"','" + r.getCustomer().getFirstName()
-							+ "','" + r.getCustomer().getLastName()+ "','" + r.getStart().toString()+"','" + r.getEnd().toString()+"','" + rc.getId() + "')");
+							+ "','" + r.getCustomer().getLastName()+ "','" + r.getStart().toString(df)+"','" + r.getEnd().toString(df)+"','" + rc.getId() + "')");
 				}
 				
 				stmt.close();
@@ -248,7 +248,10 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 		return false;
 	}
 	
-	
+	/**
+	 * makes a connection to our database
+	 * @return the Connection to the database
+	 */
 	private Connection getConnection() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

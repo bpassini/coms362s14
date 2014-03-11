@@ -34,29 +34,29 @@ public class EquipmentInvoice implements EquipmentInvoiceInterface {
 		this.msg = msg;
 	}
 	
+	/**
+	 * Gets the Invoice id
+	 * @return the id for the Invoice
+	 */
 	public String getInvoiceId() {
 		return invoiceId;
 	}
 	
+	/**
+	 * Gets the corresponding Equipment id
+	 * @return the id for the piece of Equipment this invoice is for
+	 */
 	public String getEquipId() {
 		return equipId;
 	}
 	
+	/**
+	 * Gets the Invoice message
+	 * @return the message of this Invoice
+	 */
 	public String getInvoiceMsg() {
 		return msg;
 	}
 
-	public void setInvoiceMsg(String msg) {
-		this.msg = msg;
-	}
-
-	public void setInvoiceId(String invoiceId) {
-		this.invoiceId = invoiceId;
-	}
-
-	public void setEquipId(String equipId) {
-		this.equipId = equipId;
-	}
-	
 	
 }
