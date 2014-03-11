@@ -30,30 +30,28 @@ public class Budget implements BudgetInterface {
 		revenues = new ArrayList<Category>();
 		expenses = new ArrayList<Category>();
 	}
-		
+	
 	/**
-	 * Private inner class used to hold the different categories of revenues and expenses.
-	 * @author Bryan Passini
-	 *
+	 * Returns the id of this budget.
+	 * @return the id of this budget.
 	 */
-	private class Category {
-		/**
-		 * The category name.
-		 */
-		public String categoryName;
-		/**
-		 * The value of the category.
-		 */
-		public double value;
-		
-		/**
-		 * Creates a Category object given a category name and a value associated with that category.
-		 * @param categoryName the name of the category.
-		 * @param value the value of the category.
-		 */
-		public Category(String categoryName, double value) {
-			this.categoryName = categoryName;
-			this.value = value;
-		}
+	public String getBudgetId() {
+		return budgetId;
+	}
+	
+	/**
+	 * Returns a list of category objects that define the revenues section of this budget.
+	 * @return the list of category objects.
+	 */
+	public ArrayList<Category> getRevenues() {
+		return revenues;
+	}
+	
+	/**
+	 * Returns a list of category objects that define the expenses section of this budget.
+	 * @return the list of category objects.
+	 */
+	public ArrayList<Category> getExpenses() {
+		return expenses;
 	}
 }
