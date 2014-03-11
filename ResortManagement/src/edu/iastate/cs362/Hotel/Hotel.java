@@ -1,9 +1,26 @@
 package edu.iastate.cs362.Hotel;
 
+import java.util.ArrayList;
+
 import org.joda.time.*;
 
 public class Hotel implements HotelInterface{
 
+	/**
+	 * List of rooms at this hotel
+	 */
+	private ArrayList<Room> rooms;
+	
+	/**
+	 * List of reservations at this hotel
+	 */
+	private ArrayList<RoomReservation> reservations;
+	
+	/**
+	 * List of invoices for this hotel
+	 */
+	private ArrayList<RoomInvoice> invoices;
+	
 	/**
 	 * Hotel ID
 	 */
@@ -14,6 +31,13 @@ public class Hotel implements HotelInterface{
 	 */
 	private String name;
 	
+	
+	/**
+	 * Create a new hotel using the given parameters
+	 * 
+	 * @param hid - Hotel ID
+	 * @param name - Hotel name
+	 */
 	public Hotel(String hid, String name) {
 		
 		this.hid = hid;
@@ -22,12 +46,12 @@ public class Hotel implements HotelInterface{
 	
 	
 	@Override
-	public boolean addRoom(int beds, int occup, String desc, int rmid) {
+	public boolean addRoom(ArrayList<String> beds, int occup, String desc, int rmid) {
 		
 		Attribute a = new Attribute(beds, occup);
 		Room rm = new Room(rmid, a, desc);
 		
-		return (new HotelDBSupport().putRoom(rm));
+		return rooms.add(rm);
 	}
 
 	@Override
@@ -35,17 +59,15 @@ public class Hotel implements HotelInterface{
 		
 		RoomInvoice ri = new RoomInvoice(rmid, notes);
 		
-		return (new HotelDBSupport().putRoomInvoice(ri));
+		return invoices.add(ri);
 	}
 
 	@Override
 	public boolean createRoomReservation(DateTime start, DateTime end, Customer cust, Attribute attr) {
 			
 		RoomReservation res = new RoomReservation(start, end, cust, attr);
-		
-		// Check here if hotel has room available during these dates?
 
-		return (new HotelDBSupport().putRoomReservation(res));
+		return reservations.add(res);
 	}
 		
 }	

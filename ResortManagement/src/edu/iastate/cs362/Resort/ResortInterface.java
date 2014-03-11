@@ -1,10 +1,12 @@
 package edu.iastate.cs362.Resort;
 
+import java.util.ArrayList;
+
 import org.joda.time.*;
 
 import edu.iastate.cs362.Hotel.Attribute;
 import edu.iastate.cs362.Hotel.Customer;
-import org.joda.time.*;
+
 /**
  * Interface for Resort.
  * 
@@ -20,6 +22,9 @@ public interface ResortInterface {
 	 */
 	boolean createRentalCenter(String rId, String name);
 	boolean createHotel(String hid, String name);
+
+	boolean addRoom(String hid, ArrayList<String> beds, int occup, String desc, int rmid);
+
 	/**
 	 * Create and add a piece of Equipment to a specific RentalCenter.
 	 * @param rId - the RentalCenter id
@@ -30,7 +35,6 @@ public interface ResortInterface {
 	 * @return true if the Equipment was added successfully, false otherwise
 	 */
 	boolean addEquipment(String rId, String equipId, String equipType, double cost, String description);
-	boolean addRoom(String hid, int beds, int occup, String desc, int rmid);
 	boolean createRoomInvoice(String hid, int rmid, String notes);
 	boolean createRoomReservation(String hid, DateTime start, DateTime end, Customer cust, Attribute attr);
 	/**

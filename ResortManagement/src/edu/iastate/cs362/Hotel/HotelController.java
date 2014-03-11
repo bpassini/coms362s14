@@ -1,5 +1,7 @@
 package edu.iastate.cs362.Hotel;
 
+import java.util.ArrayList;
+
 import org.joda.time.format.DateTimeFormat;
 
 import edu.iastate.cs362.Resort.Resort;
@@ -13,7 +15,7 @@ public class HotelController implements HotelControllerInterface {
 	}
 
 	@Override
-	public boolean addRoom(String hid, int beds, int occup, String desc, int rmid) {
+	public boolean addRoom(String hid, ArrayList<String> beds, int occup, String desc, int rmid) {
 		
 		return (new Resort().addRoom(hid, beds, occup, desc, rmid));
 	}
