@@ -11,7 +11,7 @@ public class Equipment implements EquipmentInterface {
 	/**
 	 * The id of this piece of equipment.
 	 */
-	private String eId;
+	private String equipId;
 	/**
 	 * The type of this equipment.
 	 */
@@ -28,19 +28,49 @@ public class Equipment implements EquipmentInterface {
 	
 	/**
 	 * Creates an equipment object. 
-	 * @param eId - The id of this piece of equipment.
+	 * @param equipId - The id of this piece of equipment.
 	 * @param equipType - The type of this equipment.
 	 * @param cost - The rental cost of this piece of equipment.
 	 * @param description - The description of this piece of equipment.
 	 */
-	public Equipment(String eId, String equipType, double cost, String description) {
-		this.eId = eId;
+	public Equipment(String equipId, String equipType, double cost, String description) {
+		this.equipId = equipId;
 		this.equipType = equipType;
 		this.cost = cost;
 		this.description = description;
 		
 	}
 	
-	//TODO add getter and setter methods
+	public String getEquipId() {
+		return equipId;
+	}
+	
+	public String getEquipType() {
+		return equipType;
+	}
+	
+	public double getCost() {
+		return cost;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setEquipId(String equipId) {
+		this.equipId = equipId;
+	}
+
+	public void setEquipType(String equipType) {
+		this.equipType = equipType;
+	}
+
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	
 }

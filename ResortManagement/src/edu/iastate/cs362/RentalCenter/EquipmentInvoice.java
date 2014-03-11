@@ -11,11 +11,11 @@ public class EquipmentInvoice implements EquipmentInvoiceInterface {
 	/** 
 	 *  The id for this invoice.
 	 */
-	private String id;
+	private String invoiceId;
 	/**
 	 * The id for the corresponding equipment of this invoice. 
 	 */
-	private String eId;
+	private String equipId;
 	
 	/**
 	 * The message of the invoice. 
@@ -24,15 +24,39 @@ public class EquipmentInvoice implements EquipmentInvoiceInterface {
 	
 	/**
 	 * Creates a new Equipment Invoice object. 
-	 * @param id -  The id for this invoice.
-	 * @param eId - The id for the corresponding equipment of this invoice. 
+	 * @param invoiceId -  The id for this invoice.
+	 * @param equipId - The id for the corresponding equipment of this invoice. 
 	 * @param msg - The message of the invoice. 
 	 */
-	public EquipmentInvoice(String id, String eId, String msg) {
-		this.id = id;
-		this.eId = eId;
+	public EquipmentInvoice(String invoiceId, String equipId, String msg) {
+		this.invoiceId = invoiceId;
+		this.equipId = equipId;
 		this.msg = msg;
 	}
 	
-	//TODO add getter and setter methods
+	public String getInvoiceId() {
+		return invoiceId;
+	}
+	
+	public String getEquipId() {
+		return equipId;
+	}
+	
+	public String getInvoiceMsg() {
+		return msg;
+	}
+
+	public void setInvoiceMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public void setInvoiceId(String invoiceId) {
+		this.invoiceId = invoiceId;
+	}
+
+	public void setEquipId(String equipId) {
+		this.equipId = equipId;
+	}
+	
+	
 }
