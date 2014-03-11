@@ -6,7 +6,7 @@ import edu.iastate.cs362.RentalCenter.RentalCenter;
 public class ResortDBSupport implements ResortDBSupportInterface {
 
 	@Override
-	public RentalCenter getRentalCenter(String rid) {
+	public RentalCenter getRentalCenter(String rId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

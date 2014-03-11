@@ -11,12 +11,14 @@ public class ManagementSystem implements ManagementSystemInterface {
 
 	@Override
 	public boolean createBudget(String budgetId) {
-		return (new ManagementSystemDBSupport()).putBudget(new Budget(budgetId));
+		Budget b = new Budget(budgetId);
+		return (new ManagementSystemDBSupport()).putBudget(b);
 	}
 
 	@Override
 	public boolean createPayroll(String payrollId, DateTime startDate, DateTime endDate) {
-		return (new ManagementSystemDBSupport()).putPayroll(new Payroll(payrollId, startDate, endDate));
+		Payroll p = new Payroll(payrollId, startDate, endDate);
+		return (new ManagementSystemDBSupport()).putPayroll(p);
 	}
 
 	@Override
