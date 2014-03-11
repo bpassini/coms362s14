@@ -23,7 +23,6 @@ public class RentalReservation implements RentalReservationInterface {
 	/**
 	 * Customer name for this reservation.
 	 */
-	// TODO: change to a Customer object instead of  a String
 	private Customer customer;
 	
 	/**
