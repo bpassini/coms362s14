@@ -1,11 +1,15 @@
 package edu.iastate.cs362.Hotel;
 
+import java.util.ArrayList;
+
 public class Attribute {
 
 		/**
-		 * Number of beds in the room
+		 * Number and type of beds
+		 * size of ArrayList = # of beds
+		 * value at each index = bed size (King, Queen, or Twin)
 		 */
-		int numBeds;
+		ArrayList<String> beds;
 		
 		/**
 		 * Max occupancy of the room
@@ -19,9 +23,9 @@ public class Attribute {
 		 * @param numBeds - Number of beds in hotel room
 		 * @param occupancy - Max occupancy of hotel room
 		 */
-		public Attribute(int numBeds, int occupancy) {
+		public Attribute(ArrayList<String> beds, int occupancy) {
 			
-			this.numBeds = numBeds;
+			this.beds = beds;
 			this.occupancy = occupancy;
 		}
 		
