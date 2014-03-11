@@ -11,16 +11,16 @@ import org.joda.time.*;
  */
 public class Payroll implements PayrollInterface {
 	/**
-	 * A list of Row objects.  This list creates a payroll table where each Row object represents a row in the
-	 * table and each Row attribute represents a column in the table.
+	 * The payroll.  This payroll is in the form of a table where the arraylist holds objects that represent each of the rows in the table and then the
+	 * instance fields of the EmployeeInfo class create the different columns.
 	 */
-	private final ArrayList<EmployeeInfo> payroll;
+	private ArrayList<EmployeeInfo> payroll;
 	/**
 	 * The id of this payroll.
 	 */
-	private final String payrollId;
+	private String payrollId;
 	/**
-	 * The start date of this payroll.
+	 * The start date of this payroll.  
 	 */
 	private DateTime startDate;
 	/**
@@ -42,45 +42,34 @@ public class Payroll implements PayrollInterface {
 	}
 	
 	/**
-	 * Private inner class used to help represent the payroll.  This class is used to keep the each employees information that is relevant to the payroll.
-	 * 
-	 * @author Bryan Passini
-	 *
+	 * Returns the payroll.
+	 * @return the payroll.
 	 */
-	private class EmployeeInfo {
-		/**
-		 * The name of the employee.
-		 */
-		public String empName;
-		/**
-		 * The id of the employee
-		 */
-		public String empId;
-		/**
-		 * The hourly pay rate of the employee.
-		 */
-		public double payRate;
-		/**
-		 * The number of regular hours worked by the employee
-		 */
-		public double regularHours;
-		/**
-		 * The number of overtime hours worked by the employee.
-		 */
-		public double overtimeHours;
-
-		
-		/**
-		 * Creates an Row object given an employee and their hourly pay rate.
-		 * @param empName the name of the employee this Row object represents.
-		 * @param payRate the hourly pay rate of the employee this Row object represents.
-		 */
-		public EmployeeInfo(String empName, String empId, double payRate) {
-			this.empName = empName;
-			this.empId = empId;
-			this.payRate = payRate;
-			regularHours = 0;
-			overtimeHours = 0;
-		}
+	public  ArrayList<EmployeeInfo> getPayroll() {
+		return payroll;
+	}
+	
+	/**
+	 * Returns the id of this payroll object.
+	 * @return the id of this payroll object.
+	 */
+	public String getPayrollId() {
+		return payrollId;
+	}
+	
+	/**
+	 * Returns the start date of this payroll object.
+	 * @return the start date.
+	 */
+	public DateTime getStartDate() {
+		return startDate;
+	}
+	
+	/**
+	 * Returns the end date of this payroll object.
+	 * @return the end date.
+	 */
+	public DateTime getEndDate() {
+		return endDate;
 	}
 }

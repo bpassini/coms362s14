@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 /**
  * A class used to connect the ManagementSystem to the database.  This class is used to separate the database
  * operations from the model.
@@ -70,16 +73,56 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 		}
 		return true;
 	}
-
+	
 	@Override
 	public boolean putPayroll(Payroll p) {
-		// TODO Auto-generated method stub
-		return false;
+		getConnection();
+		if(connection == null)
+			return false;
+		
+		try {
+			Statement query = connection.createStatement();
+			
+			query.executeQuery("delete from Payroll  where PayrollId='" + p.getPayrollId() + "'");
+			DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+			query.executeQuery("insert into Payroll(PayrollId, StartDate, EndDate) values(" + p.getPayrollId() + "," + p.getStartDate().toString(formatter) + "," +
+					p.getEndDate().toString(formatter) + ")");
+				
+			ResultSet rsEmployeeInfo = query.executeQuery("select count(*) as count from EmployeeInfo e where e.PayrollId='" + p.getPayrollId() + "'");
+			if(!rsEmployeeInfo.next() || rsEmployeeInfo.getInt("count") < p.getPayroll().size()) {
+				EmployeeInfo empInfo = p.getPayroll().get(p.getPayroll().size() - 1);
+				query.executeQuery("insert in EmployeeInfo(PayrollId, EmployeeId, RegularHours, OvertimeHours) values( "+ p.getPayrollId() + "," + empInfo.getEmployeeId() + "," +
+						empInfo.getRegularHours() + "," + empInfo.getOvertimeHours() + ")");
+			}
+			
+			query.close();
+			connection.close();
+		} catch(SQLException e) {
+			return false;
+		}
+		
+		return true;
 	}
 
 	@Override
 	public boolean putEmployee(Employee e) {
-		// TODO Auto-generated method stub
+		getConnection();
+		if(connection == null)
+			return false;
+		
+		try {
+			Statement query = connection.createStatement();
+			
+			query.executeQuery("delete from Employee where EmployeeId='" + e.getEmployeeId() + "'");
+			query.executeQuery("insert into Employee(FirstName, LastName, EmployeeId, EmployeeType, Payrate) values(" + e.getFirstName() + "," + e.getLastName() + "," + 
+					e.getEmployeeId() + "," + e.getEmployeeType() + "," + e.getPayRate() + ")");
+			
+			query.close();
+			connection.close();
+		} catch(SQLException sqle) {
+			return false;
+		}
+		
 		return false;
 	}
 

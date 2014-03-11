@@ -25,10 +25,10 @@ public class ManagementSystemController implements ManagementSystemControllerInt
 	}
 
 	@Override
-	public boolean createEmployee(String name, String type, String empID,
+	public boolean createEmployee(String fname, String lname, String type, String empID,
 			double payRate) {
 
-		return (new ManagementSystem()).createEmployee(name, type, empID, payRate);
+		return (new ManagementSystem()).createEmployee(fname, lname, type, empID, payRate);
 	}
 
 }
