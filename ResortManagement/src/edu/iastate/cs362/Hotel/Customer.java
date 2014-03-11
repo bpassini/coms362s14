@@ -7,7 +7,7 @@ public class Customer {
 	/**
 	 * Customer ID
 	 */
-	int cmid;
+	private int cmid;
 	
 	/**
 	 * Customer's first name
@@ -37,6 +37,64 @@ public class Customer {
 		this.cmid = cmid;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.pastStays = pastStays;
+	}
+	
+	public Customer(int cmid, String firstName, String lastName) {
+		
+		this.cmid = cmid;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.pastStays = null;
+	}
+
+	public int getCmid() {
+		return cmid;
+	}
+
+	public void setCmid(int cmid) {
+		this.cmid = cmid;
+	}
+
+	/**
+	 * @return the firstName
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * @param firstName the firstName to set
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	/**
+	 * @return the lastName
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+	/**
+	 * @param lastName the lastName to set
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	/**
+	 * @return the pastStays
+	 */
+	public List<RoomReservation> getPastStays() {
+		return pastStays;
+	}
+
+	/**
+	 * @param pastStays the pastStays to set
+	 */
+	public void setPastStays(List<RoomReservation> pastStays) {
 		this.pastStays = pastStays;
 	}
 	

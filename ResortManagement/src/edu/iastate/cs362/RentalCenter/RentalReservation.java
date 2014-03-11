@@ -2,6 +2,8 @@ package edu.iastate.cs362.RentalCenter;
 
 import org.joda.time.DateTime;
 
+import edu.iastate.cs362.Hotel.Customer;
+
 /**
  * Class for a reservation of a piece of rental equipment. 
  * 
@@ -21,7 +23,8 @@ public class RentalReservation implements RentalReservationInterface {
 	/**
 	 * Customer name for this reservation.
 	 */
-	private String cname;
+	// TODO: change to a Customer object instead of  a String
+	private Customer customer;
 	
 	/**
 	 * Start time for the reservation.
@@ -41,10 +44,10 @@ public class RentalReservation implements RentalReservationInterface {
 	 * @param start - Start time for the reservation.
 	 * @param end - End time for the reservation.
 	 */
-	public RentalReservation(String rentalId, String equipId, String cname, DateTime start, DateTime end) {
+	public RentalReservation(String rentalId, String equipId, Customer customer, DateTime start, DateTime end) {
 		this.rentalId = rentalId;
 		this.equipId = equipId;
-		this.cname = cname;
+		this.customer = customer;
 		this.start = start;
 		this.end = end;
 	}
@@ -61,12 +64,12 @@ public class RentalReservation implements RentalReservationInterface {
 		this.equipId = equipId;
 	}
 
-	public String getCname() {
-		return cname;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setCname(String cname) {
-		this.cname = cname;
+	public void setCname(Customer customer) {
+		this.customer = customer;
 	}
 
 	public DateTime getStart() {

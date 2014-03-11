@@ -46,10 +46,10 @@ public class Resort implements ResortInterface {
 
 	@Override
 	public boolean createRentalReservation(String rId, String rentalId, String equipId,
-			String cname, DateTime start, DateTime end) {
+			Customer customer, DateTime start, DateTime end) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
-		if(rc.createRentalReservation(rentalId, equipId, cname, start, end))
+		if(rc.createRentalReservation(rentalId, equipId, customer, start, end))
 			return (new ResortDBSupport().putRentalCenter(rc));
 		else
 			return false;
