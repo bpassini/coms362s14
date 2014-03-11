@@ -41,6 +41,36 @@ public class Equipment implements EquipmentInterface {
 		
 	}
 	
-	//TODO add getter and setter methods
+	public String getEquipId() {
+		return equipId;
+	}
+	
+	public String getEquipType() {
+		return equipType;
+	}
+	
+	public double getCost() {
+		return cost;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setEquipId(String equipId) {
+		this.equipId = equipId;
+	}
+
+	public void setEquipType(String equipType) {
+		this.equipType = equipType;
+	}
+
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	
 }

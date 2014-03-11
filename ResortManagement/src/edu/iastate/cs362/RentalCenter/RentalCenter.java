@@ -1,6 +1,7 @@
 package edu.iastate.cs362.RentalCenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.joda.time.DateTime;
 
@@ -26,15 +27,15 @@ public class RentalCenter implements RentalCenterInterface {
 	/**
 	 * The equipment this RentalCenter holds.
 	 */
-	private ArrayList<Equipment> equipment;
+	private List<Equipment> equipment;
 	/**
 	 * The invoices this RentalCenter has for its equipment.
 	 */
-	private ArrayList<EquipmentInvoice> invoices;
+	private List<EquipmentInvoice> invoices;
 	/**
 	 * The reservations this RentalCenter has for its equipment.
 	 */
-	private ArrayList<RentalReservation> reservations;
+	private List<RentalReservation> reservations;
 	
 	/**
 	 * Creates a new RentalCenter object.
@@ -54,16 +55,14 @@ public class RentalCenter implements RentalCenterInterface {
 			String description) {
 		
 		Equipment e = new Equipment(eid, equipType, cost, description);
-		equipment.add(e);
-		return (new ResortDBSupport().putRentalCenter(this));
+		return equipment.add(e);
 	}
 
 	@Override
 	public boolean createEquipInvoice(String invoiceId, String eid, String msg) {
 		
 		EquipmentInvoice i = new EquipmentInvoice(invoiceId, eid, msg);
-		invoices.add(i);
-		return (new ResortDBSupport().putRentalCenter(this));
+		return invoices.add(i);
 	}
 
 	@Override
@@ -71,10 +70,78 @@ public class RentalCenter implements RentalCenterInterface {
 			DateTime start, DateTime end) {
 		
 		RentalReservation r = new RentalReservation(rentalId, eid, cname, start, end);
-		reservations.add(r);
-		return (new ResortDBSupport().putRentalCenter(this));
+		return reservations.add(r);
 	}
 	
-	//TODO add getter and setter methods
+	/**
+	 * @return the rId
+	 */
+	public String getId() {
+		return rId;
+	}
+
+	/**
+	 * @param rId the rId to set
+	 */
+	public void setId(String rId) {
+		this.rId = rId;
+	}
+
+	/**
+	 * @return the equipment
+	 */
+	public List<Equipment> getEquipmentList() {
+		return equipment;
+	}
+
+	/**
+	 * @param equipment the equipment to set
+	 */
+	public void setEquipmentList(List<Equipment> equipment) {
+		this.equipment = equipment;
+	}
+
+	/**
+	 * @return the invoices
+	 */
+	public List<EquipmentInvoice> getInvoicesList() {
+		return invoices;
+	}
+
+	/**
+	 * @param invoices the invoices to set
+	 */
+	public void setInvoicesList(List<EquipmentInvoice> invoices) {
+		this.invoices = invoices;
+	}
+
+	/**
+	 * @return the reservations
+	 */
+	public List<RentalReservation> getReservationsList() {
+		return reservations;
+	}
+
+	/**
+	 * @param reservations the reservations to set
+	 */
+	public void setReservationsList(List<RentalReservation> reservations) {
+		this.reservations = reservations;
+	}
+
+	/**
+	 * @return the name of the RentalCenter
+	 */
+	public String getName() {
+		return name;
+	}
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	
 
 }

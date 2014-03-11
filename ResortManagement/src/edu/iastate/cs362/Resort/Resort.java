@@ -26,15 +26,20 @@ public class Resort implements ResortInterface {
 			double cost, String description) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
-		return rc.addEquipment(equipId, equipType, cost, description);
+		if(rc.addEquipment(equipId, equipType, cost, description))
+			return (new ResortDBSupport().putRentalCenter(rc));
+		else 
+			return false;
 	}
 
 	@Override
 	public boolean createEquipInvoice(String rId, String invoiceId, String equipId, String msg) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
-
-		return rc.createEquipInvoice(invoiceId, equipId, msg);
+		if(rc.createEquipInvoice(invoiceId, equipId, msg))
+			return (new ResortDBSupport().putRentalCenter(rc));
+		else
+			return false;
 	}
 
 	@Override
@@ -42,7 +47,10 @@ public class Resort implements ResortInterface {
 			String cname, DateTime start, DateTime end) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
-		return rc.createRentalReservation(rentalId, equipId, cname, start, end);
+		if(rc.createRentalReservation(rentalId, equipId, cname, start, end))
+			return (new ResortDBSupport().putRentalCenter(rc));
+		else
+			return false;
 	}
 
 	@Override

@@ -49,5 +49,44 @@ public class RentalReservation implements RentalReservationInterface {
 		this.end = end;
 	}
 	
-	//TODO getter and setter methods
+	public String getRentalId() {
+		return rentalId;
+	}
+
+	public String getEquipId() {
+		return equipId;
+	}
+
+	public void setEquipId(String equipId) {
+		this.equipId = equipId;
+	}
+
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+	public DateTime getStart() {
+		return start;
+	}
+
+	public void setStart(DateTime start) {
+		this.start = start;
+	}
+
+	public DateTime getEnd() {
+		return end;
+	}
+
+	public void setEnd(DateTime end) {
+		this.end = end;
+	}
+
+	public void setRentalId(String rentalId) {
+		this.rentalId = rentalId;
+	}
+	
 }

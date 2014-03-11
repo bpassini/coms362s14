@@ -34,5 +34,29 @@ public class EquipmentInvoice implements EquipmentInvoiceInterface {
 		this.msg = msg;
 	}
 	
-	//TODO add getter and setter methods
+	public String getInvoiceId() {
+		return invoiceId;
+	}
+	
+	public String getEquipId() {
+		return equipId;
+	}
+	
+	public String getInvoiceMsg() {
+		return msg;
+	}
+
+	public void setInvoiceMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public void setInvoiceId(String invoiceId) {
+		this.invoiceId = invoiceId;
+	}
+
+	public void setEquipId(String equipId) {
+		this.equipId = equipId;
+	}
+	
+	
 }
