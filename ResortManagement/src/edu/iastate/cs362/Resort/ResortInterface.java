@@ -21,6 +21,8 @@ public interface ResortInterface {
 	 * @return true if RentalCenter was created successfully, false otherwise 
 	 */
 	boolean createRentalCenter(String rId, String name);
+	
+	
 	boolean createHotel(String hid, String name);
 
 	boolean addRoom(String hid, ArrayList<String> beds, int occup, String desc, int rmid);

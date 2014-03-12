@@ -20,6 +20,8 @@ public interface ResortDBSupportInterface {
 	 * @return true if it places the RentalCenter successfully, false otherwise
 	 */
 	boolean putRentalCenter(RentalCenter r);
+	
 	Hotel getHotel(String hid);
+	
 	boolean putHotel(Hotel h);
 }

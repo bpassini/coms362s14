@@ -41,36 +41,36 @@ public class Equipment implements EquipmentInterface {
 		
 	}
 	
+	/**
+	 * Gets the Equipment id
+	 * @return the id of the Equipment
+	 */
 	public String getEquipId() {
 		return equipId;
 	}
 	
+	/**
+	 * Gets the Equipment type
+	 * @return the type of the equipment
+	 */
 	public String getEquipType() {
 		return equipType;
 	}
 	
+	/**
+	 * Gets the Equipment cost
+	 * @return the cost of the equipment
+	 */
 	public double getCost() {
 		return cost;
 	}
 	
+	/**
+	 * Gets the Equipment description
+	 * @return the description of the equipment
+	 */
 	public String getDescription() {
 		return description;
-	}
-
-	public void setEquipId(String equipId) {
-		this.equipId = equipId;
-	}
-
-	public void setEquipType(String equipType) {
-		this.equipType = equipType;
-	}
-
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	
 }

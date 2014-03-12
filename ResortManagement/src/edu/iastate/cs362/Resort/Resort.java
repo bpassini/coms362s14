@@ -71,7 +71,7 @@ public class Resort implements ResortInterface {
 		
 		Hotel h = new ResortDBSupport().getHotel(hid);
 		
-		if(h.createRoomInvoice(rmid, notes) == false)
+		if(h.createRoomInvoice(hid, rmid, notes) == false)
 			return false;
 		
 		return(new ResortDBSupport().putHotel(h));
@@ -82,7 +82,7 @@ public class Resort implements ResortInterface {
 		
 		Hotel h = new ResortDBSupport().getHotel(hid);
 		
-		if(h.createRoomReservation(start, end, cust, attr) == false)
+		if(h.createRoomReservation(hid, start, end, cust, attr) == false)
 			return false;
 		
 		return(new ResortDBSupport().putHotel(h));

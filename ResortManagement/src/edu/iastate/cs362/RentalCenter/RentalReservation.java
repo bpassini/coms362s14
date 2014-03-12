@@ -23,7 +23,6 @@ public class RentalReservation implements RentalReservationInterface {
 	/**
 	 * Customer name for this reservation.
 	 */
-	// TODO: change to a Customer object instead of  a String
 	private Customer customer;
 	
 	/**
@@ -40,7 +39,7 @@ public class RentalReservation implements RentalReservationInterface {
 	 * Creates a new RentalReservation.
 	 * @param rentalId - Id for this rental reservation.
 	 * @param equipId - Id for the corresponding piece of equipment for this reservation.
-	 * @param cname - Customer name for this reservation.
+	 * @param customer - Customer for this reservation.
 	 * @param start - Start time for the reservation.
 	 * @param end - End time for the reservation.
 	 */
@@ -52,44 +51,45 @@ public class RentalReservation implements RentalReservationInterface {
 		this.end = end;
 	}
 	
+	/**
+	 * Get the RentalReservation id
+	 * @return the id of the reservation
+	 */
 	public String getRentalId() {
 		return rentalId;
 	}
 
+	/**
+	 * Get the Equipment id correlating to this reservation
+	 * @return the id of the piece equipment
+	 */
 	public String getEquipId() {
 		return equipId;
 	}
 
-	public void setEquipId(String equipId) {
-		this.equipId = equipId;
-	}
-
+	/**
+	 * Get the Customer from this RentalReservation
+	 * @return the customer of the reservation
+	 */
 	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCname(Customer customer) {
-		this.customer = customer;
-	}
 
+	/**
+	 * Get the start DateTime for this RentalReservation
+	 * @return start time of the reservation
+	 */
 	public DateTime getStart() {
 		return start;
 	}
 
-	public void setStart(DateTime start) {
-		this.start = start;
-	}
-
+	/**
+	 * Get the end DateTime for this RentalReservation
+	 * @return end time of the reservation
+	 */
 	public DateTime getEnd() {
 		return end;
-	}
-
-	public void setEnd(DateTime end) {
-		this.end = end;
-	}
-
-	public void setRentalId(String rentalId) {
-		this.rentalId = rentalId;
 	}
 	
 }
