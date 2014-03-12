@@ -3,13 +3,19 @@ package edu.iastate.cs362.Resort;
 import java.util.ArrayList;
 
 import org.joda.time.*;
-import org.joda.time.format.DateTimeFormat;
 
 import edu.iastate.cs362.RentalCenter.*;
 import edu.iastate.cs362.Hotel.Attribute;
 import edu.iastate.cs362.Hotel.Customer;
 import edu.iastate.cs362.Hotel.Hotel;
 
+/**
+ * Represents a resort.
+ * 
+ * @author Cameron Johnston
+ * @author Mike Pruszinske
+ *
+ */
 public class Resort implements ResortInterface {
 
 	@Override
@@ -67,22 +73,22 @@ public class Resort implements ResortInterface {
 	}
 
 	@Override
-	public boolean createRoomInvoice(String hid, int rmid, String notes) {
+	public boolean createRoomInvoice(String hid, int rmid, String iid, String notes) {
 		
 		Hotel h = new ResortDBSupport().getHotel(hid);
 		
-		if(h.createRoomInvoice(rmid, notes) == false)
+		if(h.createRoomInvoice(hid, rmid, iid, notes) == false)
 			return false;
 		
 		return(new ResortDBSupport().putHotel(h));
 	}
 
 	@Override
-	public boolean createRoomReservation(String hid, DateTime start, DateTime end, Customer cust, Attribute attr) {
+	public boolean createRoomReservation(String rrid, String hid, DateTime start, DateTime end, Customer cust, Attribute attr) {
 		
 		Hotel h = new ResortDBSupport().getHotel(hid);
 		
-		if(h.createRoomReservation(start, end, cust, attr) == false)
+		if(h.createRoomReservation(rrid, hid, start, end, cust, attr) == false)
 			return false;
 		
 		return(new ResortDBSupport().putHotel(h));

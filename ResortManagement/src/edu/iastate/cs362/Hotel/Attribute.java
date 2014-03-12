@@ -2,6 +2,12 @@ package edu.iastate.cs362.Hotel;
 
 import java.util.ArrayList;
 
+/**
+ * Represents attributes of a hotel room, including occupancy and number/type of beds
+ * 
+ * @author Mike Pruszinske
+ *
+ */
 public class Attribute {
 
 		/**
