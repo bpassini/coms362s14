@@ -22,7 +22,7 @@ public interface ResortInterface {
 	 * @return true if RentalCenter was created successfully, false otherwise 
 	 */
 	boolean createRentalCenter(String rId, String name);
-	
+
 	/**
 	 * Creates a new Hotel
 	 * 

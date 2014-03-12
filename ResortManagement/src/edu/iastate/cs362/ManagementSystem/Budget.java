@@ -12,15 +12,15 @@ public class Budget implements BudgetInterface {
 	/**
 	 * A list of the different revenues made by the resort.
 	 */
-	private final ArrayList<Category> revenues;
+	private ArrayList<Category> revenues;
 	/**
 	 * A list of the different expenses of the resort.
 	 */
-	private final ArrayList<Category> expenses;
+	private ArrayList<Category> expenses;
 	/**
 	 * The id of this budget.
 	 */
-	private final String budgetId;
+	private String budgetId;
 	
 	/**
 	 * Creates a budget object.

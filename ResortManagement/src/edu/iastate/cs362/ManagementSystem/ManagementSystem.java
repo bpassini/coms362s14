@@ -22,10 +22,10 @@ public class ManagementSystem implements ManagementSystemInterface {
 	}
 
 	@Override
-	public boolean createEmployee(String name, String type, String empID,
+	public boolean createEmployee(String fname, String lname, String type, String empID,
 			double payRate) {
 
-		Employee e = new Employee(name, type, empID, payRate);
+		Employee e = new Employee(fname, lname, type, empID, payRate);
 		return (new ManagementSystemDBSupport()).putEmployee(e);
 	}
 

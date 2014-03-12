@@ -29,5 +29,5 @@ public interface ManagementSystemControllerInterface {
 	 * @param payRate the hourly pay rate of the employee.
 	 * @return true if the employee was created successfully, false otherwise.
 	 */
-	boolean createEmployee(String name, String type, String empID, double payRate);
+	boolean createEmployee(String fname, String lname, String type, String empID, double payRate);
 }

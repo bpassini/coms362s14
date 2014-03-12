@@ -20,15 +20,19 @@ public class ManagementSystemController implements ManagementSystemControllerInt
 
 	@Override
 	public boolean createPayroll(String payrollId, String startDate, String endDate) {
-		DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
-		return (new ManagementSystem()).createPayroll(payrollId, formatter.parseDateTime(startDate), formatter.parseDateTime(endDate));
+		try {
+			DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+			return (new ManagementSystem()).createPayroll(payrollId, formatter.parseDateTime(startDate), formatter.parseDateTime(endDate));
+		} catch(IllegalArgumentException e) {
+			return false;
+		}
 	}
 
 	@Override
-	public boolean createEmployee(String name, String type, String empID,
+	public boolean createEmployee(String fname, String lname, String type, String empID,
 			double payRate) {
 
-		return (new ManagementSystem()).createEmployee(name, type, empID, payRate);
+		return (new ManagementSystem()).createEmployee(fname, lname, type, empID, payRate);
 	}
 
 }

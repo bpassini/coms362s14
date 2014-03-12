@@ -25,11 +25,12 @@ public interface ManagementSystemInterface {
 	boolean createPayroll(String payrollId, DateTime startTime, DateTime endDate);
 	/**
 	 * Creates a new employee.
-	 * @param name the name of the employee.
+	 * @param fname the first name of the employee.
+	 * @param lname the last name of the employee.
 	 * @param type the type of the employee.
 	 * @param empID the id of the employee.
 	 * @param payRate the hourly pay rate of the employee.
 	 * @return true if the employee was created successfully, false otherwise.
 	 */
-	boolean createEmployee(String name, String type, String empID, double payRate);
+	boolean createEmployee(String fname, String lname, String type, String empID, double payRate);
 }
