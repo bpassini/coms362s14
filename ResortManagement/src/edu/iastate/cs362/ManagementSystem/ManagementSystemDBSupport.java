@@ -43,29 +43,36 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 		try {
 			Statement query = connection.createStatement();
 			
+			//Ensure Budget object is in database, if not add it
+			ResultSet rsBud = query.executeQuery("select count(*) as count from Budget b where b.BudgetId='" + b.getBudgetId() + "'");
+			if(!rsBud.next() || rsBud.getInt("count") < 1) {
+				Statement writeBud = connection.createStatement();
+				writeBud.executeUpdate("insert into Budget(BudgetId) values('" + b.getBudgetId() + "')");
+			}
+				
 			//Update Revenues
-			ResultSet rsRev = query.executeQuery("select count(*) as count from Categories c where c.Budget='"+ b.getBudgetId() +"'" +
+			ResultSet rsRev = query.executeQuery("select count(*) as count from Categories c where c.BudgetId='"+ b.getBudgetId() +"'" +
 					"and c.CategoryType=" + REVENUE);
 			if(!rsRev.next() || rsRev.getInt("count") < b.getRevenues().size()) {
 				ArrayList<Category> revenues = b.getRevenues();
 				Statement writeRev = connection.createStatement();
-				writeRev.executeQuery("insert into Categories(BudgetId, CategoryName, CategoryValue, CategoryType)" +
-						"values(" + b.getBudgetId() + ", " + revenues.get(revenues.size() - 1).getCategoryName() + 
-						"," + revenues.get(revenues.size() - 1).getCategoryValue() + ", " + REVENUE + ")");
+				writeRev.executeUpdate("insert into Categories(BudgetId, CategoryName, CategoryValue, CategoryType)" +
+						"values('" + b.getBudgetId() + "', '" + revenues.get(revenues.size() - 1).getCategoryName() + 
+						"'," + revenues.get(revenues.size() - 1).getCategoryValue() + ", " + REVENUE + ")");
 				writeRev.close();
 			}
 			
 			//Update Expenses
-			ResultSet rsExp = query.executeQuery("select count(*) as count from Categories c where c.Budget='"+ b.getBudgetId() +"'" +
+			ResultSet rsExp = query.executeQuery("select count(*) as count from Categories c where c.BudgetId='"+ b.getBudgetId() +"'" +
 					"and c.CategoryType=" + EXPENSE);
 			if(!rsExp.next() || rsExp.getInt("count") < b.getRevenues().size()) {
 				ArrayList<Category> expenses = b.getExpenses();
 				Statement writeExp = connection.createStatement();
-				writeExp.executeQuery("insert into Categories(BudgetId, CategoryName, CategoryValue, CategoryType)" +
-						"values(" + b.getBudgetId() + ", " + expenses.get(expenses.size() - 1).getCategoryName() + 
-						"," + expenses.get(expenses.size() - 1).getCategoryValue() + ", " + EXPENSE + ")");
+				writeExp.executeUpdate("insert into Categories(BudgetId, CategoryName, CategoryValue, CategoryType)" +
+						"values('" + b.getBudgetId() + "', '" + expenses.get(expenses.size() - 1).getCategoryName() + 
+						"'," + expenses.get(expenses.size() - 1).getCategoryValue() + ", " + EXPENSE + ")");
 			}
-			
+
 			query.close();
 			connection.close();
 		} catch(SQLException e) {
@@ -83,21 +90,22 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 		try {
 			Statement query = connection.createStatement();
 			
-			query.executeQuery("delete from Payroll  where PayrollId='" + p.getPayrollId() + "'");
-			DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
-			query.executeQuery("insert into Payroll(PayrollId, StartDate, EndDate) values(" + p.getPayrollId() + "," + p.getStartDate().toString(formatter) + "," +
-					p.getEndDate().toString(formatter) + ")");
+			query.executeUpdate("delete from Payroll  where PayrollId='" + p.getPayrollId() + "'");
+			DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+			query.executeUpdate("insert into Payroll(PayrollId, StartDate, EndDate) values('" + p.getPayrollId() + "','" + p.getStartDate().toString(formatter) + "','" +
+					p.getEndDate().toString(formatter) + "')");
 				
 			ResultSet rsEmployeeInfo = query.executeQuery("select count(*) as count from EmployeeInfo e where e.PayrollId='" + p.getPayrollId() + "'");
 			if(!rsEmployeeInfo.next() || rsEmployeeInfo.getInt("count") < p.getPayroll().size()) {
 				EmployeeInfo empInfo = p.getPayroll().get(p.getPayroll().size() - 1);
-				query.executeQuery("insert in EmployeeInfo(PayrollId, EmployeeId, RegularHours, OvertimeHours) values( "+ p.getPayrollId() + "," + empInfo.getEmployeeId() + "," +
+				query.executeUpdate("insert in EmployeeInfo(PayrollId, EmployeeId, RegularHours, OvertimeHours) values('"+ p.getPayrollId() + "','" + empInfo.getEmployeeId() + "'," +
 						empInfo.getRegularHours() + "," + empInfo.getOvertimeHours() + ")");
 			}
 			
 			query.close();
 			connection.close();
 		} catch(SQLException e) {
+			System.out.println(e);
 			return false;
 		}
 		
@@ -113,24 +121,25 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 		try {
 			Statement query = connection.createStatement();
 			
-			query.executeQuery("delete from Employee where EmployeeId='" + e.getEmployeeId() + "'");
-			query.executeQuery("insert into Employee(FirstName, LastName, EmployeeId, EmployeeType, Payrate) values(" + e.getFirstName() + "," + e.getLastName() + "," + 
-					e.getEmployeeId() + "," + e.getEmployeeType() + "," + e.getPayRate() + ")");
+			query.executeUpdate("delete from Employee where EmployeeId='" + e.getEmployeeId() + "'");
+			query.executeUpdate("insert into Employee(FirstName, LastName, EmployeeId, EmployeeType, Payrate) values('" + e.getFirstName() + "','" + e.getLastName() + "','" + 
+					e.getEmployeeId() + "','" + e.getEmployeeType() + "'," + e.getPayRate() + ")");
 			
 			query.close();
 			connection.close();
 		} catch(SQLException sqle) {
+			System.out.println(sqle);
 			return false;
 		}
 		
-		return false;
+		return true;
 	}
 
 	private void getConnection() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
-			String url = "jdbc:mysql://mysql.cs.iastate.edu";
+			String url = "jdbc:mysql://mysql.cs.iastate.edu:3306/db36202";
 			String username = "u36202";
 			String password = "K5f7k9eyw";
 			
