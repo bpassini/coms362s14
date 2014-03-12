@@ -33,14 +33,6 @@ public class Customer {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
-	
-	public Customer(int cmid, String firstName, String lastName) {
-		
-		this.cmid = cmid;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.pastStays = null;
-	}
 
 	public int getCmid() {
 		return cmid;
@@ -78,18 +70,4 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
-	/**
-	 * @return the pastStays
-	 */
-	public List<RoomReservation> getPastStays() {
-		return pastStays;
-	}
-
-	/**
-	 * @param pastStays the pastStays to set
-	 */
-	public void setPastStays(List<RoomReservation> pastStays) {
-		this.pastStays = pastStays;
-	}
-	
 }
