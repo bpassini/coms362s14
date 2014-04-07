@@ -283,13 +283,16 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					ResultSet rsInvoices = stmtReserv.executeQuery("select * from RoomInvoices where HotelId='" + hid + "' order by RoomInvoiceID");						
 					
 					ArrayList<String> beds = new ArrayList<String>();
-					String[] bedsSplit = rsRooms.getString("BedTypes").split(", ");
-					for(int i=0; i<bedsSplit.length; i++)
+					if(rsRooms.next())
 					{
-						beds.add(bedsSplit[i]);
+						String[] bedsSplit = rsRooms.getString("BedTypes").split(", ");
+						for(int i=0; i<bedsSplit.length; i++)
+						{
+							beds.add(bedsSplit[i]);
+						}
+						
+						h.addRoom(beds, rsRooms.getInt("Occupancy"), rsRooms.getString("Description"), rsRooms.getInt("RoomID"));
 					}
-					
-					h.addRoom(beds, rsRooms.getInt("Occupancy"), rsRooms.getString("Description"), rsRooms.getInt("RoomID"));
 					
 					while(rsReservations.next()) {
 						
@@ -381,17 +384,17 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 	            String qs = "insert into Hotel values ('"+ h.getID() +"',"+"'"+ h.getName() +"')";
 				Statement stmt = connection.createStatement();
 				stmt.executeUpdate(qs);
-		
 				
 				for(int i=0; i<h.getRoomsList().size(); i++) {
 					Room r = h.getRoomsList().get(i);
 					qs = "insert into Rooms values ('"+r.getRoomID()+"','"+h.getID()+"','"+r.getOccupancy()+"','"+r.getBeds().size()+"','"+r.getDescription()+"','"+r.getBeds().toString()+"')";
 					stmt.executeUpdate(qs);
 				}
-								
+				
+				DateTimeFormatter f = DateTimeFormat.forPattern("MM/dd/yyyy");
 				for(int j=0; j<h.getReservationsList().size(); j++){
 					RoomReservation r = h.getReservationsList().get(j);
-					qs = "insert into RoomReservations values ('"+r.getRoomReservationID()+"','"+r.getStart().toString()+"','"+r.getEnd().toString()
+					qs = "insert into RoomReservations values ('"+r.getRoomReservationID()+"','"+r.getStart().toString(f)+"','"+r.getEnd().toString(f)
 							+ "','" + r.getCustomerID()+ "','" + r.getFirstName()+ "','" + r.getLastName()+ "','" + r.getHotelID()+"','" 
 							+ r.getBeds().size()+"','"+r.getBeds().toString()+"','" +r.getNumGuests()+"')";
 					stmt.executeUpdate(qs);
@@ -468,9 +471,10 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					stmtRoomWrite.executeUpdate("insert into Rooms values ('"+r.getRoomID()+"','"+h.getID()+"','"+r.getOccupancy()+"','"+r.getBeds().size()+"','"+r.getDescription()+"','"+r.getBeds().toString()+"')");
 				}
 				
+				DateTimeFormatter f = DateTimeFormat.forPattern("MM/dd/yyyy");
 				if(h.getReservationsList().size() - reservCount == 1) {
 					RoomReservation r = h.getReservationsList().get(h.getReservationsList().size()-1);
-					stmtReservWrite.executeUpdate("insert into RoomReservations values ('"+r.getRoomReservationID()+"','"+r.getStart().toString()+"','"+r.getEnd().toString()
+					stmtReservWrite.executeUpdate("insert into RoomReservations values ('"+r.getRoomReservationID()+"','"+r.getStart().toString(f)+"','"+r.getEnd().toString(f)
 					+ "','" + r.getCustomerID()+ "','" + r.getFirstName()+ "','" + r.getLastName()+ "','" + r.getHotelID()+"','" 
 					+ r.getBeds().size()+"','"+r.getBeds().toString()+"','" +r.getNumGuests()+"')");
 				}
