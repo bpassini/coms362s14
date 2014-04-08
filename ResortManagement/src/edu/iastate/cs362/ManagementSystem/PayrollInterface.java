@@ -23,4 +23,13 @@ public interface PayrollInterface {
 	 * @return true if the update was successful, false otherwise.
 	 */
 	boolean updatePayroll(int flag, Object newInfo);
+	
+	/**
+	 * Updates a certain field of the employee info object with the given employee id.
+	 * @param employeeId the id of the employee info object to be updated.
+	 * @param flag the flag used to identify what field is being updated.
+	 * @param newInfo the updated information.
+	 * @return true if the update was successful, false otherwise.
+	 */
+	boolean updatePayrollRow(String employeeId, int flag, Object newInfo);
 }

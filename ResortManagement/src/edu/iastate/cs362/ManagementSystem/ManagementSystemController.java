@@ -1,6 +1,5 @@
 package edu.iastate.cs362.ManagementSystem;
 
-import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 /**
@@ -38,5 +37,10 @@ public class ManagementSystemController implements ManagementSystemControllerInt
 	@Override
 	public boolean updatePayroll(String payrollId, int flag, Object newInfo) {
 		return new ManagementSystem().updatePayroll(payrollId, flag, newInfo);
+	}
+	
+	@Override
+	public boolean updatePayrollRow(String payrollId, String employeeId, int flag, Object newInfo) {
+		return new ManagementSystem().updatePayrollRow(payrollId, employeeId, flag, newInfo);
 	}
 }

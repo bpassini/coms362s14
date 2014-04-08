@@ -6,6 +6,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import edu.iastate.cs362.Hotel.Customer;
+import edu.iastate.cs362.RentalCenter.EquipmentInvoice;
 
 /**
  * Represents a payroll that is used by the resort to track the earnings of each employee. A resort may have more than one payroll.
@@ -112,5 +113,24 @@ public class Payroll implements PayrollInterface {
 			return false;
 		}
 		return true;
+	}
+	
+	@Override
+	public boolean updatePayrollRow(String employeeId, int flag, Object newInfo) {
+		EmployeeInfo temp = null;
+		for(EmployeeInfo ei : payroll) {
+			if(ei.getEmployeeId().equals(employeeId)) {
+				temp = ei;
+				break;
+			}
+		}
+		//An employee info object with the given invoiceId was not found.
+		if(temp == null)
+			return false;
+		if(temp.updatePayrollRow(flag, newInfo)) {
+			//Place the updated employee info object at the end of the list and then return if the add was successful or not.
+			return payroll.remove(temp) && payroll.add(temp);
+		}
+		return false;
 	}
 }
