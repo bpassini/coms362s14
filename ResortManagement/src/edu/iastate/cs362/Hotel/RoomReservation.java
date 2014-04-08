@@ -63,6 +63,40 @@ public class RoomReservation implements RoomReservationInterface {
 		this.attr = attr;
 	}
 	
+	@Override
+	public boolean updateRoomReservation(int flag, Object newInfo) {
+		switch(flag) {
+		case UPDATE_HOTEL_ID:
+			if(!(newInfo instanceof String))
+				return false;
+			hid = (String) newInfo;
+			break;
+		case UPDATE_START_DATE:
+			if(!(newInfo instanceof DateTime))
+				return false;
+			start = (DateTime) newInfo;
+			break;
+		case UPDATE_END_DATE:
+			if(!(newInfo instanceof DateTime))
+				return false;
+			end = (DateTime) newInfo;
+			break;
+		case UPDATE_CUSTOMER:
+			if(!(newInfo instanceof Customer))
+				return false;
+			cust = (Customer) newInfo;
+			break;
+		case UPDATE_ATTRIBUTE:
+			if(!(newInfo instanceof Attribute))
+				return false;
+			attr = (Attribute) newInfo;
+			break;
+		default:
+			return false;
+		}
+		return true;
+	}
+	
 	public String getRoomReservationID() {
 		return rrid;
 	}
