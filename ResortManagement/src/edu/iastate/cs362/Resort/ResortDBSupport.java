@@ -64,7 +64,8 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					ResultSet rsR = stmtReserv.executeQuery("select * from RentalReservation where rId='" + rId + "' order by rentalId");
 					
 					while(rsE.next()) {
-						rc.addEquipment(rsE.getString("equipId"), rsE.getString("equipType"), rsE.getDouble("cost"), rsE.getString("description"));
+						rc.addEquipment(rsE.getString("equipId"), rsE.getString("equipType"), rsE.getDouble("cost"), rsE.getString("description"), rsE.getBoolean("checkedIn"));
+		
 					}
 					
 					while(rsI.next()) {

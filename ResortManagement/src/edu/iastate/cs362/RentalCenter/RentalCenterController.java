@@ -21,9 +21,9 @@ public class RentalCenterController implements RentalCenterControllerInterface {
 
 	@Override
 	public boolean addEquipment(String rId, String equipId, String equipType,
-			double cost, String description) {
+			double cost, String description, boolean checkedIn) {
 		
-		return (new Resort().addEquipment(rId, equipId, equipType, cost, description));
+		return (new Resort().addEquipment(rId, equipId, equipType, cost, description, checkedIn));
 	}
 
 	@Override

@@ -53,9 +53,9 @@ public class RentalCenter implements RentalCenterInterface {
 
 	@Override
 	public boolean addEquipment(String eid, String equipType, double cost,
-			String description) {
+			String description, boolean checkedIn) {
 		
-		Equipment e = new Equipment(eid, equipType, cost, description);
+		Equipment e = new Equipment(eid, equipType, cost, description, checkedIn);
 		return equipment.add(e);
 	}
 

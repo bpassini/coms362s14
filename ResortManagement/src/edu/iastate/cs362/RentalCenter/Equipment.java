@@ -38,13 +38,14 @@ public class Equipment implements EquipmentInterface {
 	 * @param equipType - The type of this equipment.
 	 * @param cost - The rental cost of this piece of equipment.
 	 * @param description - The description of this piece of equipment.
+	 * @param checkedIn - whether this equipment is checked in or out of a rental center
 	 */
-	public Equipment(String equipId, String equipType, double cost, String description) {
+	public Equipment(String equipId, String equipType, double cost, String description, boolean checkedIn) {
 		this.equipId = equipId;
 		this.equipType = equipType;
 		this.cost = cost;
 		this.description = description;
-		this.checkedIn = true;	
+		this.checkedIn = checkedIn;	
 	}
 	
 	/**
