@@ -120,7 +120,7 @@ public class Resort implements ResortInterface {
 		
 		Hotel h = new ResortDBSupport().getHotel(hId);
 		if(h != null && h.updateRoomReservation(reservationId, flag, newInfo)) //TODO
-			return true;
+			return new ResortDBSupport().putHotel(h);
 		else
 			return false;
 	}
