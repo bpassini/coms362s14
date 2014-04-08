@@ -74,7 +74,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					while(rsR.next()) {
 						
 						Customer customer = new Customer(rsR.getInt("cmId"), rsR.getString("firstName"), rsR.getString("lastName"));
-						DateTimeFormatter df = DateTimeFormat.forPattern("dd/MM/yyyy hh::mm");
+						DateTimeFormatter df = DateTimeFormat.forPattern("MM/dd/yyyy hh::mm");
 						DateTime start = df.parseDateTime((rsR.getString("startDate")));
 						DateTime end = df.parseDateTime((rsR.getString("endDate")));
 						
@@ -232,7 +232,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					stmtIWrite.executeUpdate("update EquipmentInvoice set equipId='"+ i.getEquipId() + "', msg='" + i.getInvoiceMsg() + "', rId='" + rc.getId() + "' where invoiceId='" + i.getInvoiceId() + "");
 				}
 				
-				DateTimeFormatter df = DateTimeFormat.forPattern("dd/MM/yyyy hh::mm");
+				DateTimeFormatter df = DateTimeFormat.forPattern("MM/dd/yyyy hh::mm");
 				//there has been a change to ReservationsList, so add the last one to the Database
 				if(rc.getReservationsList().size() - rCount == 1) {
 					RentalReservation r = rc.getReservationsList().get(rc.getReservationsList().size() - 1);

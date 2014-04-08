@@ -36,7 +36,7 @@ public class RentalCenterController implements RentalCenterControllerInterface {
 			Customer customer, String start, String end) {
 		
 		try {
-			DateTimeFormatter df =  DateTimeFormat.forPattern("dd/MM/yyyy HH::mm");
+			DateTimeFormatter df =  DateTimeFormat.forPattern("MM/dd/yyyy HH::mm");
 			DateTime startDate = df.parseDateTime(start);
 			DateTime endDate = df.parseDateTime(end);
 			return (new Resort().createRentalReservation(rId, rentalId, equipId, customer, startDate, endDate));
