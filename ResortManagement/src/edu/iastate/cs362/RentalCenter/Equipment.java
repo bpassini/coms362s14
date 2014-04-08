@@ -44,8 +44,7 @@ public class Equipment implements EquipmentInterface {
 		this.equipType = equipType;
 		this.cost = cost;
 		this.description = description;
-		this.checkedIn = true;
-		
+		this.checkedIn = true;	
 	}
 	
 	/**
@@ -79,19 +78,25 @@ public class Equipment implements EquipmentInterface {
 	public String getDescription() {
 		return description;
 	}
+	
+	/**
+	 * Get the Equipment status, whether it is checkedIn or not
+	 * @return true if checkedIn, false if checkedOut
+	 */
+	public boolean getStatus() {
+		return checkedIn;
+	}
 
 	@Override
-	public boolean updateEquipment(EquipmentFlag flag, Object u) {
+	public boolean updateEquipment(int flag, Object u) {
 		
-		if(u.getClass() == String.class) {
-			if(flag == EquipmentFlag.ID) 
-				equipId = (String) u;
-			else if(flag == EquipmentFlag.TYPE) 
+		if(u instanceof String) {
+			if(flag == UPDATE_TYPE) 
 				equipType = (String) u;
-			else if(flag == EquipmentFlag.DESCRIPTION)
+			else if(flag == UPDATE_DESCRIPTION)
 				description = (String) u;
 		}
-		else if(u.getClass() == double.class && flag == EquipmentFlag.COST) 
+		else if(u != null && u.getClass() == double.class && flag == UPDATE_COST) 
 			cost = (double) u;
 		else 
 			return false;
