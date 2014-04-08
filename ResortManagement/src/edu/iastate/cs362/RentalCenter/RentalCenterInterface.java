@@ -10,6 +10,11 @@ import edu.iastate.cs362.Hotel.Customer;
  *
  */
 public interface RentalCenterInterface {
+	
+	/** 
+	 * Constant used to signal that the name variable is the field to be updated.
+	 */
+	static final int UPDATE_NAME = 0; 
 	/**
 	 * creates and adds a piece of equipment to the RentalCenter
 	 * @param equipId - the equipment id

@@ -155,36 +155,45 @@ public class RentalCenter implements RentalCenterInterface {
 
 	@Override
 	public boolean updateRentalCenter(int flag, Object u) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		if(u instanceof String) {
+			if(flag == UPDATE_NAME) 
+				name = (String) u;	
+		}
+		else 
+			return false;
+	
+		return true;
 	}
 
 	@Override
 	public boolean checkOutEquipment(String eid, String rentalId) {
 		
-		int i = 0;
-		boolean foundEquipment = false;
-		boolean foundReservation = false;
-		for(i = 0; i < equipment.size(); i++) {
-			if(equipment.get(i).getEquipId() == eid) {
-				equipment.get(i).checkOutEquipment();
-				foundEquipment = true;
+		
+		Equipment tmp = null;
+		for(Equipment e : equipment) {
+			if(e.getEquipId().equals(eid)) {
+				tmp = e;
+				break;
+			}
+		}
+		RentalReservation tmpr = null;
+		for(RentalReservation r: reservations) {
+			if(r.getRentalId().equals(rentalId)) {
+				tmpr = r;
 				break;
 			}
 		}
 		
-		for(i = 0; i < reservations.size(); i++) {
-			if(reservations.get(i).getEquipId() == rentalId) {
-				reservations.get(i).addEquipment(eid);
-				foundReservation = true;
-				break;
-			}
-		}
-		
-		if(!foundReservation || !foundEquipment)
+		if(tmp == null || tmpr == null) {
 			return false;
-		else 
-			return true;
+		}
+		else if(tmp.checkOutEquipment() && tmpr.addEquipment(eid)) {
+			boolean e = equipment.remove(tmp) && equipment.add(tmp);
+			boolean r = reservations.remove(tmpr) && reservations.add(tmpr);
+			return e && r;
+		}
+		
 	}
 
 	@Override
