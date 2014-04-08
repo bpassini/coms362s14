@@ -30,4 +30,24 @@ public interface ManagementSystemControllerInterface {
 	 * @return true if the employee was created successfully, false otherwise.
 	 */
 	boolean createEmployee(String fname, String lname, String type, String empID, double payRate);
+	
+	/**
+	 * Updates a certain field of the payroll object with the given payrollId.
+	 * @param payrollId the id of the payroll to be updated.
+	 * @param flag the flag used to identify what field is being updated.
+	 * @param newInfo the updated information.
+	 * @return true if the update was successful, false otherwise.
+	 */
+	boolean updatePayroll(String payrollId, int flag, Object newInfo);
+	
+	/**
+	 * Updates a certain field of the employee info object (represents a payroll row) with the given employeeId.  
+	 * This employee info object to be updated is held in the payroll with the given payroll id.
+	 * @param payrollId the id of the payroll that contains the employee info to be updated.
+	 * @param employeeId the id of the employee info object to be updated.
+	 * @param flag the flag used to identify what field is being updated.
+	 * @param newInfo the updated information.
+	 * @return true if the update was successful, false otherwise.
+	 */
+	boolean updatePayrollRow(String payrollId, String employeeId, int flag, Object newInfo);
 }

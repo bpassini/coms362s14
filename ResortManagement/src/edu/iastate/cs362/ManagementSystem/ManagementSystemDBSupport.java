@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -85,39 +86,53 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 		return true;
 	}
 	
-	@Override
-	public boolean putPayroll(Payroll p) {
-		getConnection();
-		if(connection == null)
-			return false;
+	@Override 
+	public Payroll getPayroll(String payrollId) {
+		Payroll p = null;
 		
 		try {
-			Statement query = connection.createStatement();
-			
-			ResultSet rsPayroll = query.executeQuery("select count(*) as count from Payroll p where PayrollId='" + p.getPayrollId() + "'");
-			if(!rsPayroll.next() || rsPayroll.getInt("count") < 1) {
-				DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
-				query.executeUpdate("insert into Payroll(PayrollId, StartDate, EndDate) values('" + p.getPayrollId() + "','" + p.getStartDate().toString(formatter) + "','" +
-						p.getEndDate().toString(formatter) + "')");
-			}
+			connection = this.getConnection();
+			if(connection == null)
+				p = null;
+			else {
+				Statement stmt = connection.createStatement();
+				Statement stmtEmpInfo = connection.createStatement();
 				
-			if(p.getPayroll().size() > 0) {
-				ResultSet rsEmployeeInfo = query.executeQuery("select count(*) as count from EmployeeInfo e where e.PayrollId='" + p.getPayrollId() + "'");
-				if(!rsEmployeeInfo.next() || rsEmployeeInfo.getInt("count") < p.getPayroll().size()) {
-					EmployeeInfo empInfo = p.getPayroll().get(p.getPayroll().size() - 1);
-					query.executeUpdate("insert in EmployeeInfo(PayrollId, EmployeeId, RegularHours, OvertimeHours) values('"+ p.getPayrollId() + "','" + empInfo.getEmployeeId() + "'," +
-							empInfo.getRegularHours() + "," + empInfo.getOvertimeHours() + ")");
+				ResultSet rs = stmt.executeQuery("select * from Payroll where PayrollId='" + payrollId + "'");
+				if(rs.next()) {
+					DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+					p = new Payroll(payrollId, formatter.parseDateTime(rs.getString("StartDate")), formatter.parseDateTime(rs.getString("EndDate")));
+					
+					ResultSet rsEmpInfo = stmtEmpInfo.executeQuery("select * from EmployeeInfo ei, Employee e where ei.PayrollId='" + payrollId + "' and ei.EmployeeId=e.EmployeeId");
+					while(rsEmpInfo.next()) {
+						p.addEmployeeInfo(rsEmpInfo.getString("LastName") + ", " + rsEmpInfo.getString("FirstName"), rsEmpInfo.getString("EmployeeId"), rsEmpInfo.getDouble("Payrate"), rsEmpInfo.getDouble("RegularHours"), rsEmpInfo.getDouble("OvertimeHours"));
+					}
 				}
+				else {
+					p = null;
+				}
+				stmt.close();
+				stmtEmpInfo.close();
+				connection.close();
 			}
-			
-			query.close();
-			connection.close();
-		} catch(SQLException e) {
-			System.out.println(e);
-			return false;
+		} 
+		catch(SQLException sqle) {
+			return p;
 		}
-		
-		return true;
+		return p;
+	}
+	
+	@Override
+	public boolean putPayroll(Payroll p) {
+		if(this.getPayroll(p.getPayrollId()) == null)
+			return writePayroll(p);
+		else {
+			if(this.updatePayroll(p)) {
+				if(p.getPayroll().size() > 0)
+					return updatePayrollList(p);
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -142,7 +157,104 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 		return true;
 	}
 
-	private void getConnection() {
+	
+	/**
+	 * A private helper method that inserts the given payroll object into the database.
+	 * @param p the new payroll object to be inserted into the database.
+	 * @return true if the insertion was successful, false otherwise.
+	 */
+	private boolean writePayroll(Payroll p) {
+		try {
+			connection = this.getConnection();
+			if(connection == null)
+				return false;
+			else {
+				Statement query = connection.createStatement();
+				
+				DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+				query.executeUpdate("insert into Payroll(PayrollId, StartDate, EndDate) values('" + p.getPayrollId() + "','" + p.getStartDate().toString(formatter) + "','" +
+							p.getEndDate().toString(formatter) + "')");
+					
+				if(p.getPayroll().size() > 0) {
+					for(EmployeeInfo empInfo : p.getPayroll()) {
+						query.executeUpdate("insert in EmployeeInfo(PayrollId, EmployeeId, RegularHours, OvertimeHours) values('"+ p.getPayrollId() + "','" + empInfo.getEmployeeId() + "'," +
+								empInfo.getRegularHours() + "," + empInfo.getOvertimeHours() + ")");
+					}
+				}
+				
+				query.close();
+				connection.close();
+			}
+		} 
+		catch(SQLException sqle) {
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Update the given payroll object in the database.
+	 * @param p the payroll object that needs to be updated.
+	 * @return true if the update occurred successfully, false otherwise.
+	 */
+	private boolean updatePayroll(Payroll p) {
+		connection = this.getConnection();
+		
+		if(connection == null)
+			return false;
+		
+		try {
+			Statement query = connection.createStatement();
+			
+			DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+			query.executeUpdate("update Payroll set StartDate='" + p.getStartDate().toString(formatter) + "', EndDate='" 
+						+ p.getEndDate().toString(formatter) + "' where PayrollId='" + p.getPayrollId() + "'");
+			
+			query.close();
+			connection.close();
+		}
+		catch(SQLException e) {
+			System.out.println(e);
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean updatePayrollList(Payroll p) {
+		connection = this.getConnection();
+		
+		if(connection == null)
+			return false;
+		
+		try {
+			Statement query = connection.createStatement();
+			Statement update = connection.createStatement();
+			
+			ResultSet rsEmployeeInfo = query.executeQuery("select count(*) as count from EmployeeInfo e where e.PayrollId='" + p.getPayrollId() + "'");
+			if(!rsEmployeeInfo.next())
+				return false;
+			
+			int difference = p.getPayroll().size() - rsEmployeeInfo.getInt("count");
+			EmployeeInfo empInfo = p.getPayroll().get(p.getPayroll().size() - 1);
+			if(difference == 1) {
+				update.executeUpdate("insert in EmployeeInfo(PayrollId, EmployeeId, RegularHours, OvertimeHours) values('"+ p.getPayrollId() + "','" + empInfo.getEmployeeId() + "'," +
+						empInfo.getRegularHours() + "," + empInfo.getOvertimeHours() + ")");
+			}
+			else if(difference == 0) {
+				update.executeUpdate("update EmployeeInfo set RegularHours='" + empInfo.getRegularHours() + "', OvertimeHours='" + empInfo.getOvertimeHours() + "' where EmployeeId='" +
+						empInfo.getEmployeeId() + "' and PayrollId='" + p.getPayrollId() + "'");
+			}
+			
+			connection.close();
+		}
+		catch(SQLException e) {
+			System.out.println(e);
+			return false;
+		}
+		return true;
+	}
+	
+	private Connection getConnection() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			
@@ -158,5 +270,6 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 			// Could not connect to the database
 			connection = null;
 		}
+		return connection;
 	}
 }

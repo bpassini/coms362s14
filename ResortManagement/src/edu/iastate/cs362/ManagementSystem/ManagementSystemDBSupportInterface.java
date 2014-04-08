@@ -25,4 +25,11 @@ public interface ManagementSystemDBSupportInterface {
 	 * @return true if the employee was successfully put into the database, false otherwise.
 	 */
 	boolean putEmployee(Employee e);
+	
+	/**
+	 * Gets the payroll object from the database with the given payroll id.
+	 * @param payrollId the id of the payroll that needs to be retrieved from the database.
+	 * @return the payroll object retrieved from the database.
+	 */
+	Payroll getPayroll(String payrollId);
 }

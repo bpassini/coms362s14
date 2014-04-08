@@ -89,11 +89,11 @@ public class Hotel implements HotelInterface{
 				break;
 			}
 		}
-		//An equipment invoice with the given invoiceId was not found.
+		//An room reservation with the given invoiceId was not found.
 		if(temp == null)
 			return false;
 		if(temp.updateRoomReservation(flag, newInfo)) {
-			//Place the updated equipment invoice at the end of the list and then return if the add was successful or not.
+			//Place the updated room reservation at the end of the list and then return if the add was successful or not.
 			return reservations.remove(temp) && reservations.add(temp);
 		}
 		return false;

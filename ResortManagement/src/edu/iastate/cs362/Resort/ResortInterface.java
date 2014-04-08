@@ -52,9 +52,10 @@ public interface ResortInterface {
 	 * @param equipType - the type of equipment
 	 * @param cost - the rental cost of the equipment
 	 * @param description - a description of the equipment
+	 * @param checkedIn - true if checked in, false otherwise
 	 * @return true if the Equipment was added successfully, false otherwise
 	 */
-	boolean addEquipment(String rId, String equipId, String equipType, double cost, String description);
+	boolean addEquipment(String rId, String equipId, String equipType, double cost, String description, boolean checkedIn);
 	
 	/**
 	 * Creates and adds a RoomInvoice for a room in a specific Hotel

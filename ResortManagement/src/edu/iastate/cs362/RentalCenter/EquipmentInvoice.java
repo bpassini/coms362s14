@@ -61,15 +61,13 @@ public class EquipmentInvoice implements EquipmentInvoiceInterface {
 
 	@Override
 	public boolean updateEquipmentInvoice(int flag, Object newInfo) {
+		if(!(newInfo instanceof String))
+			return false;
 		switch(flag){
 		case UPDATE_MESSAGE:
-			if(!(newInfo instanceof String))
-				return false;
 			msg = (String) newInfo;
 			break;
 		case UPDATE_EQUIPMENT_ID:
-			if(!(newInfo instanceof String))
-				return false;
 			equipId = (String) newInfo;
 			break;
 		default:

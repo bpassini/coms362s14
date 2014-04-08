@@ -32,10 +32,10 @@ public class Resort implements ResortInterface {
 
 	@Override
 	public boolean addEquipment(String rId, String equipId, String equipType,
-			double cost, String description) {
+			double cost, String description, boolean checkedIn) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
-		if(rc != null && rc.addEquipment(equipId, equipType, cost, description))
+		if(rc != null && rc.addEquipment(equipId, equipType, cost, description, checkedIn))
 			return (new ResortDBSupport().putRentalCenter(rc));
 		else 
 			return false;
