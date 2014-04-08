@@ -45,6 +45,11 @@ public class RentalCenterController implements RentalCenterControllerInterface {
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean updateRentalReservation(String rcId, String reservationId, int flag, Object newInfo) {
+		return new Resort().updateRentalReservation(rcId, reservationId, flag, newInfo);
+	}
 
 	@Override
 	public boolean updateEquipmentInvoice(String rId, String invoiceId, int flag, Object newInfo) {

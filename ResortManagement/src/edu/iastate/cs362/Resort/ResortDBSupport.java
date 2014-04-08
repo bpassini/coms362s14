@@ -27,6 +27,7 @@ import edu.iastate.cs362.RentalCenter.RentalReservation;
  * 
  * @author Cameron Johnston
  * @author Mike Pruszinske
+ * @author Bryan Passini
  *
  */
 public class ResortDBSupport implements ResortDBSupportInterface {
@@ -216,11 +217,19 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					Equipment e = rc.getEquipmentList().get(rc.getEquipmentList().size()-1);
 					stmtEWrite.executeUpdate("insert into Equipment values ('"+e.getEquipId()+"','"+ e.getEquipType()+"',"+e.getCost() + ",'"+e.getDescription()+"','" + rc.getId()+ "')");
 				}
+				else if(rc.getEquipmentList().size() - eCount == 0) {
+					Equipment e = rc.getEquipmentList().get(rc.getEquipmentList().size()-1);
+					stmtEWrite.executeUpdate("update Equipment set equipType='"+ e.getEquipType() + "', cost='" + e.getCost() + "', description='" + e.getDescription() + "', rId='" + rc.getId() + "' where equipId='" + e.getEquipId() + "");
+				}
 				
 				//there has been a change to InvoicesList, so add the last one to the Database
 				if(rc.getInvoicesList().size() - iCount == 1) {
 					EquipmentInvoice i = rc.getInvoicesList().get(rc.getInvoicesList().size()-1);
 					stmtIWrite.executeUpdate("insert into EquipmentInvoice values ('"+i.getInvoiceId()+"','"+ i.getEquipId()+"','"+i.getInvoiceMsg()+"','" + rc.getId() + "')");
+				}
+				else if(rc.getInvoicesList().size() - iCount == 0) {
+					EquipmentInvoice i = rc.getInvoicesList().get(rc.getInvoicesList().size()-1);
+					stmtIWrite.executeUpdate("update EquipmentInvoice set equipId='"+ i.getEquipId() + "', msg='" + i.getInvoiceMsg() + "', rId='" + rc.getId() + "' where invoiceId='" + i.getInvoiceId() + "");
 				}
 				
 				DateTimeFormatter df = DateTimeFormat.forPattern("dd/MM/yyyy hh::mm");
@@ -229,6 +238,11 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					RentalReservation r = rc.getReservationsList().get(rc.getReservationsList().size() - 1);
 					stmtRWrite.executeUpdate("insert into RentalReservation values ('" +r.getRentalId()+"','" + r.getEquipId()+"','"+r.getCustomer().getCmid()+"','" + r.getCustomer().getFirstName()
 							+ "','" + r.getCustomer().getLastName()+ "','" + r.getStart().toString(df)+"','" + r.getEnd().toString(df)+"','" + rc.getId() + "')");
+				}
+				else if(rc.getReservationsList().size() - rCount == 0) {
+					RentalReservation r = rc.getReservationsList().get(rc.getReservationsList().size() - 1);
+					stmtRWrite.executeUpdate("update RentalReservation set equipId='"+ r.getEquipId() + "', cmId='" + r.getCustomer().getCmid() + "', firstName='" + r.getCustomer().getFirstName() + "', lastName='" + r.getCustomer().getLastName() + "', startDate='" + r.getStart().toString(df)
+							+ "', endDate='" + r.getEnd().toString(df) + "', rId='" + rc.getId() + "' where rentalId='" + r.getRentalId() + "");
 				}
 				
 				//close statements and connections

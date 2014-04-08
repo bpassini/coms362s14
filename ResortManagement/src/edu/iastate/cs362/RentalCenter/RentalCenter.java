@@ -91,7 +91,6 @@ public class RentalCenter implements RentalCenterInterface {
 			return invoices.remove(temp) && invoices.add(temp);
 		}
 		return false;
-		
 	}
 	
 	@Override

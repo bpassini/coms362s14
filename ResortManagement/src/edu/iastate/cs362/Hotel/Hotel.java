@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.joda.time.*;
 
+import edu.iastate.cs362.RentalCenter.EquipmentInvoice;
+
 /**
  * Represents a hotel created/used by hotel admin. Resort may have many hotels.
  * 
@@ -78,6 +80,25 @@ public class Hotel implements HotelInterface{
 		RoomReservation res = new RoomReservation(rrid, hid, start, end, cust, attr);
 
 		return reservations.add(res);
+	}
+	
+	@Override
+	public boolean updateRoomReservation(String reservationId, int flag, Object newInfo) {
+		RoomReservation temp = null;
+		for(RoomReservation rr : reservations) {
+			if(rr.getRoomReservationID().equals(reservationId)) {
+				temp = rr;
+				break;
+			}
+		}
+		//An equipment invoice with the given invoiceId was not found.
+		if(temp == null)
+			return false;
+		if(temp.updateRoomReservation(flag, newInfo)) {
+			//Place the updated equipment invoice at the end of the list and then return if the add was successful or not.
+			return reservations.remove(temp) && reservations.add(temp);
+		}
+		return false;
 	}
 	
 	/**

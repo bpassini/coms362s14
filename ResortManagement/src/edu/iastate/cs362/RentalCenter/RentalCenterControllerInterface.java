@@ -4,7 +4,8 @@ import edu.iastate.cs362.Hotel.Customer;
 /**
  * Interface for our RentalCenterController.
  * 
- * @author Cameron Johnston, Bryan Passini
+ * @author Cameron Johnston
+ * @author Bryan Passini
  *
  */
 
@@ -61,6 +62,18 @@ public interface RentalCenterControllerInterface {
 	 * @return true if the update was successful, false otherwise.
 	 */
 	boolean updateEquipmentInvoice(String rId, String invoiceId, int flag, Object newInfo);
+	
+	/**
+	 * Updates a certain field of the rental reservation object with the given reservation id.  This rental reservation to be
+	 * updated is held in the rental center with the given rental center id.
+	 * @param rId the id of the rental center that contains the rental reservation to be updated.
+	 * @param reservationId the id of the reservation to be updated.
+	 * @param flag the flag used to identify what field is being updated.
+	 * @param newInfo the updated information.
+	 * @return true if the update was successful, false otherwise.
+	 */
+	boolean updateRentalReservation(String rcId, String reservationId, int flag, Object newInfo);
+	
 	/**
 	 * Updates a certain field of the equipment with the given equipId. 
 	 * @param rid - the id of the rental center the equipment is held in
@@ -69,6 +82,7 @@ public interface RentalCenterControllerInterface {
 	 * @param u - the object to update to
 	 * @return true if update was successful, false otherwise.
 	 */
+	
 	boolean updateEquipment(String rid, String eid, int flag, Object u);
 	
 	/**
