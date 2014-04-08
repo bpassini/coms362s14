@@ -35,7 +35,7 @@ public class Resort implements ResortInterface {
 			double cost, String description) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
-		if(rc.addEquipment(equipId, equipType, cost, description))
+		if(rc != null && rc.addEquipment(equipId, equipType, cost, description))
 			return (new ResortDBSupport().putRentalCenter(rc));
 		else 
 			return false;
@@ -45,7 +45,7 @@ public class Resort implements ResortInterface {
 	public boolean createEquipInvoice(String rId, String invoiceId, String equipId, String msg) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
-		if(rc.createEquipInvoice(invoiceId, equipId, msg))
+		if(rc != null && rc.createEquipInvoice(invoiceId, equipId, msg))
 			return (new ResortDBSupport().putRentalCenter(rc));
 		else
 			return false;
@@ -66,7 +66,7 @@ public class Resort implements ResortInterface {
 			Customer customer, DateTime start, DateTime end) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
-		if(rc.createRentalReservation(rentalId, equipId, customer, start, end))
+		if(rc != null && rc.createRentalReservation(rentalId, equipId, customer, start, end))
 			return (new ResortDBSupport().putRentalCenter(rc));
 		else
 			return false;
@@ -119,7 +119,7 @@ public class Resort implements ResortInterface {
 	public boolean updateRoomReservation(String hId, String reservationId, int flag, Object newInfo) {
 		
 		Hotel h = new ResortDBSupport().getHotel(hId);
-		if(h != null && h.updateRoomReservation(reservationId, flag, newInfo))
+		if(h != null && h.updateRoomReservation(reservationId, flag, newInfo)) //TODO
 			return true;
 		else
 			return false;
@@ -128,25 +128,44 @@ public class Resort implements ResortInterface {
 
 	@Override
 	public boolean updateEquipment(String rid, String eid, int flag, Object u) {
-		// TODO Auto-generated method stub
-		return false;
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		if(rc != null && rc.updateEquipment(eid, flag, u)) {
+			return new ResortDBSupport().putRentalCenter(rc);
+		}
+		else 
+			return false;
 	}
 
 	@Override
 	public boolean updateRentalCenter(String rid, int flag, Object u) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		if(rc != null && rc.updateRentalCenter(flag, u)) {
+			return new ResortDBSupport().putRentalCenter(rc);
+		}
+		else 
+			return false;
 	}
 
 	@Override
 	public boolean checkOutEquipment(String rid, String eid, String rentalId) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		if(rc != null && rc.checkOutEquipment(eid, rentalId)) {
+			return new ResortDBSupport().putRentalCenter(rc);
+		}
+		else 
+			return false;
 	}
 
 	@Override
 	public boolean checkInEquipment(String rid, String eid, String rentalId) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		if(rc != null && rc.checkInEquipment(eid, rentalId)) {
+			return new ResortDBSupport().putRentalCenter(rc);
+		}
+		else 
+			return false;
 	}
 }

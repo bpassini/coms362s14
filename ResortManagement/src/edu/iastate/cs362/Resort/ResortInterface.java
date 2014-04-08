@@ -123,9 +123,42 @@ public interface ResortInterface {
 	 * @return true if the update was successful, false otherwise.
 	 */
 	boolean updateRentalReservation(String rId, String reservationId, int flag, Object newInfo);
+	/**
+	 * Updates a certain field of the equipment with the given equipId. 
+	 * @param rid - the id of the rental center the equipment is held in
+	 * @param eid - the equipment id
+	 * @param flag - flag used to identify the correct field to be updated
+	 * @param u - the object to update to
+	 * @return true if update was successful, false otherwise.
+	 */
+	
 	boolean updateEquipment(String rid, String eid, int flag, Object u);
+	
+	/**
+	 * Updates a certain field of a rental center with the matching rid
+	 * @param rid - the rental center id
+	 * @param flag - the field we wish to update
+	 * @param u - the updated object
+	 * @return true if update was successful, false otherwise
+	 */
 	boolean updateRentalCenter(String rid, int flag, Object u);
+	
+	/**
+	 * Checks out a piece of equipment and matches it to a reservation
+	 * @param rid - the rental center id
+	 * @param eid - the equipment id we wish to check out
+	 * @param rentalId - the rental reservation we wish to correspond this piece with
+	 * @return true if checked out successfully, false otherwise
+	 */
 	boolean checkOutEquipment(String rid, String eid, String rentalId);
+	
+	/**
+	 * Checks in a piece of equipment and removes it from the correct reservation
+	 * @param rid - the rental center id
+	 * @param eid - the equipment id we wish to check back in
+	 * @param rentalId - the rental reservation we need to remove the equipment from
+	 * @return true if checked in successfully, false otherwise
+	 */
 	boolean checkInEquipment(String rid, String eid, String rentalId);
 	
 	/**
