@@ -93,6 +93,14 @@ public class RentalReservation implements RentalReservationInterface {
 		return end;
 	}
 	
+	/** 
+	 * sets the equipId of the reservation
+	 * @param id the id to set it to
+	 */
+	public void setEquipId(String id) {
+		equipId = id;
+	}
+	
 	@Override
 	public boolean updateRentalReservaion(int flag, Object newInfo) {
 		switch(flag) {

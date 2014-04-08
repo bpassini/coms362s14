@@ -112,6 +112,108 @@ public class RentalCenter implements RentalCenterInterface {
 		return false;
 	}
 	
+	@Override
+	public boolean updateRentalCenter(int flag, Object u) {
+		
+		if(u instanceof String) {
+			if(flag == UPDATE_NAME) 
+				name = (String) u;	
+		}
+		else 
+			return false;
+	
+		return true;
+	}
+
+	@Override
+	public boolean checkOutEquipment(String eid, String rentalId) {
+		
+		
+		Equipment tmp = null;
+		for(Equipment e : equipment) {
+			if(e.getEquipId().equals(eid)) {
+				tmp = e;
+				break;
+			}
+		}
+		RentalReservation tmpr = null;
+		for(RentalReservation r: reservations) {
+			if(r.getRentalId().equals(rentalId)) {
+				tmpr = r;
+				break;
+			}
+		}
+		
+		if(tmp == null || tmpr == null) {
+			return false;
+		}
+		else if(tmp.checkOutEquipment()) {
+			tmpr.setEquipId(eid);
+			boolean e = equipment.remove(tmp) && equipment.add(tmp);
+			boolean r = reservations.remove(tmpr) && reservations.add(tmpr);
+			return e && r;
+		}
+		else
+			return false;
+		
+	}
+
+	@Override
+	public boolean checkInEquipment(String eid, String rentalId) {
+		
+		
+		Equipment tmp = null;
+		for(Equipment e : equipment) {
+			if(e.getEquipId().equals(eid)) {
+				tmp = e;
+				break;
+			}
+		}
+		RentalReservation tmpr = null;
+		for(RentalReservation r: reservations) {
+			if(r.getRentalId().equals(rentalId)) {
+				tmpr = r;
+				break;
+			}
+		}
+		
+		if(tmp == null || tmpr == null) {
+			return false;
+		}
+		else if(tmp.checkInEquipment()) {
+			tmpr.setEquipId(null);
+			boolean e = equipment.remove(tmp) && equipment.add(tmp);
+			boolean r = reservations.remove(tmpr) && reservations.add(tmpr);
+			return e && r;
+		}
+		else
+			return false;
+	}
+
+	@Override
+	public boolean updateEquipment(String eid, int flag, Object u) {
+		
+		Equipment tmp = null;
+		for(Equipment e : equipment) {
+			if(e.getEquipId().equals(eid)) {
+				tmp = e;
+				break;
+			}
+		}
+		
+		if(tmp == null)
+			return false;
+		else if(tmp.updateEquipment(flag, u)) {
+			return equipment.remove(tmp) && equipment.add(tmp);
+		}
+		else
+			return false;	
+
+	}	
+	
+	
+	
+	
 	/**
 	 * Gets the RentalCenter id
 	 * @return the rId
@@ -150,101 +252,4 @@ public class RentalCenter implements RentalCenterInterface {
 	public List<RentalReservation> getReservationsList() {
 		return reservations;
 	}
-
-
-	@Override
-	public boolean updateRentalCenter(int flag, Object u) {
-		
-		if(u instanceof String) {
-			if(flag == UPDATE_NAME) 
-				name = (String) u;	
-		}
-		else 
-			return false;
-	
-		return true;
-	}
-
-	@Override
-	public boolean checkOutEquipment(String eid, String rentalId) {
-		
-		
-		Equipment tmp = null;
-		for(Equipment e : equipment) {
-			if(e.getEquipId().equals(eid)) {
-				tmp = e;
-				break;
-			}
-		}
-		RentalReservation tmpr = null;
-		for(RentalReservation r: reservations) {
-			if(r.getRentalId().equals(rentalId)) {
-				tmpr = r;
-				break;
-			}
-		}
-		
-		if(tmp == null || tmpr == null) {
-			return false;
-		}
-		else if(tmp.checkOutEquipment() && tmpr.addEquipment(eid)) {
-			boolean e = equipment.remove(tmp) && equipment.add(tmp);
-			boolean r = reservations.remove(tmpr) && reservations.add(tmpr);
-			return e && r;
-		}
-		
-	}
-
-	@Override
-	public boolean checkInEquipment(String eid, String rentalId) {
-		
-		int i = 0;
-		boolean foundEquipment = false;
-		boolean foundReservation = false;
-		for(i = 0; i < equipment.size(); i++) {
-			if(equipment.get(i).getEquipId() == eid) {
-				equipment.get(i).checkInEquipment();
-				foundEquipment = true;
-				break;
-			}
-		}
-		
-		for(i = 0; i < reservations.size(); i++) {
-			if(reservations.get(i).getEquipId() == rentalId) {
-				reservations.get(i).removeEquipment();
-				foundReservation = true;
-				break;
-			}
-		}
-		
-		if(!foundReservation || !foundEquipment)
-			return false;
-		else 
-			return true;
-	}
-
-	@Override
-	public boolean updateEquipment(String eid, EquipmentFlag flag, Object u) {
-		
-		int i = 0;
-		boolean foundEquipment = false;
-		boolean updated = false;
-		for(i = 0; i < equipment.size(); i++) {
-			if(equipment.get(i).getEquipId() == eid) {
-				updated = equipment.get(i).updateEquipment(flag, u);
-				foundEquipment = true;
-				break;
-			}
-		}
-		
-		if(!updated || !foundEquipment)
-			return false;
-		else
-			return true;
-	}
-
-
-
-	
-
 }
