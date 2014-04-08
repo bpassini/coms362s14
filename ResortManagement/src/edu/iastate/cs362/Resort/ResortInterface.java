@@ -123,4 +123,9 @@ public interface ResortInterface {
 	 * @return true if the update was successful, false otherwise.
 	 */
 	boolean updateRentalReservation(String rId, String reservationId, int flag, Object newInfo);
+	boolean updateEquipment(String rid, String eid, int flag, Object u);
+	boolean updateRentalCenter(String rid, int flag, Object u);
+	boolean checkOutEquipment(String rid, String eid, String rentalId);
+	boolean checkInEquipment(String rid, String eid, String rentalId);
+
 }

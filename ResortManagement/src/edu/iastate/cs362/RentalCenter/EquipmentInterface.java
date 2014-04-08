@@ -7,5 +7,7 @@ package edu.iastate.cs362.RentalCenter;
  *
  */
 public interface EquipmentInterface {
-
+	boolean updateEquipment(EquipmentFlag flag, Object u);
+	boolean checkOutEquipment();
+	boolean checkInEquipment();
 }

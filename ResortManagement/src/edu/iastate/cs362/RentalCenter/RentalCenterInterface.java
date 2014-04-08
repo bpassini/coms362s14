@@ -57,4 +57,9 @@ public interface RentalCenterInterface {
 	 * @return true if the update was successful, false otherwise.
 	 */
 	boolean updateRentalReservation(String reservationId, int flag, Object newInfo);
+	boolean updateEquipment(String eid, EquipmentFlag flag, Object u);
+	boolean updateRentalCenter(int flag, Object u);
+	boolean checkOutEquipment(String eid, String rentalId);
+	boolean checkInEquipment(String eid, String rentalId);
+
 }

@@ -50,4 +50,28 @@ public class RentalCenterController implements RentalCenterControllerInterface {
 	public boolean updateEquipmentInvoice(String rId, String invoiceId, int flag, Object newInfo) {
 		return new Resort().updateEquipmentInvoice(rId, invoiceId, flag, newInfo);
 	}
+
+	@Override
+	public boolean updateEquipment(String rid, String eid, int flag, Object u) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateRentalCenter(String rid, int flag, Object u) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean checkOutEquipment(String rid, String eid, String rentalId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean checkInEquipment(String rid, String eid, String rentalId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

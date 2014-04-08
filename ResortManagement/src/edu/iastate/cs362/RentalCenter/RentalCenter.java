@@ -153,6 +153,89 @@ public class RentalCenter implements RentalCenterInterface {
 	}
 
 
+	@Override
+	public boolean updateRentalCenter(int flag, Object u) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean checkOutEquipment(String eid, String rentalId) {
+		
+		int i = 0;
+		boolean foundEquipment = false;
+		boolean foundReservation = false;
+		for(i = 0; i < equipment.size(); i++) {
+			if(equipment.get(i).getEquipId() == eid) {
+				equipment.get(i).checkOutEquipment();
+				foundEquipment = true;
+				break;
+			}
+		}
+		
+		for(i = 0; i < reservations.size(); i++) {
+			if(reservations.get(i).getEquipId() == rentalId) {
+				reservations.get(i).addEquipment(eid);
+				foundReservation = true;
+				break;
+			}
+		}
+		
+		if(!foundReservation || !foundEquipment)
+			return false;
+		else 
+			return true;
+	}
+
+	@Override
+	public boolean checkInEquipment(String eid, String rentalId) {
+		
+		int i = 0;
+		boolean foundEquipment = false;
+		boolean foundReservation = false;
+		for(i = 0; i < equipment.size(); i++) {
+			if(equipment.get(i).getEquipId() == eid) {
+				equipment.get(i).checkInEquipment();
+				foundEquipment = true;
+				break;
+			}
+		}
+		
+		for(i = 0; i < reservations.size(); i++) {
+			if(reservations.get(i).getEquipId() == rentalId) {
+				reservations.get(i).removeEquipment();
+				foundReservation = true;
+				break;
+			}
+		}
+		
+		if(!foundReservation || !foundEquipment)
+			return false;
+		else 
+			return true;
+	}
+
+	@Override
+	public boolean updateEquipment(String eid, EquipmentFlag flag, Object u) {
+		
+		int i = 0;
+		boolean foundEquipment = false;
+		boolean updated = false;
+		for(i = 0; i < equipment.size(); i++) {
+			if(equipment.get(i).getEquipId() == eid) {
+				updated = equipment.get(i).updateEquipment(flag, u);
+				foundEquipment = true;
+				break;
+			}
+		}
+		
+		if(!updated || !foundEquipment)
+			return false;
+		else
+			return true;
+	}
+
+
 
 	
 

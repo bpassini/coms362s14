@@ -115,4 +115,28 @@ public class Resort implements ResortInterface {
 		return(new ResortDBSupport().putHotel(h));
 	}
 
+	@Override
+	public boolean updateEquipment(String rid, String eid, int flag, Object u) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateRentalCenter(String rid, int flag, Object u) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean checkOutEquipment(String rid, String eid, String rentalId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean checkInEquipment(String rid, String eid, String rentalId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
