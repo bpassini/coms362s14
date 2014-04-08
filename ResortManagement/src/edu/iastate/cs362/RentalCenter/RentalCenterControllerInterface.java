@@ -60,5 +60,5 @@ public interface RentalCenterControllerInterface {
 	 * @param newInfo the update information.
 	 * @return true if the update was successful, false otherwise.
 	 */
-	public boolean updateEquipmentInvoice(String rId, String invoiceId, int flag, Object newInfo);
+	boolean updateEquipmentInvoice(String rId, String invoiceId, int flag, Object newInfo);
 }

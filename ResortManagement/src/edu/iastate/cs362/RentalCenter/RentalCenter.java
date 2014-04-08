@@ -87,13 +87,30 @@ public class RentalCenter implements RentalCenterInterface {
 		if(temp == null)
 			return false;
 		if(temp.updateEquipmentInvoice(flag, newInfo)) {
-			//Place the updated equipment invoice at the end of the list
-			invoices.remove(temp);
-			invoices.add(temp);
-			return true;
+			//Place the updated equipment invoice at the end of the list and then return if the add was successful or not.
+			return invoices.remove(temp) && invoices.add(temp);
 		}
 		return false;
 		
+	}
+	
+	@Override
+	public boolean updateRentalReservation(String reservationId, int flag, Object newInfo) {
+		RentalReservation temp = null;
+		for(RentalReservation rr : reservations) {
+			if(rr.getRentalId().equals(reservationId)) {
+				temp = rr;
+				break;
+			}
+		}
+		//A rental reservation with the given id was not found.
+		if(temp == null)
+			return false;
+		if(temp.updateRentalReservaion(flag, newInfo)) {
+			//Place updated rental reservation at the end of the list and then return if the add was successful or not.
+			return reservations.remove(temp) && reservations.add(temp);
+		}
+		return false;
 	}
 	
 	/**

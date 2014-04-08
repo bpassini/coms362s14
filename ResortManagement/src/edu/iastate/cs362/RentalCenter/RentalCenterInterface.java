@@ -44,8 +44,17 @@ public interface RentalCenterInterface {
 	 * Updates a certain field of the equipment invoice object with the given invoiceId.
 	 * @param invoiceId the id of the invoice to be updated.
 	 * @param flag the flag used to identify what field is being updated.
-	 * @param newInfo the update information.
+	 * @param newInfo the updated information.
 	 * @return true if the update was successful, false otherwise.
 	 */
-	public boolean updateEquipmentInvoice(String invoiceId, int flag, Object newInfo);
+	boolean updateEquipmentInvoice(String invoiceId, int flag, Object newInfo);
+	
+	/**
+	 * Updates a certain field of the rental reservation object with the given reservation id.
+	 * @param reservationId the id of the reservation to be updated.
+	 * @param flag the flag used to identify what field is being updated.
+	 * @param newInfo the updated information.
+	 * @return true if the update was successful, false otherwise.
+	 */
+	boolean updateRentalReservation(String reservationId, int flag, Object newInfo);
 }

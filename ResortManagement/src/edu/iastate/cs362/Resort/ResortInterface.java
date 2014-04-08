@@ -12,6 +12,7 @@ import edu.iastate.cs362.Hotel.Customer;
  * 
  * @author Cameron Johnston
  * @author Mike Pruszinske
+ * @author Bryan Passini
  *
  */
 public interface ResortInterface {
@@ -102,13 +103,24 @@ public interface ResortInterface {
 	boolean createRentalReservation(String rId, String rentalId, String equipId, Customer customer, DateTime start, DateTime end);
 	
 	/**
-	 * Updates a certain field of the equipment invoice object with the given invoiceId.  This equipment invoice is held
-	 * in the rental center with the given rental center id.
+	 * Updates a certain field of the equipment invoice object with the given invoiceId.  This equipment invoice to be updated
+	 * is held in the rental center with the given rental center id.
 	 * @param rId the id of the rental center that contains the equipment invoice to be updated.
 	 * @param invoiceId the id of the invoice to be updated.
 	 * @param flag the flag used to identify what field is being updated.
 	 * @param newInfo the update information.
 	 * @return true if the update was successful, false otherwise.
 	 */
-	public boolean updateEquipmentInvoice(String rId, String invoiceId, int flag, Object newInfo);
+	boolean updateEquipmentInvoice(String rId, String invoiceId, int flag, Object newInfo);
+	
+	/**
+	 * Updates a certain field of the rental reservation object with the given reservation id.  This rental reservation to be
+	 * updated is held in the rental center with the given rental center id.
+	 * @param rId the id of the rental center that contains the rental reservation to be updated.
+	 * @param reservationId the id of the reservation to be updated.
+	 * @param flag the flag used to identify what field is being updated.
+	 * @param newInfo the updated information.
+	 * @return true if the update was successful, false otherwise.
+	 */
+	boolean updateRentalReservation(String rId, String reservationId, int flag, Object newInfo);
 }

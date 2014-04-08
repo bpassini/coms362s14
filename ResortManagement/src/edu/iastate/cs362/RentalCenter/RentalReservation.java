@@ -8,6 +8,7 @@ import edu.iastate.cs362.Hotel.Customer;
  * Class for a reservation of a piece of rental equipment. 
  * 
  * @author Cameron Johnston
+ * @author Bryan Passini
  *
  */
 public class RentalReservation implements RentalReservationInterface {
@@ -92,4 +93,32 @@ public class RentalReservation implements RentalReservationInterface {
 		return end;
 	}
 	
+	@Override
+	public boolean updateRentalReservaion(int flag, Object newInfo) {
+		switch(flag) {
+		case UPDATE_EQUIPMENT_ID:
+			if(!(newInfo instanceof String))
+				return false;
+			equipId = (String) newInfo;
+			break;
+		case UPDATE_CUSTOMER:
+			if(!(newInfo instanceof Customer))
+				return false;
+			customer = (Customer) newInfo;
+			break;
+		case UPDATE_START:
+			if(!(newInfo instanceof DateTime))
+				return false;
+			start = (DateTime) newInfo;
+			break;
+		case UPDATE_END:
+			if(!(newInfo instanceof DateTime))
+				return false;
+			end = (DateTime) newInfo;
+			break;
+		default:
+			return false;
+		}
+		return true;
+	}
 }

@@ -10,13 +10,13 @@ package edu.iastate.cs362.RentalCenter;
 public interface EquipmentInvoiceInterface {
 	
 	/**
-	 * Constant used to signal that the message is the field to be updated.
+	 * Constant used to signal that the message variable is the field to be updated.
 	 */
-	public static final int UPDATE_MESSAGE = 0;
+	static final int UPDATE_MESSAGE = 0;
 	/**
-	 * Constant used to signal that the equipment invoice id is the field to be updated.
+	 * Constant used to signal that the equipment invoice id variable is the field to be updated.
 	 */
-	public static final int UPDATE_EQUIPMENT_ID = 1;
+	static final int UPDATE_EQUIPMENT_ID = 1;
 	
 	/**
 	 * Updates a certain field of this equipment invoice object.
@@ -24,5 +24,5 @@ public interface EquipmentInvoiceInterface {
 	 * @param newInfo the update information.
 	 * @return true if the update was successful, false otherwise.
 	 */
-	public boolean updateEquipmentInvoice(int flag, Object newInfo);
+	boolean updateEquipmentInvoice(int flag, Object newInfo);
 }

@@ -71,6 +71,16 @@ public class Resort implements ResortInterface {
 		else
 			return false;
 	}
+	
+	@Override
+	public boolean updateRentalReservation(String rId, String reservationId, int flag, Object newInfo) {
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
+		if(rc.updateRentalReservation(reservationId, flag, newInfo))
+			return new ResortDBSupport().putRentalCenter(rc);
+		else
+			return false;
+	}
 
 	@Override
 	public boolean addRoom(String hid, ArrayList<String> beds, int occup, String desc, int rmid) {
