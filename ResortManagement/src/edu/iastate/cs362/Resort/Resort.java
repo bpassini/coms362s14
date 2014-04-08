@@ -76,7 +76,7 @@ public class Resort implements ResortInterface {
 	public boolean updateRentalReservation(String rId, String reservationId, int flag, Object newInfo) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
-		if(rc.updateRentalReservation(reservationId, flag, newInfo))
+		if(rc != null && rc.updateRentalReservation(reservationId, flag, newInfo))
 			return new ResortDBSupport().putRentalCenter(rc);
 		else
 			return false;
@@ -114,6 +114,17 @@ public class Resort implements ResortInterface {
 		
 		return(new ResortDBSupport().putHotel(h));
 	}
+	
+	@Override
+	public boolean updateRoomReservation(String hId, String reservationId, int flag, Object newInfo) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hId);
+		if(h != null && h.updateRoomReservation(reservationId, flag, newInfo))
+			return true;
+		else
+			return false;
+	}
+
 
 	@Override
 	public boolean updateEquipment(String rid, String eid, int flag, Object u) {
@@ -138,5 +149,4 @@ public class Resort implements ResortInterface {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }
