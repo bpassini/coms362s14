@@ -27,6 +27,12 @@ public class Equipment implements EquipmentInterface {
 	private String description;
 	
 	/**
+	 * The status of this piece of equipment, whether it is checkedIn to the rental center
+	 * or checked out. 
+	 */
+	private boolean checkedIn;
+	
+	/**
 	 * Creates an equipment object. 
 	 * @param equipId - The id of this piece of equipment.
 	 * @param equipType - The type of this equipment.
@@ -38,6 +44,7 @@ public class Equipment implements EquipmentInterface {
 		this.equipType = equipType;
 		this.cost = cost;
 		this.description = description;
+		this.checkedIn = true;
 		
 	}
 	
@@ -71,6 +78,37 @@ public class Equipment implements EquipmentInterface {
 	 */
 	public String getDescription() {
 		return description;
+	}
+
+	@Override
+	public boolean updateEquipment(EquipmentFlag flag, Object u) {
+		
+		if(u.getClass() == String.class) {
+			if(flag == EquipmentFlag.ID) 
+				equipId = (String) u;
+			else if(flag == EquipmentFlag.TYPE) 
+				equipType = (String) u;
+			else if(flag == EquipmentFlag.DESCRIPTION)
+				description = (String) u;
+		}
+		else if(u.getClass() == double.class && flag == EquipmentFlag.COST) 
+			cost = (double) u;
+		else 
+			return false;
+	
+		return true;
+	}
+
+	@Override
+	public boolean checkOutEquipment() {
+		this.checkedIn = false;
+		return true;
+	}
+
+	@Override
+	public boolean checkInEquipment() {
+		this.checkedIn = true;
+		return true;
 	}
 	
 }

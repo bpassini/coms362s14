@@ -38,4 +38,10 @@ public interface RentalCenterInterface {
 	 * @return true if RentalReservation was created and added successfully, false otherwise
 	 */
 	boolean createRentalReservation(String rentalId, String equipId, Customer customer, DateTime start, DateTime end);
+	
+	boolean updateEquipment(String eid, EquipmentFlag flag, Object u);
+	boolean updateRentalCenter(int flag, Object u);
+	boolean checkOutEquipment(String eid, String rentalId);
+	boolean checkInEquipment(String eid, String rentalId);
+
 }

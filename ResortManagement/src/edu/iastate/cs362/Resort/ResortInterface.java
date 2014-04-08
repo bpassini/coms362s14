@@ -100,4 +100,9 @@ public interface ResortInterface {
 	 * @return true if RentalReservation was created successfully, false otherwise
 	 */
 	boolean createRentalReservation(String rId, String rentalId, String equipId, Customer customer, DateTime start, DateTime end);
+	
+	boolean updateEquipment(String rid, String eid, int flag, Object u);
+	boolean updateRentalCenter(String rid, int flag, Object u);
+	boolean checkOutEquipment(String rid, String eid, String rentalId);
+	boolean checkInEquipment(String rid, String eid, String rentalId);
 }

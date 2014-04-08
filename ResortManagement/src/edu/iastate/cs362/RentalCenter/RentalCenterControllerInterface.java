@@ -50,4 +50,10 @@ public interface RentalCenterControllerInterface {
 	 * @return true if RentalReservation was created and added successfully, false otherwise
 	 */
 	boolean createRentalReservation(String rId, String rentalId, String equipId, Customer customer, String startDate, String endDate);
+	
+	boolean updateEquipment(String rid, String eid, int flag, Object u);
+	boolean updateRentalCenter(String rid, int flag, Object u);
+	boolean checkOutEquipment(String rid, String eid, String rentalId);
+	boolean checkInEquipment(String rid, String eid, String rentalId);
+
 }
