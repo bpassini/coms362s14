@@ -9,6 +9,7 @@ import edu.iastate.cs362.Hotel.Customer;
 /**
  * Class representing a RentalCenter.  Our resort can own many different RentalCenters.
  * @author Cameron Johnston
+ * @author Bryan Passini
  *
  */
 public class RentalCenter implements RentalCenterInterface {
@@ -71,6 +72,28 @@ public class RentalCenter implements RentalCenterInterface {
 		
 		RentalReservation r = new RentalReservation(rentalId, eid, cust, start, end);
 		return reservations.add(r);
+	}
+	
+	@Override
+	public boolean updateEquipmentInvoice(String invoiceId, int flag, Object newInfo) {
+		EquipmentInvoice temp = null;
+		for(EquipmentInvoice ei : invoices) {
+			if(ei.getInvoiceId().equals(invoiceId)) {
+				temp = ei;
+				break;
+			}
+		}
+		//An equipment invoice with the given invoiceId was not found.
+		if(temp == null)
+			return false;
+		if(temp.updateEquipmentInvoice(flag, newInfo)) {
+			//Place the updated equipment invoice at the end of the list
+			invoices.remove(temp);
+			invoices.add(temp);
+			return true;
+		}
+		return false;
+		
 	}
 	
 	/**

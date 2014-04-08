@@ -9,6 +9,7 @@ import edu.iastate.cs362.Resort.Resort;
 /**
  * Controller class dealing with RentalCenter.
  * @author Cameron Johnston
+ * @author Bryan Passini
  * 
  */
 public class RentalCenterController implements RentalCenterControllerInterface {
@@ -45,4 +46,8 @@ public class RentalCenterController implements RentalCenterControllerInterface {
 		}
 	}
 
+	@Override
+	public boolean updateEquipmentInvoice(String rId, String invoiceId, int flag, Object newInfo) {
+		return new Resort().updateEquipmentInvoice(rId, invoiceId, flag, newInfo);
+	}
 }

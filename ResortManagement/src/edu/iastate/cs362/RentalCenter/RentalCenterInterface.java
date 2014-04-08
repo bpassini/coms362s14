@@ -6,6 +6,7 @@ import edu.iastate.cs362.Hotel.Customer;
 /**
  * Interface for RentalCenter.
  * @author Cameron Johnston
+ * @author Bryan Passini
  *
  */
 public interface RentalCenterInterface {
@@ -38,4 +39,13 @@ public interface RentalCenterInterface {
 	 * @return true if RentalReservation was created and added successfully, false otherwise
 	 */
 	boolean createRentalReservation(String rentalId, String equipId, Customer customer, DateTime start, DateTime end);
+	
+	/**
+	 * Updates a certain field of the equipment invoice object with the given invoiceId.
+	 * @param invoiceId the id of the invoice to be updated.
+	 * @param flag the flag used to identify what field is being updated.
+	 * @param newInfo the update information.
+	 * @return true if the update was successful, false otherwise.
+	 */
+	public boolean updateEquipmentInvoice(String invoiceId, int flag, Object newInfo);
 }

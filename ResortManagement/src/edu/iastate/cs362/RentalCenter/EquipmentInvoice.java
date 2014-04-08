@@ -4,6 +4,7 @@ package edu.iastate.cs362.RentalCenter;
  * A class representing invoices for damaged equipment.
  * 
  * @author Cameron Johnston
+ * @author Bryan Passini
  *
  */
 public class EquipmentInvoice implements EquipmentInvoiceInterface {
@@ -58,5 +59,22 @@ public class EquipmentInvoice implements EquipmentInvoiceInterface {
 		return msg;
 	}
 
-	
+	@Override
+	public boolean updateEquipmentInvoice(int flag, Object newInfo) {
+		switch(flag){
+		case UPDATE_MESSAGE:
+			if(!(newInfo instanceof String))
+				return false;
+			msg = (String) newInfo;
+			break;
+		case UPDATE_EQUIPMENT_ID:
+			if(!(newInfo instanceof String))
+				return false;
+			equipId = (String) newInfo;
+			break;
+		default:
+			return false;
+		}
+		return true;
+	}
 }

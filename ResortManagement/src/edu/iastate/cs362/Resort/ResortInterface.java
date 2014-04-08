@@ -100,4 +100,15 @@ public interface ResortInterface {
 	 * @return true if RentalReservation was created successfully, false otherwise
 	 */
 	boolean createRentalReservation(String rId, String rentalId, String equipId, Customer customer, DateTime start, DateTime end);
+	
+	/**
+	 * Updates a certain field of the equipment invoice object with the given invoiceId.  This equipment invoice is held
+	 * in the rental center with the given rental center id.
+	 * @param rId the id of the rental center that contains the equipment invoice to be updated.
+	 * @param invoiceId the id of the invoice to be updated.
+	 * @param flag the flag used to identify what field is being updated.
+	 * @param newInfo the update information.
+	 * @return true if the update was successful, false otherwise.
+	 */
+	public boolean updateEquipmentInvoice(String rId, String invoiceId, int flag, Object newInfo);
 }

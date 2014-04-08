@@ -14,6 +14,7 @@ import edu.iastate.cs362.Hotel.Hotel;
  * 
  * @author Cameron Johnston
  * @author Mike Pruszinske
+ * @author Bryan Passini
  *
  */
 public class Resort implements ResortInterface {
@@ -47,6 +48,16 @@ public class Resort implements ResortInterface {
 		if(rc.createEquipInvoice(invoiceId, equipId, msg))
 			return (new ResortDBSupport().putRentalCenter(rc));
 		else
+			return false;
+	}
+	
+	@Override
+	public boolean updateEquipmentInvoice(String rId, String invoiceId, int flag, Object newInfo) {
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
+		if(rc != null && rc.updateEquipmentInvoice(invoiceId, flag, newInfo))
+			return new ResortDBSupport().putRentalCenter(rc);
+		else 
 			return false;
 	}
 
