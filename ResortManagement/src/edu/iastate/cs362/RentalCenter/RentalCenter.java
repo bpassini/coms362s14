@@ -161,7 +161,6 @@ public class RentalCenter implements RentalCenterInterface {
 	@Override
 	public boolean checkInEquipment(String eid, String rentalId) {
 		
-		
 		Equipment tmp = null;
 		for(Equipment e : equipment) {
 			if(e.getEquipId().equals(eid)) {

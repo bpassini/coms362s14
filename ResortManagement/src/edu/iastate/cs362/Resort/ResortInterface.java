@@ -171,5 +171,31 @@ public interface ResortInterface {
 	 * @return true if the update was successful, false otherwise.
 	 */
 	boolean updateRoomReservation(String hId, String reservationId, int flag, Object newInfo);
-
+	
+	/**
+	 * Updates a certain field of the hotel with the matching hotel ID
+	 * @param hid - the hotel ID
+	 * @param flag - the flag used to identify what field is being updated
+	 * @param newInfo - the updated information
+	 * @return true if the update was successful, false otherwise.
+	 */	
+	boolean updateHotel(String hid, int flag, Object u);
+	
+	/**
+	 * Checks into a hotel room and matches it to a room reservation
+	 * @param hid - the hotel ID of the hotel that holds the room
+	 * @param rid - the room ID of the room being checked into
+	 * @param rrid - the room reservation ID corresponding to this room and reservation
+	 * @return true if room was checked into successfully, false otherwise
+	 */
+	boolean checkIntoRoom(String hid, int rid, String rrid);
+	
+	/**
+	 * Checks out of hotel room and removes it from corresponding room reservation
+	 * @param hid - the hotel ID of the hotel that holds the room
+	 * @param rid - the room ID of the room being checked out of
+	 * @param rrid - the room reservation ID corresponding to this room and reservation
+	 * @return true if room was checked out of successfully, false otherwise
+	 */
+	boolean checkOutOfRoom(String hid, int rid, String rrid);
 }

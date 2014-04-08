@@ -40,7 +40,12 @@ public class RoomReservation implements RoomReservationInterface {
 	/**
 	 * Customer's desired room attributes
 	 */
-	Attribute attr;	
+	Attribute attr;
+	
+	/**
+	 * Room ID of room that is available and fits customer's requirements
+	 */
+	int rid;
 	
 	
 	/**
@@ -111,6 +116,14 @@ public class RoomReservation implements RoomReservationInterface {
 	
 	public void setHotelID(String hid) {
 		this.hid = hid;
+	}
+	
+	public void setRoomID(int rid) {
+		this.rid = rid;
+	}
+	
+	public int getRoomID()	{
+		return rid;
 	}
 	
 	public DateTime getStart() {
