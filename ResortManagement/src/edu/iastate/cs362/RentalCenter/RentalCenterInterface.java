@@ -21,9 +21,10 @@ public interface RentalCenterInterface {
 	 * @param equipType - the equipment type
 	 * @param cost - the rental cost of the equipment
 	 * @param description - a description of the equipment
+	 * @param checkedIn - whether the equipment is checked in or not
 	 * @return - true if Equipment was created and added successfully, false otherwise
 	 */
-	boolean addEquipment(String equipId, String equipType, double cost, String description);
+	boolean addEquipment(String equipId, String equipType, double cost, String description, boolean checkedIn);
 	
 	/**
 	 * Creates an EqupmentInvoice for a specific piece of equipment
