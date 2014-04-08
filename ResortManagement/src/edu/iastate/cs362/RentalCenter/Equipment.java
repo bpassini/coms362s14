@@ -97,7 +97,7 @@ public class Equipment implements EquipmentInterface {
 			else if(flag == UPDATE_DESCRIPTION)
 				description = (String) u;
 		}
-		else if(u != null && u.getClass() == double.class && flag == UPDATE_COST) 
+		else if(u != null && u instanceof Double && flag == UPDATE_COST) 
 			cost = (double) u;
 		else 
 			return false;

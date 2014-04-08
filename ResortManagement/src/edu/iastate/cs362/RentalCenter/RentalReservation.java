@@ -105,7 +105,7 @@ public class RentalReservation implements RentalReservationInterface {
 	
 	@Override
 	public boolean updateRentalReservaion(int flag, Object newInfo) {
-		DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy hh::mm");
 		switch(flag) {
 		case UPDATE_EQUIPMENT_ID:
 			if(!(newInfo instanceof String))
