@@ -101,7 +101,7 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 				ResultSet rs = stmt.executeQuery("select * from Payroll where PayrollId='" + payrollId + "'");
 				if(rs.next()) {
 					DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
-					p = new Payroll(payrollId, formatter.parseDateTime(rs.getString("StartDate")), formatter.parseDateTime(rs.getString("EndDte")));
+					p = new Payroll(payrollId, formatter.parseDateTime(rs.getString("StartDate")), formatter.parseDateTime(rs.getString("EndDate")));
 					
 					ResultSet rsEmpInfo = stmtEmpInfo.executeQuery("select * from EmployeeInfo ei, Employee e where ei.PayrollId='" + payrollId + "' and ei.EmployeeId=e.EmployeeId");
 					while(rsEmpInfo.next()) {

@@ -1,6 +1,8 @@
 package edu.iastate.cs362.RentalCenter;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import edu.iastate.cs362.Hotel.Customer;
 
@@ -103,6 +105,7 @@ public class RentalReservation implements RentalReservationInterface {
 	
 	@Override
 	public boolean updateRentalReservaion(int flag, Object newInfo) {
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
 		switch(flag) {
 		case UPDATE_EQUIPMENT_ID:
 			if(!(newInfo instanceof String))
@@ -117,12 +120,22 @@ public class RentalReservation implements RentalReservationInterface {
 		case UPDATE_START:
 			if(!(newInfo instanceof DateTime))
 				return false;
-			start = (DateTime) newInfo;
+			try {
+				start = formatter.parseDateTime((String) newInfo);
+			}
+			catch(IllegalArgumentException e) {
+				return false;
+			}
 			break;
 		case UPDATE_END:
 			if(!(newInfo instanceof DateTime))
 				return false;
-			end = (DateTime) newInfo;
+			try {
+				end = formatter.parseDateTime((String) newInfo);
+			}
+			catch(IllegalArgumentException e) {
+				return false;
+			}
 			break;
 		default:
 			return false;

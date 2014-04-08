@@ -3,6 +3,8 @@ package edu.iastate.cs362.Hotel;
 import java.util.ArrayList;
 
 import org.joda.time.*;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * Represents a room reservation for a hotel room
@@ -65,6 +67,7 @@ public class RoomReservation implements RoomReservationInterface {
 	
 	@Override
 	public boolean updateRoomReservation(int flag, Object newInfo) {
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
 		switch(flag) {
 		case UPDATE_HOTEL_ID:
 			if(!(newInfo instanceof String))
@@ -74,12 +77,22 @@ public class RoomReservation implements RoomReservationInterface {
 		case UPDATE_START_DATE:
 			if(!(newInfo instanceof DateTime))
 				return false;
-			start = (DateTime) newInfo;
+			try {
+				start = formatter.parseDateTime((String) newInfo);
+			}
+			catch(IllegalArgumentException e) {
+				return false;
+			}
 			break;
 		case UPDATE_END_DATE:
 			if(!(newInfo instanceof DateTime))
 				return false;
-			end = (DateTime) newInfo;
+			try {
+				end = formatter.parseDateTime((String) newInfo);
+			}
+			catch(IllegalArgumentException e) {
+				return false;
+			}
 			break;
 		case UPDATE_CUSTOMER:
 			if(!(newInfo instanceof Customer))

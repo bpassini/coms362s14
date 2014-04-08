@@ -2,6 +2,10 @@ package edu.iastate.cs362.ManagementSystem;
 
 import java.util.ArrayList;
 import org.joda.time.*;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import edu.iastate.cs362.Hotel.Customer;
 
 /**
  * Represents a payroll that is used by the resort to track the earnings of each employee. A resort may have more than one payroll.
@@ -83,5 +87,30 @@ public class Payroll implements PayrollInterface {
 	 */
 	public void addEmployeeInfo(String empName, String empId, double payRate, double regularHours, double overtimeHours) {
 		payroll.add(new EmployeeInfo(empName, empId, payRate, regularHours, overtimeHours));
+	}
+	
+	@Override
+	public boolean updatePayroll(int flag, Object newInfo) {
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+		try {
+			switch(flag) {
+			case UPDATE_START_DATE:
+				if(!(newInfo instanceof String))
+					return false;
+				startDate = formatter.parseDateTime((String) newInfo);
+				break;
+			case UPDATE_END_DATE:
+				if(!(newInfo instanceof Customer))
+					return false;
+				endDate = formatter.parseDateTime((String) newInfo);
+				break;
+			default:
+				return false;
+			}
+		}
+		catch(IllegalArgumentException e) {
+			return false;
+		}
+		return true;
 	}
 }
