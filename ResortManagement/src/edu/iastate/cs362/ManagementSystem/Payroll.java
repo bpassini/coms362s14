@@ -72,4 +72,16 @@ public class Payroll implements PayrollInterface {
 	public DateTime getEndDate() {
 		return endDate;
 	}
+	
+	/**
+	 * Adds an employee info object to the payroll list.
+	 * @param empName the name of the employee.
+	 * @param empId the id of the employee.
+	 * @param payRate the pay rate of the employee.
+	 * @param regularHours the number of regular hours the employee has worked.
+	 * @param overtimeHours the number of overtime hours this employee has worked.
+	 */
+	public void addEmployeeInfo(String empName, String empId, double payRate, double regularHours, double overtimeHours) {
+		payroll.add(new EmployeeInfo(empName, empId, payRate, regularHours, overtimeHours));
+	}
 }
