@@ -168,4 +168,39 @@ public class Resort implements ResortInterface {
 		else 
 			return false;
 	}
+
+	@Override
+	public boolean updateHotel(String hid, int flag, Object u) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hid);
+		if(h != null && h.updateHotel(flag, u))
+			return new ResortDBSupport().putHotel(h);
+			
+		else 
+			return false;
+	}
+
+	@Override
+	public boolean checkIntoRoom(String hid, int rid, String rrid) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hid);
+		if(h != null && h.checkIntoRoom(rid, rrid)) {
+			return new ResortDBSupport().putHotel(h);
+		}
+		
+		else 
+			return false;
+	}
+
+	@Override
+	public boolean checkOutOfRoom(String hid, int rid, String rrid) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hid);
+		if(h != null && h.checkOutOfRoom(rid, rrid)) {
+			return new ResortDBSupport().putHotel(h);
+		}
+		
+		else 
+			return false;
+	}
 }

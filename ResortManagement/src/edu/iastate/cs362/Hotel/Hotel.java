@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.joda.time.*;
 
-import edu.iastate.cs362.RentalCenter.EquipmentInvoice;
-
 /**
  * Represents a hotel created/used by hotel admin. Resort may have many hotels.
  * 
@@ -100,6 +98,93 @@ public class Hotel implements HotelInterface{
 		}
 		return false;
 	}
+	
+	
+	@Override
+	public boolean updateHotel(int flag, Object u) {
+		
+		if(u instanceof String) {
+			if(flag == UPDATE_NAME) 
+				name = (String) u;	
+		}
+		else
+			return false;
+	
+		return true;
+	}
+
+
+	@Override
+	public boolean checkIntoRoom(int rid, String rrid) {
+		
+		Room temp = null;
+		for(Room r: rooms) {
+			if(r.getRoomID() == rid)
+			{
+				temp = r;
+				break;
+			}
+		}
+		
+		RoomReservation tempRes = null;
+		for(RoomReservation rr: reservations) {
+			if(rr.getRoomReservationID().equals(rrid)) {
+				tempRes = rr;
+				break;
+			}
+		}
+		
+		if(temp == null || tempRes == null) {
+			return false;
+		}
+		
+		else if(temp.setCheckedOut()) {
+			tempRes.setRoomID(rid);
+			boolean room = rooms.remove(temp) && rooms.add(temp);
+			boolean res = reservations.remove(tempRes) && reservations.add(tempRes);
+			return room && res;
+		}
+		
+		else
+			return false;
+	}
+
+
+	@Override
+	public boolean checkOutOfRoom(int rid, String rrid) {
+		
+		Room temp = null;
+		for(Room r: rooms) {
+			if(r.getRoomID() == rid)
+			{
+				temp = r;
+				break;
+			}
+		}
+		
+		RoomReservation tempRes = null;
+		for(RoomReservation rr: reservations) {
+			if(rr.getRoomReservationID().equals(rrid)) {
+				tempRes = rr;
+				break;
+			}
+		}
+		
+		if(temp == null || tempRes == null) {
+			return false;
+		}
+		
+		else if(temp.setAvailable()) {
+			tempRes.setRoomID(0);
+			boolean room = rooms.remove(temp) && rooms.add(temp);
+			boolean res = reservations.remove(tempRes) && reservations.add(tempRes);
+			return room && res;
+		}
+		
+		else
+			return false;
+	}
+	
 	
 	/**
 	 * Get Hotel ID helper

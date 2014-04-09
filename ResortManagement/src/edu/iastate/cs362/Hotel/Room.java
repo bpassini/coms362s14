@@ -13,17 +13,22 @@ public class Room implements RoomInterface {
 	/**
 	 * Hotel room ID
 	 */
-	int rmid;
+	private int rmid;
 	
 	/**
 	 * Attribute object (containing ArrayList<String> beds and int occupancy)
 	 */
-	Attribute attr;
+	private Attribute attr;
 	
 	/**
 	 * Description of room
 	 */
-	String desc;
+	private String desc;
+	
+	/**
+	 * The status of this room, true if checked out, false if available
+	 */
+	private boolean checkedOut;
 	
 	
 	/**
@@ -78,6 +83,20 @@ public class Room implements RoomInterface {
 	
 	public void setDescription(String desc) {
 		this.desc = desc;
+	}
+	
+	public boolean setCheckedOut() {
+		this.checkedOut = true;
+		return true;
+	}
+	
+	public boolean setAvailable()	{
+		this.checkedOut = false;
+		return true;
+	}
+	
+	public boolean getStatus()	{
+		return checkedOut;
 	}
 	
 }
