@@ -130,6 +130,8 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 			if(this.updatePayroll(p)) {
 				if(p.getPayroll().size() > 0)
 					return updatePayrollList(p);
+				else
+					return true;
 			}
 		}
 		return false;

@@ -101,7 +101,7 @@ public class Payroll implements PayrollInterface {
 				startDate = formatter.parseDateTime((String) newInfo);
 				break;
 			case UPDATE_END_DATE:
-				if(!(newInfo instanceof Customer))
+				if(!(newInfo instanceof String))
 					return false;
 				endDate = formatter.parseDateTime((String) newInfo);
 				break;
