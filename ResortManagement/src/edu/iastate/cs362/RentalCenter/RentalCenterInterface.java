@@ -1,5 +1,7 @@
 package edu.iastate.cs362.RentalCenter;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 
 import edu.iastate.cs362.Hotel.Customer;
@@ -15,6 +17,15 @@ public interface RentalCenterInterface {
 	 * Constant used to signal that the name variable is the field to be updated.
 	 */
 	static final int UPDATE_NAME = 0; 
+	
+	/** 
+	 * Constants used to determine which field to search equipment by.
+	 */
+	static final int SEARCH_BY_ID = 1;
+	static final int SEARCH_BY_TYPE = 2;
+	static final int SEARCH_BY_COST = 3;
+	static final int SEARCH_BY_STATUS = 4;
+	
 	/**
 	 * creates and adds a piece of equipment to the RentalCenter
 	 * @param equipId - the equipment id
@@ -96,5 +107,12 @@ public interface RentalCenterInterface {
 	 * @return true if checked in successfully, false otherwise
 	 */
 	boolean checkInEquipment(String eid, String rentalId);
+	
+	/**
+	 * Searches equipment of the rental center
+	 * @param s - the object to search equipment
+	 * @param flag - the field we wish to search equipment by
+	 */
+	List<Equipment> searchEquipment(Object s, int flag);
 
 }

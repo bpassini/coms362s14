@@ -1,7 +1,9 @@
 package edu.iastate.cs362.RentalCenter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.joda.time.DateTime;
 
@@ -69,7 +71,7 @@ public class RentalCenter implements RentalCenterInterface {
 	@Override
 	public boolean createRentalReservation(String rentalId, String eid, Customer cust,
 			DateTime start, DateTime end) {
-		
+		//TODO make sure this is okay to add.
 		RentalReservation r = new RentalReservation(rentalId, eid, cust, start, end);
 		return reservations.add(r);
 	}
@@ -250,5 +252,61 @@ public class RentalCenter implements RentalCenterInterface {
 	 */
 	public List<RentalReservation> getReservationsList() {
 		return reservations;
+	}
+
+	@Override
+	public List<Equipment> searchEquipment(Object s, int flag) {
+		List<Equipment> e = new ArrayList<Equipment>();
+		boolean found = false;
+		if(flag == SEARCH_BY_ID) {
+			if(s instanceof String) {
+				String id = (String) s;
+				for(Equipment eq : equipment) {
+					if(eq.getEquipId().equals(id)) {
+						e.add(eq);
+						found = true;
+						break;
+					}
+				}
+			}
+		}
+		else if(flag == SEARCH_BY_TYPE) {
+			if(s instanceof String) {
+				String type = (String) s;
+				for(Equipment eq : equipment) {
+					if(eq.getEquipType().equalsIgnoreCase(type)) {
+						e.add(eq);
+						found = true;
+					}
+				}
+			}
+		}
+		else if(flag == SEARCH_BY_COST) {
+			if(s instanceof Double) {
+				double cost = (double) s;
+				for(Equipment eq : equipment) {
+					if(eq.getCost() == cost) {
+						e.add(eq);
+						found = true;
+					}
+				}
+			}
+		}
+		else if(flag == SEARCH_BY_STATUS) {
+			if(s instanceof Boolean) {
+				boolean status = (boolean) s;
+				for(Equipment eq : equipment) {
+					if(eq.getStatus() == status) {
+						e.add(eq);
+						found = true;
+					}
+				}
+			}
+		}
+		
+		if(!found)
+			return null;
+		else
+			return e;
 	}
 }

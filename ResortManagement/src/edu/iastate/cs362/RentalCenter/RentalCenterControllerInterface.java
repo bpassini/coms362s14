@@ -1,5 +1,7 @@
 package edu.iastate.cs362.RentalCenter;
 
+import java.util.List;
+
 import edu.iastate.cs362.Hotel.Customer;
 /**
  * Interface for our RentalCenterController.
@@ -112,5 +114,13 @@ public interface RentalCenterControllerInterface {
 	 * @return true if checked in successfully, false otherwise
 	 */
 	boolean checkInEquipment(String rid, String eid, String rentalId);
+	
+	/**
+	 * Searches equipment of a specific rental center
+	 * @param rid - the rental center id
+	 * @param s - the object to search equipment
+	 * @param flag - the field we wish to search equipment by
+	 */
+	List<Equipment> searchEquipment(String rid, Object s, int flag);
 
 }

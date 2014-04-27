@@ -1,6 +1,8 @@
 package edu.iastate.cs362.Resort;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import org.joda.time.*;
 
@@ -202,5 +204,16 @@ public class Resort implements ResortInterface {
 		
 		else 
 			return false;
+	}
+
+	@Override
+	public List<Equipment> searchEquipment(String rid, Object s, int flag) {
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		if(rc != null) {
+			return rc.searchEquipment(s, flag);		
+		}
+		else 
+			return null;
 	}
 }

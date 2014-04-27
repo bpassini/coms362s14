@@ -1,11 +1,13 @@
 package edu.iastate.cs362.Resort;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import org.joda.time.*;
+import org.joda.time.DateTime;
 
 import edu.iastate.cs362.Hotel.Attribute;
 import edu.iastate.cs362.Hotel.Customer;
+import edu.iastate.cs362.RentalCenter.Equipment;
 
 /**
  * Interface for Resort.
@@ -199,4 +201,12 @@ public interface ResortInterface {
 	 * @return true if room was checked out of successfully, false otherwise
 	 */
 	boolean checkOutOfRoom(String hid, int rid, String rrid);
+	
+	/**
+	 * Searches equipment of a specific rental center
+	 * @param rid - the rental center id
+	 * @param s - the object to search equipment
+	 * @param flag - the field we wish to search equipment by
+	 */
+	List<Equipment> searchEquipment(String rid, Object s, int flag);
 }

@@ -1,5 +1,8 @@
 package edu.iastate.cs362.Resort;
 
+import java.util.Set;
+
+import edu.iastate.cs362.RentalCenter.Equipment;
 import edu.iastate.cs362.RentalCenter.RentalCenter;
 import edu.iastate.cs362.Hotel.*;
 /**
@@ -38,4 +41,6 @@ public interface ResortDBSupportInterface {
 	 * @return - true if Hotel is successfully placed in database, false otherwise
 	 */
 	boolean putHotel(Hotel h);
+	
+
 }

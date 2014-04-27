@@ -1,5 +1,7 @@
 package edu.iastate.cs362.RentalCenter;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -74,5 +76,10 @@ public class RentalCenterController implements RentalCenterControllerInterface {
 	@Override
 	public boolean checkInEquipment(String rid, String eid, String rentalId) {
 		return new Resort().checkInEquipment(rid, eid, rentalId);
+	}
+	
+	@Override
+	public List<Equipment> searchEquipment(String rid, Object s, int flag) {
+		return new Resort().searchEquipment(rid, s, flag);
 	}
 }
