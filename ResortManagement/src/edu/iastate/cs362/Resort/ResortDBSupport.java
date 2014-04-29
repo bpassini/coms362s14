@@ -27,6 +27,7 @@ import edu.iastate.cs362.RentalCenter.RentalReservation;
  * 
  * @author Cameron Johnston
  * @author Mike Pruszinske
+ * @author Bryan Passini
  *
  */
 public class ResortDBSupport implements ResortDBSupportInterface {
@@ -63,7 +64,8 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					ResultSet rsR = stmtReserv.executeQuery("select * from RentalReservation where rId='" + rId + "' order by rentalId");
 					
 					while(rsE.next()) {
-						rc.addEquipment(rsE.getString("equipId"), rsE.getString("equipType"), rsE.getDouble("cost"), rsE.getString("description"));
+						rc.addEquipment(rsE.getString("equipId"), rsE.getString("equipType"), rsE.getDouble("cost"), rsE.getString("description"), rsE.getBoolean("checkedIn"));
+		
 					}
 					
 					while(rsI.next()) {
@@ -73,7 +75,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					while(rsR.next()) {
 						
 						Customer customer = new Customer(rsR.getInt("cmId"), rsR.getString("firstName"), rsR.getString("lastName"));
-						DateTimeFormatter df = DateTimeFormat.forPattern("dd/MM/yyyy hh::mm");
+						DateTimeFormatter df = DateTimeFormat.forPattern("MM/dd/yyyy hh::mm");
 						DateTime start = df.parseDateTime((rsR.getString("startDate")));
 						DateTime end = df.parseDateTime((rsR.getString("endDate")));
 						
@@ -112,11 +114,13 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 	public boolean putRentalCenter(RentalCenter rc) {
 		if(this.getRentalCenter(rc.getId())==null)
 			return writeRentalCenter(rc);
-		else
+		else {
+			updateRentalCenter(rc);
 			if(rc.getEquipmentList().size()>0 || rc.getInvoicesList().size() > 0 || rc.getReservationsList().size() > 0)
 				return addRCLists(rc);
 			else
 				return false;//trying to add a duplicate key
+		}
 	}	
 	
 	/**
@@ -138,14 +142,14 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				// place Equipment in Database
 				for(int i=0;i<rc.getEquipmentList().size();i++){
 					Equipment e = rc.getEquipmentList().get(i);
-					qs = "insert into Equipment values ('"+e.getEquipId()+"','"+ e.getEquipType()+"',"+e.getCost() + ",'"+e.getDescription()+"')";
+					qs = "insert into Equipment values ('"+e.getEquipId()+"','"+ e.getEquipType()+"',"+e.getCost() + ",'"+e.getDescription()+"','" + rc.getId() + "','" + e.getStatus() + "')";
 					stmt.executeUpdate(qs);
 				}
 				
 				//place EquipmentInvoices in Database
 				for(int j=0;j<rc.getInvoicesList().size();j++){
 					EquipmentInvoice i = rc.getInvoicesList().get(j);
-					qs = "insert into EquipmentInvoice values ('"+i.getInvoiceId()+"','"+ i.getEquipId()+"','"+i.getInvoiceMsg()+"')";
+					qs = "insert into EquipmentInvoice values ('"+i.getInvoiceId()+"','"+ i.getEquipId()+"','"+i.getInvoiceMsg()+"','" + rc.getId() + "')";
 					stmt.executeUpdate(qs);
 				}
 				
@@ -153,7 +157,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				for(int j=0;j<rc.getReservationsList().size();j++){
 					RentalReservation r = rc.getReservationsList().get(j);
 					qs = "insert into RentalReservation values ('"+ r.getEquipId()+"','"+r.getCustomer().getCmid()+"','" + r.getCustomer().getFirstName()
-							+ "','" + r.getCustomer().getLastName()+ "','" + r.getStart().toString()+"','" + r.getEnd().toString()+"','"+r.getRentalId()+"')";
+							+ "','" + r.getCustomer().getLastName()+ "','" + r.getStart().toString()+"','" + r.getEnd().toString()+"','"+r.getRentalId()+"','" + rc.getId() + "')";
 					stmt.executeUpdate(qs);
 				}
 
@@ -214,7 +218,11 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				//there has been a change to EquipmentList, so add the last one to the Database
 				if(rc.getEquipmentList().size() - eCount == 1) {
 					Equipment e = rc.getEquipmentList().get(rc.getEquipmentList().size()-1);
-					stmtEWrite.executeUpdate("insert into Equipment values ('"+e.getEquipId()+"','"+ e.getEquipType()+"',"+e.getCost() + ",'"+e.getDescription()+"','" + rc.getId()+ "')");
+					stmtEWrite.executeUpdate("insert into Equipment values ('"+e.getEquipId()+"','"+ e.getEquipType()+"',"+e.getCost() + ",'"+e.getDescription()+"','" + rc.getId()+ "','" + e.getStatus() +"')");
+				}
+				else if(rc.getEquipmentList().size() - eCount == 0) {
+					Equipment e = rc.getEquipmentList().get(rc.getEquipmentList().size()-1);
+					stmtEWrite.executeUpdate("update Equipment set equipType='"+ e.getEquipType() + "', cost='" + e.getCost() + "', description='" + e.getDescription() + "', rId='" + rc.getId() + "', checkedIn=" + e.getStatus() + " where equipId='" + e.getEquipId() + "'");
 				}
 				
 				//there has been a change to InvoicesList, so add the last one to the Database
@@ -222,13 +230,22 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					EquipmentInvoice i = rc.getInvoicesList().get(rc.getInvoicesList().size()-1);
 					stmtIWrite.executeUpdate("insert into EquipmentInvoice values ('"+i.getInvoiceId()+"','"+ i.getEquipId()+"','"+i.getInvoiceMsg()+"','" + rc.getId() + "')");
 				}
+				else if(rc.getInvoicesList().size() - iCount == 0) {
+					EquipmentInvoice i = rc.getInvoicesList().get(rc.getInvoicesList().size()-1);
+					stmtIWrite.executeUpdate("update EquipmentInvoice set equipId='"+ i.getEquipId() + "', msg='" + i.getInvoiceMsg() + "', rId='" + rc.getId() + "' where invoiceId='" + i.getInvoiceId() + "'");
+				}
 				
-				DateTimeFormatter df = DateTimeFormat.forPattern("dd/MM/yyyy hh::mm");
+				DateTimeFormatter df = DateTimeFormat.forPattern("MM/dd/yyyy hh::mm");
 				//there has been a change to ReservationsList, so add the last one to the Database
 				if(rc.getReservationsList().size() - rCount == 1) {
 					RentalReservation r = rc.getReservationsList().get(rc.getReservationsList().size() - 1);
 					stmtRWrite.executeUpdate("insert into RentalReservation values ('" +r.getRentalId()+"','" + r.getEquipId()+"','"+r.getCustomer().getCmid()+"','" + r.getCustomer().getFirstName()
 							+ "','" + r.getCustomer().getLastName()+ "','" + r.getStart().toString(df)+"','" + r.getEnd().toString(df)+"','" + rc.getId() + "')");
+				}
+				else if(rc.getReservationsList().size() - rCount == 0) {
+					RentalReservation r = rc.getReservationsList().get(rc.getReservationsList().size() - 1);
+					stmtRWrite.executeUpdate("update RentalReservation set equipId='"+ r.getEquipId() + "', cmId='" + r.getCustomer().getCmid() + "', firstName='" + r.getCustomer().getFirstName() + "', lastName='" + r.getCustomer().getLastName() + "', startDate='" + r.getStart().toString(df)
+							+ "', endDate='" + r.getEnd().toString(df) + "', rId='" + rc.getId() + "' where rentalId='" + r.getRentalId() + "'");
 				}
 				
 				//close statements and connections
@@ -258,6 +275,29 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 		return returnValue;
 	}
 
+	private void updateRentalCenter(RentalCenter rc) {
+		try {
+			connection=this.getConnection();
+			if(connection==null)
+				return;
+			else{
+				Statement stmt = connection.createStatement();
+				stmt.executeUpdate("update RentalCenter set rName='"+ rc.getName() + "'");
+			}
+		}
+		 catch (SQLException sqle){
+				sqle.printStackTrace();			
+				while (sqle != null) {
+					String logMessage = "\n SQL Error: "+
+					  sqle.getMessage() + "\n\t\t"+
+					  "Error code: "+sqle.getErrorCode() + 
+	                                               "\n\t\t"+
+					  "SQLState: "+sqle.getSQLState()+"\n";
+			        System.out.println(logMessage);
+			        sqle = sqle.getNextException();
+				}
+		 }
+	}
 	@Override
 	public Hotel getHotel(String hid) {
 		
@@ -387,7 +427,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				
 				for(int i=0; i<h.getRoomsList().size(); i++) {
 					Room r = h.getRoomsList().get(i);
-					qs = "insert into Rooms values ('"+r.getRoomID()+"','"+h.getID()+"','"+r.getOccupancy()+"','"+r.getBeds().size()+"','"+r.getDescription()+"','"+r.getBeds().toString()+"')";
+					qs = "insert into Rooms values ('"+r.getRoomID()+"','"+h.getID()+"','"+r.getOccupancy()+"','"+r.getBeds().size()+"','"+r.getDescription()+"','"+r.getBeds().toString()+"', '"+r.getStatus()+"')";
 					stmt.executeUpdate(qs);
 				}
 				
@@ -468,7 +508,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				
 				if(h.getRoomsList().size() - roomCount == 1) {
 					Room r = h.getRoomsList().get(h.getRoomsList().size()-1);
-					stmtRoomWrite.executeUpdate("insert into Rooms values ('"+r.getRoomID()+"','"+h.getID()+"','"+r.getOccupancy()+"','"+r.getBeds().size()+"','"+r.getDescription()+"','"+r.getBeds().toString()+"')");
+					stmtRoomWrite.executeUpdate("insert into Rooms values ('"+r.getRoomID()+"','"+h.getID()+"','"+r.getOccupancy()+"','"+r.getBeds().size()+"','"+r.getDescription()+"','"+r.getBeds().toString()+"', '"+r.getStatus()+"')");
 				}
 				
 				DateTimeFormatter f = DateTimeFormat.forPattern("MM/dd/yyyy");

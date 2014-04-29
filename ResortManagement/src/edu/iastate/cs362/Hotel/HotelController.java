@@ -42,4 +42,26 @@ public class HotelController implements HotelControllerInterface {
 		return (new Resort().createRoomReservation(rrid, hid, formatter.parseDateTime(start), formatter.parseDateTime(end), cust, attr));
 	}
 	
+	@Override
+	public boolean updateRoomReservation(String hId, String reservationId, int flag, Object newInfo) {
+		return new Resort().updateRoomReservation(hId, reservationId, flag, newInfo);
+	}
+
+	@Override
+	public boolean updateHotel(String hid, int flag, Object u) {
+		return new Resort().updateHotel(hid, flag, u);
+	}
+
+	@Override
+	public boolean checkIntoRoom(String hid, int rid, String rrid) {
+		return new Resort().checkIntoRoom(hid, rid, rrid);
+	}
+
+	@Override
+	public boolean checkOutOfRoom(String hid, int rid, String rrid) {
+		return new Resort().checkOutOfRoom(hid, rid, rrid);
+	}
+	
+	
+	
 }

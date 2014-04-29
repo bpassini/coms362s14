@@ -80,6 +80,112 @@ public class Hotel implements HotelInterface{
 		return reservations.add(res);
 	}
 	
+	@Override
+	public boolean updateRoomReservation(String reservationId, int flag, Object newInfo) {
+		RoomReservation temp = null;
+		for(RoomReservation rr : reservations) {
+			if(rr.getRoomReservationID().equals(reservationId)) {
+				temp = rr;
+				break;
+			}
+		}
+		//An room reservation with the given invoiceId was not found.
+		if(temp == null)
+			return false;
+		if(temp.updateRoomReservation(flag, newInfo)) {
+			//Place the updated room reservation at the end of the list and then return if the add was successful or not.
+			return reservations.remove(temp) && reservations.add(temp);
+		}
+		return false;
+	}
+	
+	
+	@Override
+	public boolean updateHotel(int flag, Object u) {
+		
+		if(u instanceof String) {
+			if(flag == UPDATE_NAME) 
+				name = (String) u;	
+		}
+		else
+			return false;
+	
+		return true;
+	}
+
+
+	@Override
+	public boolean checkIntoRoom(int rid, String rrid) {
+		
+		Room temp = null;
+		for(Room r: rooms) {
+			if(r.getRoomID() == rid)
+			{
+				temp = r;
+				break;
+			}
+		}
+		
+		RoomReservation tempRes = null;
+		for(RoomReservation rr: reservations) {
+			if(rr.getRoomReservationID().equals(rrid)) {
+				tempRes = rr;
+				break;
+			}
+		}
+		
+		if(temp == null || tempRes == null) {
+			return false;
+		}
+		
+		else if(temp.setCheckedOut()) {
+			tempRes.setRoomID(rid);
+			boolean room = rooms.remove(temp) && rooms.add(temp);
+			boolean res = reservations.remove(tempRes) && reservations.add(tempRes);
+			return room && res;
+		}
+		
+		else
+			return false;
+	}
+
+
+	@Override
+	public boolean checkOutOfRoom(int rid, String rrid) {
+		
+		Room temp = null;
+		for(Room r: rooms) {
+			if(r.getRoomID() == rid)
+			{
+				temp = r;
+				break;
+			}
+		}
+		
+		RoomReservation tempRes = null;
+		for(RoomReservation rr: reservations) {
+			if(rr.getRoomReservationID().equals(rrid)) {
+				tempRes = rr;
+				break;
+			}
+		}
+		
+		if(temp == null || tempRes == null) {
+			return false;
+		}
+		
+		else if(temp.setAvailable()) {
+			tempRes.setRoomID(0);
+			boolean room = rooms.remove(temp) && rooms.add(temp);
+			boolean res = reservations.remove(tempRes) && reservations.add(tempRes);
+			return room && res;
+		}
+		
+		else
+			return false;
+	}
+	
+	
 	/**
 	 * Get Hotel ID helper
 	 * 

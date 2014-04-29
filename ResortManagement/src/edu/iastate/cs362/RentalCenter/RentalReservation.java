@@ -1,6 +1,8 @@
 package edu.iastate.cs362.RentalCenter;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import edu.iastate.cs362.Hotel.Customer;
 
@@ -8,6 +10,7 @@ import edu.iastate.cs362.Hotel.Customer;
  * Class for a reservation of a piece of rental equipment. 
  * 
  * @author Cameron Johnston
+ * @author Bryan Passini
  *
  */
 public class RentalReservation implements RentalReservationInterface {
@@ -92,4 +95,51 @@ public class RentalReservation implements RentalReservationInterface {
 		return end;
 	}
 	
+	/** 
+	 * sets the equipId of the reservation
+	 * @param id the id to set it to
+	 */
+	public void setEquipId(String id) {
+		equipId = id;
+	}
+	
+	@Override
+	public boolean updateRentalReservaion(int flag, Object newInfo) {
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy hh::mm");
+		switch(flag) {
+		case UPDATE_EQUIPMENT_ID:
+			if(!(newInfo instanceof String))
+				return false;
+			equipId = (String) newInfo;
+			break;
+		case UPDATE_CUSTOMER:
+			if(!(newInfo instanceof Customer))
+				return false;
+			customer = (Customer) newInfo;
+			break;
+		case UPDATE_START:
+			if(!(newInfo instanceof DateTime))
+				return false;
+			try {
+				start = formatter.parseDateTime((String) newInfo);
+			}
+			catch(IllegalArgumentException e) {
+				return false;
+			}
+			break;
+		case UPDATE_END:
+			if(!(newInfo instanceof DateTime))
+				return false;
+			try {
+				end = formatter.parseDateTime((String) newInfo);
+			}
+			catch(IllegalArgumentException e) {
+				return false;
+			}
+			break;
+		default:
+			return false;
+		}
+		return true;
+	}
 }

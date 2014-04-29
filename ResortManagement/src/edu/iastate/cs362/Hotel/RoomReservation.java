@@ -3,6 +3,8 @@ package edu.iastate.cs362.Hotel;
 import java.util.ArrayList;
 
 import org.joda.time.*;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * Represents a room reservation for a hotel room
@@ -40,7 +42,12 @@ public class RoomReservation implements RoomReservationInterface {
 	/**
 	 * Customer's desired room attributes
 	 */
-	Attribute attr;	
+	Attribute attr;
+	
+	/**
+	 * Room ID of room that is available and fits customer's requirements
+	 */
+	int rid;
 	
 	
 	/**
@@ -63,6 +70,51 @@ public class RoomReservation implements RoomReservationInterface {
 		this.attr = attr;
 	}
 	
+	@Override
+	public boolean updateRoomReservation(int flag, Object newInfo) {
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+		switch(flag) {
+		case UPDATE_HOTEL_ID:
+			if(!(newInfo instanceof String))
+				return false;
+			hid = (String) newInfo;
+			break;
+		case UPDATE_START_DATE:
+			if(!(newInfo instanceof DateTime))
+				return false;
+			try {
+				start = formatter.parseDateTime((String) newInfo);
+			}
+			catch(IllegalArgumentException e) {
+				return false;
+			}
+			break;
+		case UPDATE_END_DATE:
+			if(!(newInfo instanceof DateTime))
+				return false;
+			try {
+				end = formatter.parseDateTime((String) newInfo);
+			}
+			catch(IllegalArgumentException e) {
+				return false;
+			}
+			break;
+		case UPDATE_CUSTOMER:
+			if(!(newInfo instanceof Customer))
+				return false;
+			cust = (Customer) newInfo;
+			break;
+		case UPDATE_ATTRIBUTE:
+			if(!(newInfo instanceof Attribute))
+				return false;
+			attr = (Attribute) newInfo;
+			break;
+		default:
+			return false;
+		}
+		return true;
+	}
+	
 	public String getRoomReservationID() {
 		return rrid;
 	}
@@ -77,6 +129,14 @@ public class RoomReservation implements RoomReservationInterface {
 	
 	public void setHotelID(String hid) {
 		this.hid = hid;
+	}
+	
+	public void setRoomID(int rid) {
+		this.rid = rid;
+	}
+	
+	public int getRoomID()	{
+		return rid;
 	}
 	
 	public DateTime getStart() {

@@ -14,6 +14,7 @@ import edu.iastate.cs362.Hotel.Hotel;
  * 
  * @author Cameron Johnston
  * @author Mike Pruszinske
+ * @author Bryan Passini
  *
  */
 public class Resort implements ResortInterface {
@@ -31,10 +32,10 @@ public class Resort implements ResortInterface {
 
 	@Override
 	public boolean addEquipment(String rId, String equipId, String equipType,
-			double cost, String description) {
+			double cost, String description, boolean checkedIn) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
-		if(rc.addEquipment(equipId, equipType, cost, description))
+		if(rc != null && rc.addEquipment(equipId, equipType, cost, description, checkedIn))
 			return (new ResortDBSupport().putRentalCenter(rc));
 		else 
 			return false;
@@ -44,9 +45,19 @@ public class Resort implements ResortInterface {
 	public boolean createEquipInvoice(String rId, String invoiceId, String equipId, String msg) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
-		if(rc.createEquipInvoice(invoiceId, equipId, msg))
+		if(rc != null && rc.createEquipInvoice(invoiceId, equipId, msg))
 			return (new ResortDBSupport().putRentalCenter(rc));
 		else
+			return false;
+	}
+	
+	@Override
+	public boolean updateEquipmentInvoice(String rId, String invoiceId, int flag, Object newInfo) {
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
+		if(rc != null && rc.updateEquipmentInvoice(invoiceId, flag, newInfo))
+			return new ResortDBSupport().putRentalCenter(rc);
+		else 
 			return false;
 	}
 
@@ -55,8 +66,18 @@ public class Resort implements ResortInterface {
 			Customer customer, DateTime start, DateTime end) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
-		if(rc.createRentalReservation(rentalId, equipId, customer, start, end))
+		if(rc != null && rc.createRentalReservation(rentalId, equipId, customer, start, end))
 			return (new ResortDBSupport().putRentalCenter(rc));
+		else
+			return false;
+	}
+	
+	@Override
+	public boolean updateRentalReservation(String rId, String reservationId, int flag, Object newInfo) {
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rId);
+		if(rc != null && rc.updateRentalReservation(reservationId, flag, newInfo))
+			return new ResortDBSupport().putRentalCenter(rc);
 		else
 			return false;
 	}
@@ -66,7 +87,7 @@ public class Resort implements ResortInterface {
 		
 		Hotel h = new ResortDBSupport().getHotel(hid);
 		
-		if(h.addRoom(beds, occup, desc, rmid) == false)
+		if(h != null && h.addRoom(beds, occup, desc, rmid) == false)
 			return false;
 		
 		return (new ResortDBSupport().putHotel(h));
@@ -77,7 +98,7 @@ public class Resort implements ResortInterface {
 		
 		Hotel h = new ResortDBSupport().getHotel(hid);
 		
-		if(h.createRoomInvoice(hid, rmid, iid, notes) == false)
+		if(h != null && h.createRoomInvoice(hid, rmid, iid, notes) == false)
 			return false;
 		
 		return(new ResortDBSupport().putHotel(h));
@@ -88,10 +109,98 @@ public class Resort implements ResortInterface {
 		
 		Hotel h = new ResortDBSupport().getHotel(hid);
 		
-		if(h.createRoomReservation(rrid, hid, start, end, cust, attr) == false)
+		if(h != null && h.createRoomReservation(rrid, hid, start, end, cust, attr) == false)
 			return false;
 		
 		return(new ResortDBSupport().putHotel(h));
 	}
+	
+	@Override
+	public boolean updateRoomReservation(String hId, String reservationId, int flag, Object newInfo) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hId);
+		if(h != null && h.updateRoomReservation(reservationId, flag, newInfo)) //TODO
+			return new ResortDBSupport().putHotel(h);
+		else
+			return false;
+	}
 
+
+	@Override
+	public boolean updateEquipment(String rid, String eid, int flag, Object u) {
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		if(rc != null && rc.updateEquipment(eid, flag, u)) {
+			return new ResortDBSupport().putRentalCenter(rc);
+		}
+		else 
+			return false;
+	}
+
+	@Override
+	public boolean updateRentalCenter(String rid, int flag, Object u) {
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		if(rc != null && rc.updateRentalCenter(flag, u)) {
+			return new ResortDBSupport().putRentalCenter(rc);
+		}
+		else 
+			return false;
+	}
+
+	@Override
+	public boolean checkOutEquipment(String rid, String eid, String rentalId) {
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		if(rc != null && rc.checkOutEquipment(eid, rentalId)) {
+			return new ResortDBSupport().putRentalCenter(rc);
+		}
+		else 
+			return false;
+	}
+
+	@Override
+	public boolean checkInEquipment(String rid, String eid, String rentalId) {
+		
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		if(rc != null && rc.checkInEquipment(eid, rentalId)) {
+			return new ResortDBSupport().putRentalCenter(rc);
+		}
+		else 
+			return false;
+	}
+
+	@Override
+	public boolean updateHotel(String hid, int flag, Object u) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hid);
+		if(h != null && h.updateHotel(flag, u))
+			return new ResortDBSupport().putHotel(h);
+			
+		else 
+			return false;
+	}
+
+	@Override
+	public boolean checkIntoRoom(String hid, int rid, String rrid) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hid);
+		if(h != null && h.checkIntoRoom(rid, rrid)) {
+			return new ResortDBSupport().putHotel(h);
+		}
+		
+		else 
+			return false;
+	}
+
+	@Override
+	public boolean checkOutOfRoom(String hid, int rid, String rrid) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hid);
+		if(h != null && h.checkOutOfRoom(rid, rrid)) {
+			return new ResortDBSupport().putHotel(h);
+		}
+		
+		else 
+			return false;
+	}
 }

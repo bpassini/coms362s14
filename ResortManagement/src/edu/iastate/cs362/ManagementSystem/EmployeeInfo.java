@@ -1,12 +1,14 @@
 package edu.iastate.cs362.ManagementSystem;
 
+import edu.iastate.cs362.Hotel.Customer;
+
 /**
  * This class is used to keep the each employees information that is relevant to the payroll.
  * 
  * @author Bryan Passini
  *
  */
-public class EmployeeInfo {
+public class EmployeeInfo implements EmployeeInfoInterface {
 	/**
 	 * The name of the employee.
 	 */
@@ -53,6 +55,26 @@ public class EmployeeInfo {
 		this.payRate = payRate;
 		this.regularHours = regularHours;
 		this.overtimeHours = overtimeHours;
+	}
+	
+	@Override
+	public boolean updatePayrollRow(int flag, Object newInfo) {
+		if(!(newInfo instanceof Double))
+			return false;
+		switch(flag) {
+		case UPDATE_PAY_RATE:
+			payRate = (Double) newInfo;
+			break;
+		case UPDATE_REGULAR_HOURS:
+			regularHours = (Double) newInfo;
+			break;
+		case UPDATE_OVERTIME_HOURS:
+			overtimeHours = (Double) newInfo;
+			break;
+		default:
+			return false;
+		}
+		return true;
 	}
 	
 	/**
