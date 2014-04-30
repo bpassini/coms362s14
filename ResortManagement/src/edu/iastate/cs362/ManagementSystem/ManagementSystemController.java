@@ -43,4 +43,9 @@ public class ManagementSystemController implements ManagementSystemControllerInt
 	public boolean updatePayrollRow(String payrollId, String employeeId, int flag, Object newInfo) {
 		return new ManagementSystem().updatePayrollRow(payrollId, employeeId, flag, newInfo);
 	}
+	
+	@Override
+	public boolean addRevenueToBudget(String budgetId, String revenueName, double revenueAmount) {
+		return new ManagementSystem().addRevenueToBudget(budgetId, revenueName, revenueAmount);
+	}
 }

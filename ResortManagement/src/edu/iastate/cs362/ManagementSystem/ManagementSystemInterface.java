@@ -53,4 +53,13 @@ public interface ManagementSystemInterface {
 	 * @return true if the update was successful, false otherwise.
 	 */
 	boolean updatePayrollRow(String payrollId, String employeeId, int flag, Object newInfo);
+	
+	/**
+	 * Add a revenue to the budget with the given budgetId.
+	 * @param budgetId the budgetId of the budget to add the revenue to.
+	 * @param revenueName the name of the revenue being added to the budget.
+	 * @param revenueAmount the amount of the revenue being added to the budget.
+	 * @return true if the addition occurred successfully, false otherwise.
+	 */
+	boolean addRevenueToBudget(String budgetId, String revenueName, double revenueAmount);
 }
