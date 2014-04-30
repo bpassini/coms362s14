@@ -52,4 +52,10 @@ public class ManagementSystem implements ManagementSystemInterface {
 		Budget b = new ManagementSystemDBSupport().getBudget(budgetId);
 		return b.addRevenue(expenseName, expenseAmount) && new ManagementSystemDBSupport().putBudget(b);
 	}
+	
+	@Override
+	public boolean addPayrollRow(String payrollId, String empName, String empId, double payRate, double regularHours, double overtimeHours) {
+		Payroll p = new ManagementSystemDBSupport().getPayroll(payrollId);
+		return p.addPayrollRow(empName, empId, payRate, regularHours, overtimeHours) && new ManagementSystemDBSupport().putPayroll(p); 
+	}
 }

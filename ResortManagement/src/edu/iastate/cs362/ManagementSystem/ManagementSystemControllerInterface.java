@@ -68,4 +68,15 @@ public interface ManagementSystemControllerInterface {
 	 * @return true if the addition occurred successfully, false otherwise.
 	 */
 	boolean addExpenseToBudget(String budgetId, String expenseName, double expenseAmount);
+	
+	/**
+	 * Adds an employee info object to the payroll list.
+	 * @param payrollId the payrollId of the payroll that this employee info is going to be added to.
+	 * @param empName the name of the employee.
+	 * @param empId the id of the employee.
+	 * @param payRate the pay rate of the employee.
+	 * @param regularHours the number of regular hours the employee has worked.
+	 * @param overtimeHours the number of overtime hours this employee has worked.
+	 */
+	boolean addPayrollRow(String payrollId, String empName, String empId, double payRate, double regularHours, double overtimeHours);
 }

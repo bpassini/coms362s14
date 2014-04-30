@@ -164,7 +164,7 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 					
 					ResultSet rsEmpInfo = stmtEmpInfo.executeQuery("select * from EmployeeInfo ei, Employee e where ei.PayrollId='" + payrollId + "' and ei.EmployeeId=e.EmployeeId");
 					while(rsEmpInfo.next()) {
-						p.addEmployeeInfo(rsEmpInfo.getString("LastName") + ", " + rsEmpInfo.getString("FirstName"), rsEmpInfo.getString("EmployeeId"), rsEmpInfo.getDouble("Payrate"), rsEmpInfo.getDouble("RegularHours"), rsEmpInfo.getDouble("OvertimeHours"));
+						p.addPayrollRow(rsEmpInfo.getString("LastName") + ", " + rsEmpInfo.getString("FirstName"), rsEmpInfo.getString("EmployeeId"), rsEmpInfo.getDouble("Payrate"), rsEmpInfo.getDouble("RegularHours"), rsEmpInfo.getDouble("OvertimeHours"));
 					}
 				}
 				else {
