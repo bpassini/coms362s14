@@ -53,9 +53,10 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 					
 					ResultSet rsLists = stmtLists.executeQuery("select * from Categories c where c.BudgetId='" + budgetId + "'");
 					while(rsLists.next()) {
-						if(rsLists.getInt("CategoryType") == REVENUE)
+						int type = rsLists.getInt("CategoryType");
+						if(type == REVENUE)
 							b.addRevenue(rsLists.getString("CategoryName"), rsLists.getDouble("CategoryValue"));
-						else if(rsLists.getInt("CategoryName") == EXPENSE)
+						else if(type == EXPENSE)
 							b.addExpense(rsLists.getString("CategoryName"), rsLists.getDouble("CategoryValue"));
 					}
 				}
@@ -344,17 +345,28 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 			return false;
 		
 		try {
-			Statement query = connection.createStatement();
+			Statement queryRev = connection.createStatement();
+			Statement queryExp = connection.createStatement();
 			Statement update = connection.createStatement();
 			
-			ResultSet rsLists = query.executeQuery("select count(c1.CategoryId) as expenseCount, count(c2.CategoryId) as revenueCount from Categories c1, Categories c2 " +
-					"where c1.BudgetId='" + b.getBudgetId() + "' and c1.CategoryType=" + EXPENSE + " and c2.BudgetId='" + b.getBudgetId() + "' and c2.CategoryType=" + REVENUE + "");
-			if(!rsLists.next())
+			ResultSet rsEx = queryExp.executeQuery("select count(c1.CategoryId) as expenseCount from Categories c1 " +
+					"where c1.BudgetId='" + b.getBudgetId() + "' and c1.CategoryType=" + EXPENSE + "");
+			
+			if(!rsEx.next())
 				return false;
+			int expSize = b.getExpenses().size();
+			int expenseDifference = expSize - rsEx.getInt("expenseCount");
+				
+			ResultSet rsRev = queryRev.executeQuery("select count(c2.CategoryId) as revenueCount from Categories c2 " +
+					"where c2.BudgetId='" + b.getBudgetId() + "' and c2.CategoryType=" + REVENUE + "");
+		
+			if(!rsRev.next())
+				return false;
+			int revSize = b.getRevenues().size();
+			int revenueDifference = revSize - rsRev.getInt("revenueCount");
+			
 			
 			//Update Revenue List
-			int revSize = b.getRevenues().size();
-			int revenueDifference = revSize - rsLists.getInt("revenueCount");
 			Category rev = null;
 			if(revSize > 0)
 				rev = b.getRevenues().get(revSize - 1);
@@ -368,8 +380,6 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 			}
 			
 			//Update Expense List
-			int expSize = b.getExpenses().size();
-			int expenseDifference = expSize - rsLists.getInt("expenseCount");
 			Category exp = null;
 			if(expSize > 0)
 				exp = b.getExpenses().get(expSize - 1);
