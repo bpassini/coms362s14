@@ -1,7 +1,5 @@
 package edu.iastate.cs362.Hotel;
 
-import org.joda.time.DateTime;
-
 /**
  * An interface to define what needs to be implemented in the RoomReservation class
  * 

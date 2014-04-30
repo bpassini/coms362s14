@@ -7,6 +7,7 @@ import org.joda.time.DateTime;
 
 import edu.iastate.cs362.Hotel.Attribute;
 import edu.iastate.cs362.Hotel.Customer;
+import edu.iastate.cs362.Hotel.Room;
 import edu.iastate.cs362.RentalCenter.Equipment;
 
 /**
@@ -209,4 +210,33 @@ public interface ResortInterface {
 	 * @param flag - the field we wish to search equipment by
 	 */
 	List<Equipment> searchEquipment(String rid, Object s, int flag);
+	
+	/**
+	 * Updates the room invoice of a specific hotel room
+	 * @param hid - hotel id
+	 * @param iid - invoice id
+	 * @param flag - the field we wish to update
+	 * @param u - the updated information object
+	 * @return true if room invoice was successfully updated, false otherwise
+	 */
+	boolean updateRoomInvoice(String hid, String iid, Object u, int flag);
+	
+	/**
+	 * Checks which rooms are available during a given date range
+	 * @param hid - hotel id
+	 * @param start - start date
+	 * @param end - end date
+	 * @return a list of rooms available in the given hotel during the given date range
+	 */
+	List<Room> checkRoomAvailability(String hid, DateTime start, DateTime end);
+	
+	/**
+	 * Searches rooms of a specific hotel
+	 * @param hid - hotel id
+	 * @param flag - the field we wish to search rooms by
+	 * @param u - the object to search rooms for
+	 * @return a list of hotel rooms that match the given search parameters
+	 */
+	List<Room> searchRooms(String hid, Object u, int flag);
+	
 }

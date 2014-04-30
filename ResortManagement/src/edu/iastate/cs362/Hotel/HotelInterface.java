@@ -1,6 +1,7 @@
 package edu.iastate.cs362.Hotel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.joda.time.*;
 
@@ -17,6 +18,14 @@ public interface HotelInterface {
 	 * Constant used to signify hotel name is the field to be updated
 	 */
 	static final int UPDATE_NAME = 0;
+	
+	/** 
+	 * Constants used to determine which field to search rooms by
+	 */
+	static final int SEARCH_BY_ID = 1;
+	static final int SEARCH_BY_ATTRIBUTE = 2;
+	static final int SEARCH_BY_STATUS = 3;
+	
 	
 	/**
 	 * Adds a room to the current hotel
@@ -82,4 +91,30 @@ public interface HotelInterface {
 	 * @return true if room was checked out of successfully, false otherwise
 	 */
 	boolean checkOutOfRoom(int rid, String rrid);
+	
+	
+	/**
+	 * Updates the room invoice of a specific hotel room
+	 * @param iid - invoice id
+	 * @param u - the updated information object
+	 * @param flag - the field we wish to update
+	 * @return true if room invoice was successfully updated, false otherwise
+	 */
+	boolean updateRoomInvoice(String iid, Object u, int flag);	
+
+	/**
+	 * Checks which rooms are available during a given date range
+	 * @param start - start date
+	 * @param end - end date
+	 * @return a list of rooms available in the given hotel during the given date range
+	 */
+	List<Room> checkRoomAvailability(DateTime start, DateTime end);
+	
+	/**
+	 * Searches rooms of a specific hotel
+	 * @param u - the object to search rooms for
+	 * @param flag - the field we wish to search rooms by
+	 * @return a list of hotel rooms that match the given search parameters
+	 */
+	List<Room> searchRooms(Object u, int flag);
 }
