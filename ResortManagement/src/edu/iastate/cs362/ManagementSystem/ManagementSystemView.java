@@ -147,6 +147,7 @@ public class ManagementSystemView {
 		System.out.println("\t1: first name\n\t2: last name\n\t3: type\n\t4: payrate\n\t-1: Stop");
 		if(in.hasNextInt())
 			inputNum = in.nextInt();
+		in.nextLine();
 		
 		while(inputNum != -1) {
 			String info = "";
@@ -186,6 +187,7 @@ public class ManagementSystemView {
 
 			if(in.hasNextInt())
 				inputNum = in.nextInt();
+			in.nextLine();
 		}
 		return true;
 	}
@@ -217,7 +219,9 @@ public class ManagementSystemView {
 				if(in.hasNextLine())
 					value = Double.parseDouble(in.nextLine().trim());
 				if(d == 1)
-				success = new ManagementSystemController().addRevenueToBudget(budgetId, name, value);
+					success = new ManagementSystemController().addRevenueToBudget(budgetId, name, value);
+				if(d == 2)
+					success = new ManagementSystemController().addExpenseToBudget(budgetId, name, value);
 			}
 			
 			if(success)
@@ -229,6 +233,7 @@ public class ManagementSystemView {
 			System.out.println("\t1: add a " + (d == 1 ? "revenue" : "expense") + "\n\t-1: Stop");
 			if(in.hasNextInt())
 				inputNum = in.nextInt();
+			in.nextLine();
 		}
 		return true;
 	}

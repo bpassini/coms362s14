@@ -125,24 +125,6 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 		if(this.getEmployee(e.getEmployeeId()) == null)
 			return writeEmployee(e);
 		return updateEmployee(e);
-//		getConnection();
-//		if(connection == null)
-//			return false;
-//		
-//		try {
-//			Statement query = connection.createStatement();
-//			
-//			query.executeUpdate("insert into Employee(FirstName, LastName, EmployeeId, EmployeeType, Payrate) values('" + e.getFirstName() + "','" + e.getLastName() + "','" + 
-//					e.getEmployeeId() + "','" + e.getEmployeeType() + "'," + e.getPayRate() + ")");
-//			
-//			query.close();
-//			connection.close();
-//		} catch(SQLException sqle) {
-//			System.out.println(sqle);
-//			return false;
-//		}
-//		
-//		return true;
 	}
 	
 	@Override 
@@ -373,12 +355,14 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 			//Update Revenue List
 			int revSize = b.getRevenues().size();
 			int revenueDifference = revSize - rsLists.getInt("revenueCount");
-			Category rev = b.getRevenues().get(revSize - 1);
-			if(revenueDifference == 1) {
-				update.executeUpdate("insert in Categories(BudgetId, CategoryName, CategoryValue, CategoryType) valuese('" + b.getBudgetId() + "', '" + rev.getCategoryName() + 
+			Category rev = null;
+			if(revSize > 0)
+				rev = b.getRevenues().get(revSize - 1);
+			if(revenueDifference == 1 && rev != null) {
+				update.executeUpdate("insert into Categories(BudgetId, CategoryName, CategoryValue, CategoryType) values('" + b.getBudgetId() + "', '" + rev.getCategoryName() + 
 						"', " + rev.getCategoryValue() + ", " + REVENUE + ")");
 			}
-			else if(revenueDifference == 0) {
+			else if(revenueDifference == 0 && rev != null) {
 				update.executeUpdate("update Categories set CategoryValue=" + rev.getCategoryValue() +  " where CategoryName='" + rev.getCategoryName() + "' and CategoryType=" +
 							REVENUE + "");
 			}
@@ -386,12 +370,14 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 			//Update Expense List
 			int expSize = b.getExpenses().size();
 			int expenseDifference = expSize - rsLists.getInt("expenseCount");
-			Category exp = b.getExpenses().get(expSize - 1);
-			if(expenseDifference == 1) {
-				update.executeUpdate("insert in Categories(BudgetId, CategoryName, CategoryValue, CategoryType) valuese('" + b.getBudgetId() + "', '" + exp.getCategoryName() + 
+			Category exp = null;
+			if(expSize > 0)
+				exp = b.getExpenses().get(expSize - 1);
+			if(expenseDifference == 1 && exp != null) {
+				update.executeUpdate("insert into Categories(BudgetId, CategoryName, CategoryValue, CategoryType) values('" + b.getBudgetId() + "', '" + exp.getCategoryName() + 
 						"', " + exp.getCategoryValue() + ", " + EXPENSE + ")");
 			}
-			else if(expenseDifference == 0) {
+			else if(expenseDifference == 0 && exp != null) {
 				update.executeUpdate("update Categories set CategoryValue=" + exp.getCategoryValue() +  " where CategoryName='" + exp.getCategoryName() + "' and CategoryType=" + 
 							EXPENSE + "");
 			}
@@ -399,6 +385,7 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 			connection.close();
 		}
 		catch(SQLException e) {
+			System.out.println(e);
 			return false;
 		}
 		return true;
