@@ -58,5 +58,9 @@ public class ManagementSystemController implements ManagementSystemControllerInt
 	public boolean addPayrollRow(String payrollId, String empName, String empId, double payRate, double regularHours, double overtimeHours) {
 		return new ManagementSystem().addPayrollRow(payrollId, empName, empId, payRate, regularHours, overtimeHours);
 	}
-
+	
+	@Override
+	public boolean updateEmployee(String empId, int flag, Object newInfo) {
+		return new ManagementSystem().updateEmployee(empId, flag, newInfo);
+	}
 }

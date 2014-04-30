@@ -58,4 +58,10 @@ public class ManagementSystem implements ManagementSystemInterface {
 		Payroll p = new ManagementSystemDBSupport().getPayroll(payrollId);
 		return p.addPayrollRow(empName, empId, payRate, regularHours, overtimeHours) && new ManagementSystemDBSupport().putPayroll(p); 
 	}
+	
+	@Override
+	public boolean updateEmployee(String empId, int flag, Object newInfo) {
+		Employee e = new ManagementSystemDBSupport().getEmployee(empId);
+		return e.updateEmployee(flag, newInfo) && new ManagementSystemDBSupport().putEmployee(e);
+	}
 }

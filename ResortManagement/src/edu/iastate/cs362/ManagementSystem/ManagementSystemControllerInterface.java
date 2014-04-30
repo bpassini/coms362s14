@@ -79,4 +79,13 @@ public interface ManagementSystemControllerInterface {
 	 * @param overtimeHours the number of overtime hours this employee has worked.
 	 */
 	boolean addPayrollRow(String payrollId, String empName, String empId, double payRate, double regularHours, double overtimeHours);
+	
+	/**
+	 * Updates a certain field of this employee object.
+	 * @param empId the empId of the employee that is to be updated.
+	 * @param flag the flag used to identify what field is being updated.
+	 * @param newInfo the update information.
+	 * @return true if the update was successful, false otherwise.
+	 */
+	boolean updateEmployee(String empId, int flag, Object newInfo);
 }
