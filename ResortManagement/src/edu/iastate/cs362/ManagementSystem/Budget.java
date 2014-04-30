@@ -31,6 +31,16 @@ public class Budget implements BudgetInterface {
 		expenses = new ArrayList<Category>();
 	}
 	
+	@Override
+	public boolean addRevenue(String revenueName, double revenueAmount) {
+		return revenues.add(new Category(revenueName, revenueAmount));
+	}
+	
+	@Override
+	public boolean addExpense(String expenseName, double expenseAmount) {
+		return expenses.add(new Category(expenseName, expenseAmount));
+	}
+	
 	/**
 	 * Returns the id of this budget.
 	 * @return the id of this budget.

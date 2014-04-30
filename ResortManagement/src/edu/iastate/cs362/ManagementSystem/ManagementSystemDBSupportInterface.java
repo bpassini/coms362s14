@@ -32,4 +32,18 @@ public interface ManagementSystemDBSupportInterface {
 	 * @return the payroll object retrieved from the database.
 	 */
 	Payroll getPayroll(String payrollId);
+	
+	/**
+	 * Gets the budget object from the database with the given budget id.
+	 * @param budgetId the id of the budget that needs to be retrieved from the database.
+	 * @return the budget object retrieved from the database.
+	 */
+	Budget getBudget(String budgetId);
+	
+	/**
+	 * Gets the employee object from the database with the given employee id.
+	 * @param employeeId the id of the employee that needs to be retrieved from the database.
+	 * @return the employee object retrieved from the database.
+	 */
+	Employee getEmployee(String employeeId);
 }
