@@ -1,6 +1,7 @@
 package edu.iastate.cs362.Hotel;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.joda.time.*;
@@ -184,6 +185,118 @@ public class Hotel implements HotelInterface{
 		else
 			return false;
 	}
+	
+	
+	
+	public boolean updateRoomInvoice(String iid, Object u, int flag) {
+		
+		RoomInvoice temp = null;
+		for(RoomInvoice ri : invoices) {
+			if(ri.iid.equals(iid)) {
+				temp = ri;
+				break;
+			}
+		}
+		
+		// A room invoice with the given invoice id was not found.
+		if(temp == null)
+			return false;
+		
+		if(temp.updateRoomInvoice(u, flag)) {
+			
+			// Place the updated room invoice at the end of the list and return true if add was successful.
+			return invoices.remove(temp) && invoices.add(temp);
+		}
+		
+		return false;
+	}
+	
+
+
+	public List<Room> checkRoomAvailability(DateTime start, DateTime end) {
+		
+		// TODO Test this, should work
+		List<Room> r = getRoomsList();
+		
+		for(RoomReservation rsv : reservations) {
+	
+			if( start.isEqual(rsv.getStart()) || (start.isAfter(rsv.getStart()) && start.isBefore(rsv.getEnd())) || 
+					end.isEqual(rsv.getEnd()) || (end.isAfter(rsv.getStart()) && end.isBefore(rsv.getEnd())) )
+			{
+				int rmid = rsv.getRoomID();
+				
+				Iterator<Room> iter = r.iterator();
+				boolean roomFound = false;
+				Room x = null;
+				while(iter.hasNext()) {
+					Room tmp = iter.next();
+					if(tmp.getRoomID() == rmid) {
+						roomFound = true;
+						x = tmp;
+						break;
+					}
+				}
+				
+				if(roomFound)
+					r.remove(x);
+			}
+		}
+		
+		return r;
+	}
+
+	
+
+	public List<Room> searchRooms(Object u, int flag) {
+		
+		List<Room> r = new ArrayList<Room>();
+		boolean found = false;
+		
+		if(flag == SEARCH_BY_ID) {
+			if(u instanceof Integer) {
+				int id = (Integer) u;
+				for(Room rm : rooms) {
+					if(rm.getRoomID() == id) {
+						r.add(rm);
+						found = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		// TODO Later, handle the attribute situation
+		else if(flag == SEARCH_BY_ATTRIBUTE) {
+			if(u instanceof Attribute) {
+				Attribute attr = (Attribute) u;
+				for(Room rm : rooms) {
+					if(rm.getAttribute().equals(attr)) {
+						r.add(rm);
+						found = true;
+					}
+				}
+			}
+		}
+		
+		else if(flag == SEARCH_BY_STATUS) {
+			if(u instanceof Boolean) {
+				boolean status = (boolean) u;
+				for(Room rm : rooms) {
+					if(rm.getStatus() == status) {
+						r.add(rm);
+						found = true;
+					}
+				}
+			}
+		}
+		
+		if(!found)
+			return null;
+		
+		else
+			return r;
+	}
+	
 	
 	
 	/**

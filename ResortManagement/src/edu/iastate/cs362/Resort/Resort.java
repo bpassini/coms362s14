@@ -2,14 +2,13 @@ package edu.iastate.cs362.Resort;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import org.joda.time.*;
 
 import edu.iastate.cs362.RentalCenter.*;
 import edu.iastate.cs362.Hotel.Attribute;
 import edu.iastate.cs362.Hotel.Customer;
 import edu.iastate.cs362.Hotel.Hotel;
+import edu.iastate.cs362.Hotel.Room;
 
 /**
  * Represents a resort.
@@ -214,6 +213,39 @@ public class Resort implements ResortInterface {
 			return rc.searchEquipment(s, flag);		
 		}
 		else 
+			return null;
+	}
+
+	@Override
+	public boolean updateRoomInvoice(String hid, String iid, Object u, int flag) {
+	
+		Hotel h = new ResortDBSupport().getHotel(hid);
+		if(h != null && h.updateRoomInvoice(iid, u, flag))
+			return new ResortDBSupport().putHotel(h);
+		
+		else
+			return false;
+	}
+
+	@Override
+	public List<Room> checkRoomAvailability(String hid, DateTime start, DateTime end) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hid);
+		if(h != null)
+			return h.checkRoomAvailability(start, end);
+		
+		else
+			return null;
+	}
+
+	@Override
+	public List<Room> searchRooms(String hid, Object u, int flag) {
+		
+		Hotel h = new ResortDBSupport().getHotel(hid);
+		if(h != null)
+			return h.searchRooms(u, flag);
+		
+		else
 			return null;
 	}
 }

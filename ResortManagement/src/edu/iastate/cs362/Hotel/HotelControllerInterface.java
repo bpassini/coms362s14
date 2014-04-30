@@ -1,6 +1,7 @@
 package edu.iastate.cs362.Hotel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An interface to define what needs to be implemented in the HotelController class
@@ -89,5 +90,33 @@ public interface HotelControllerInterface {
 	 * @return true if room was checked out of successfully, false otherwise
 	 */
 	boolean checkOutOfRoom(String hid, int rid, String rrid);
+
+	/**
+	 * Updates the room invoice of a specific hotel room
+	 * @param hid - hotel id
+	 * @param iid - invoice id
+	 * @param u - the updated information object
+	 * @param flag - the field we wish to update
+	 * @return true if room invoice was successfully updated, false otherwise
+	 */
+	boolean updateRoomInvoice(String hid, String iid, Object u, int flag);	
+
+	/**
+	 * Checks which rooms are available during a given date range
+	 * @param hid - hotel id
+	 * @param start - start date
+	 * @param end - end date
+	 * @return a list of rooms available in the given hotel during the given date range
+	 */
+	List<Room> checkRoomAvailability(String hid, String start, String end);
+	
+	/**
+	 * Searches rooms of a specific hotel
+	 * @param hid - hotel id
+	 * @param u - the object to search rooms for
+	 * @param flag - the field we wish to search rooms by
+	 * @return a list of hotel rooms that match the given search parameters
+	 */
+	List<Room> searchRooms(String hid, Object u, int flag);
 
 }

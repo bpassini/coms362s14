@@ -46,6 +46,30 @@ public class RoomInvoice implements RoomInvoiceInterface {
 	}
 	
 	
+	@Override
+	public boolean updateRoomInvoice(Object newInfo, int flag) {
+		
+		if(!(newInfo instanceof String))
+			return false;
+		
+		switch(flag) {
+		
+			case UPDATE_NOTES:
+				notes = (String) newInfo;
+				break;
+				
+			case UPDATE_ROOM_ID:
+				rmid = (int) newInfo;
+				break;
+				
+			default:
+				return false;
+		}
+		
+		return true;
+	}
+	
+	
 	public String getHotelID() {
 		return hid;
 	}
