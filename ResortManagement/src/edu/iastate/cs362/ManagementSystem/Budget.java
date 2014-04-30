@@ -67,17 +67,27 @@ public class Budget implements BudgetInterface {
 	
 	@Override
 	public String view() {
-		String toRet = "Budget ID: " + budgetId + ":\n";
+		String toRet = "----------------------------------------------------------------\n";
+		toRet += "Budget ID: " + budgetId + "\n";
 		
 		toRet += "\tExpenses:\n";
+		double totalExpenses = 0.0;
 		for(Category exp : expenses) {
-			toRet += "\t\t" + exp.getCategoryName() + " " + exp.getCategoryValue() + "\n";
+			toRet += "\t\t" + String.format("%-20s", exp.getCategoryName()) + String.format("%20s", exp.getCategoryValue()) + "\n";
+			totalExpenses += exp.getCategoryValue();
 		}
+		toRet += "\t\t-----------------------------------------\n";
+		toRet += "\t\t" + String.format("%40s", "Total Exenses: $" + totalExpenses);
 		
-		toRet += "\tRevenues:\n";
+		toRet += "\n\tRevenues:\n";
+		double totalRevenues = 0.0;
 		for(Category rev : revenues) {
-			toRet += "\t\t" + rev.getCategoryName() + " " + rev.getCategoryValue() + "\n";
+			toRet += "\t\t" + String.format("%-20s", rev.getCategoryName()) + String.format("%20s", rev.getCategoryValue()) + "\n";
+			totalRevenues += rev.getCategoryValue();
 		}
+		toRet += "\t\t-----------------------------------------\n";
+		toRet += "\t\t" + String.format("%40s", "Total Revenues: $" + totalRevenues);
+		toRet += "\n----------------------------------------------------------------";
 		
 		return toRet;
 	}

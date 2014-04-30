@@ -130,15 +130,18 @@ public class Payroll implements PayrollInterface {
 	@Override
 	public String view() {
 		DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
-		String toRet = "Payroll ID: " + payrollId + ":\n";
-		toRet += "Start Date: " + startDate.toString(formatter) + " End Date: " + endDate.toString(formatter) + "\n";
+		String toRet = "----------------------------------------------------------------------------------------------------------------\n";
+		toRet += "Payroll ID: " + payrollId + "\n\n";
+		toRet += "Start Date: " + startDate.toString(formatter) + " End Date: " + endDate.toString(formatter) + "\n\n";
 		
-		toRet += "\tEmployee Name\tEmployee ID\tPayrate\tRegular Hours\tOvertime Hours\n";
+		toRet += "\t" + String.format("%-25s", "Employee Name") + String.format("%-25s", "Employee ID") + String.format("%-20s", "Payrate") + 
+						String.format("%-20s", "Regular Hours") + String.format("%-20s", "Overtime Hours") + "\n";
 		for(EmployeeInfo ei : payroll) {
-			toRet += "\t" + ei.getEmployeeName() + "\t" + ei.getEmployeeId() + "\t$" + ei.getPayRate() + "\t" +
-					ei.getRegularHours() + "hrs\t" + ei.getOvertimeHours() + "hrs\n";
+			toRet += "\t" + String.format("%-25s", ei.getEmployeeName()) + String.format("%-25s", ei.getEmployeeId()) + String.format("%-20s", "$" + ei.getPayRate()) + 
+					String.format("%-20s", ei.getRegularHours() + " hrs") + String.format("%-20s", ei.getOvertimeHours() + " hrs") + "\n";
 		}
-		
+		toRet += "----------------------------------------------------------------------------------------------------------------";
+
 		return toRet;
 	}
 }

@@ -263,7 +263,7 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 			int difference = p.getPayroll().size() - rsEmployeeInfo.getInt("count");
 			EmployeeInfo empInfo = p.getPayroll().get(p.getPayroll().size() - 1);
 			if(difference == 1) {
-				update.executeUpdate("insert in EmployeeInfo(PayrollId, EmployeeId, RegularHours, OvertimeHours) values('"+ p.getPayrollId() + "','" + empInfo.getEmployeeId() + "'," +
+				update.executeUpdate("insert into EmployeeInfo(PayrollId, EmployeeId, RegularHours, OvertimeHours) values('"+ p.getPayrollId() + "','" + empInfo.getEmployeeId() + "'," +
 						empInfo.getRegularHours() + "," + empInfo.getOvertimeHours() + ")");
 			}
 			else if(difference == 0) {

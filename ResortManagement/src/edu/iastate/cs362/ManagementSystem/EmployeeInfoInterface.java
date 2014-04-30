@@ -8,10 +8,6 @@ package edu.iastate.cs362.ManagementSystem;
  */
 public interface EmployeeInfoInterface {
 	/**
-	 * Constant used to signal that the start date variable is the field to be updated.
-	 */
-	static final int UPDATE_PAY_RATE = 0;
-	/**
 	 * Constant used to signal that the regular hours variable is the field to be updated.
 	 */
 	static final int UPDATE_REGULAR_HOURS = 1;

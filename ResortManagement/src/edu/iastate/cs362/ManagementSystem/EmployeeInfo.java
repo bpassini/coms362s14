@@ -62,9 +62,6 @@ public class EmployeeInfo implements EmployeeInfoInterface {
 		if(!(newInfo instanceof Double))
 			return false;
 		switch(flag) {
-		case UPDATE_PAY_RATE:
-			payRate = (Double) newInfo;
-			break;
 		case UPDATE_REGULAR_HOURS:
 			regularHours = (Double) newInfo;
 			break;
