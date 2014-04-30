@@ -68,4 +68,9 @@ public class ManagementSystemController implements ManagementSystemControllerInt
 	public String viewBudget(String budgetId) {
 		return new ManagementSystem().viewBudget(budgetId);
 	}
+	
+	@Override
+	public String viewPayroll(String payrollId) {
+		return new ManagementSystem().viewPayroll(payrollId);
+	}
 }

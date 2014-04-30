@@ -126,4 +126,19 @@ public class Payroll implements PayrollInterface {
 		}
 		return false;
 	}
+	
+	@Override
+	public String view() {
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+		String toRet = "Payroll ID: " + payrollId + ":\n";
+		toRet += "Start Date: " + startDate.toString(formatter) + " End Date: " + endDate.toString(formatter) + "\n";
+		
+		toRet += "\tEmployee Name\tEmployee ID\tPayrate\tRegular Hours\tOvertime Hours\n";
+		for(EmployeeInfo ei : payroll) {
+			toRet += "\t" + ei.getEmployeeName() + "\t" + ei.getEmployeeId() + "\t$" + ei.getPayRate() + "\t" +
+					ei.getRegularHours() + "hrs\t" + ei.getOvertimeHours() + "hrs\n";
+		}
+		
+		return toRet;
+	}
 }

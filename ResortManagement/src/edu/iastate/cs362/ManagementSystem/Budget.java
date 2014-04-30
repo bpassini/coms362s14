@@ -67,7 +67,7 @@ public class Budget implements BudgetInterface {
 	
 	@Override
 	public String view() {
-		String toRet = budgetId + ":\n";
+		String toRet = "Budget ID: " + budgetId + ":\n";
 		
 		toRet += "\tExpenses:\n";
 		for(Category exp : expenses) {

@@ -96,8 +96,15 @@ public interface ManagementSystemInterface {
 	
 	/**
 	 * Returns a String representation of the budget that has the given budgetId.
-	 * @param budgetId the budgetId of the budget that this String representation if returned for.
+	 * @param budgetId the budgetId of the budget that this String representation is returned for.
 	 * @return the String representation of the budget.
 	 */
 	String viewBudget(String budgetId);
+	
+	/**
+	 * Returns a String representation of the payroll that has the given payrollId.
+	 * @param payrollId the payrollId of the payroll that this String representation is returned for.
+	 * @return the String representation of the payroll.
+	 */
+	String viewPayroll(String payrollId);
 }

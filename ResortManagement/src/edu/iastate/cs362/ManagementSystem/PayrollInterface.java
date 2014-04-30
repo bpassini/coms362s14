@@ -42,4 +42,10 @@ public interface PayrollInterface {
 	 * @param overtimeHours the number of overtime hours this employee has worked.
 	 */
 	boolean addPayrollRow(String empName, String empId, double payRate, double regularHours, double overtimeHours);
+	
+	/**
+	 * Returns a String representation of this payroll.
+	 * @return the String representation of this payroll.
+	 */
+	String view();
 }

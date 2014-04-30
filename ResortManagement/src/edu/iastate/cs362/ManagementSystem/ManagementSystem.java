@@ -84,4 +84,12 @@ public class ManagementSystem implements ManagementSystemInterface {
 			return "";
 		return b.view();
 	}
+	
+	@Override
+	public String viewPayroll(String payrollId) {
+		Payroll p = new ManagementSystemDBSupport().getPayroll(payrollId);
+		if(p == null)
+			return "";
+		return p.view();
+	}
 }
