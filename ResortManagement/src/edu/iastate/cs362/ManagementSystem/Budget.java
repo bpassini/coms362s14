@@ -64,4 +64,21 @@ public class Budget implements BudgetInterface {
 	public ArrayList<Category> getExpenses() {
 		return expenses;
 	}
+	
+	@Override
+	public String view() {
+		String toRet = budgetId + ":\n";
+		
+		toRet += "\tExpenses:\n";
+		for(Category exp : expenses) {
+			toRet += "\t\t" + exp.getCategoryName() + " " + exp.getCategoryValue() + "\n";
+		}
+		
+		toRet += "\tRevenues:\n";
+		for(Category rev : revenues) {
+			toRet += "\t\t" + rev.getCategoryName() + " " + rev.getCategoryValue() + "\n";
+		}
+		
+		return toRet;
+	}
 }

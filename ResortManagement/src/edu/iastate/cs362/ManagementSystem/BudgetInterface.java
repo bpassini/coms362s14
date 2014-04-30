@@ -21,4 +21,10 @@ public interface BudgetInterface {
 	 * @return true if the expense was added successfully, false otherwise.
 	 */
 	boolean addExpense(String expenseName, double expenseAmount);
+	
+	/**
+	 * Returns a String representation of this budget.
+	 * @return the String representation of this budget.
+	 */
+	String view();
 }

@@ -70,13 +70,15 @@ public interface ManagementSystemControllerInterface {
 	boolean addExpenseToBudget(String budgetId, String expenseName, double expenseAmount);
 	
 	/**
-	 * Adds an employee info object to the payroll list.
+	 * Adds an employee info object to the payroll list that belongs to the payroll object that has
+	 * the given payrollId.
 	 * @param payrollId the payrollId of the payroll that this employee info is going to be added to.
 	 * @param empName the name of the employee.
 	 * @param empId the id of the employee.
 	 * @param payRate the pay rate of the employee.
 	 * @param regularHours the number of regular hours the employee has worked.
 	 * @param overtimeHours the number of overtime hours this employee has worked.
+	 * @return true if the addition occurred successfully, false otherwise.
 	 */
 	boolean addPayrollRow(String payrollId, String empName, String empId, double payRate, double regularHours, double overtimeHours);
 	
@@ -88,4 +90,11 @@ public interface ManagementSystemControllerInterface {
 	 * @return true if the update was successful, false otherwise.
 	 */
 	boolean updateEmployee(String empId, int flag, Object newInfo);
+	
+	/**
+	 * Returns a String representation of the budget that has the given budgetId.
+	 * @param budgetId the budgetId of the budget that this String representation if returned for.
+	 * @return the String representation of the budget.
+	 */
+	String viewBudget(String budgetId);
 }
