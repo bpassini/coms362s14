@@ -6,7 +6,9 @@ public class ManagementSystemView {
 	public static void main(String args[]) {
 		System.out.println("Welcome to the Resort Management System!");
 		System.out.println("What would you like to do?");
-		System.out.println("\t1: create budget\n\t2: create payroll\n\t3: add employee\n\t4: update payroll\n\t-1: Exit");
+		System.out.println("\t1: create budget\n\t2: create payroll\n\t3: add employee\n\t4: update payroll\n\t" +
+				"5: update employee\n\t6:add revenues to a budget\n\t7: add expenses to budget\n\t8: add payrol row to a payroll\n\t" +
+				"9: view a budget\n\t10: view a payroll\n\t11: assign a work schedule\n\t-1: Exit");
 		
 		Scanner in = new Scanner(System.in);
 		boolean returnCode = false;
@@ -27,6 +29,20 @@ public class ManagementSystemView {
 				returnCode = addEmployee();
 			else if(inputNum == 4)
 				returnCode = updatePayroll();
+			else if(inputNum == 5)
+				returnCode = updateEmployee();
+			else if(inputNum == 6)
+				returnCode = addRevenueToBudget();
+			else if(inputNum == 7)
+				returnCode = addExpenseToBudget();
+			else if(inputNum == 8)
+				returnCode = addPayrollRow();
+			else if(inputNum == 9)
+				returnCode = viewBudget();
+			else if(inputNum == 10)
+				returnCode = viewPayroll();
+			else if(inputNum == 11)
+				returnCode = assignWorkSchedule();
 			else
 				break;
 			
@@ -37,7 +53,9 @@ public class ManagementSystemView {
 				System.out.println("Operation succeeded!");
 			}
 			System.out.println("What would you like to do?");
-			System.out.println("\t1: create budget\n\t2: create payroll\n\t3: add employee\n\t4: update payroll\n\t-1: Exit");
+			System.out.println("\t1: create budget\n\t2: create payroll\n\t3: add employee\n\t4: update payroll\n\t" +
+				"5: update employee\n\t6:add revenues to a budget\n\t7: add expenses to budget\n\t8: add payrol row to a payroll\n\t" +
+				"9: view a budget\n\t10: view a payroll\n\t11: assign a work schedule\n\t-1: Exit");
 		}
 		in.close();
 	}
@@ -112,5 +130,34 @@ public class ManagementSystemView {
 		}
 		else
 			return false;
+	}
+	
+	private static boolean updateEmployee() {
+		return false;
+	}
+	
+	private static boolean addRevenueToBudget() {
+		return false;
+	}
+	
+	private static boolean addExpenseToBudget() {
+		return false;
+	}
+	
+	private static boolean addPayrollRow() {
+		return false;
+	}
+	
+	private static boolean viewBudget() {
+		return false;
+	}
+	
+	private static boolean viewPayroll() {
+		return false;
+	}
+	
+	private static boolean assignWorkSchedule() {
+		//CAM PUT YOUR CODE HERE!!
+		return false;
 	}
 }
