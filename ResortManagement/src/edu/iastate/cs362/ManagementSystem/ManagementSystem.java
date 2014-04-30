@@ -46,4 +46,10 @@ public class ManagementSystem implements ManagementSystemInterface {
 		Budget b = new ManagementSystemDBSupport().getBudget(budgetId);
 		return b.addRevenue(revenueName, revenueAmount) && new ManagementSystemDBSupport().putBudget(b);
 	}
+	
+	@Override
+	public boolean addExpenseToBudget(String budgetId, String expenseName, double expenseAmount) {
+		Budget b = new ManagementSystemDBSupport().getBudget(budgetId);
+		return b.addRevenue(expenseName, expenseAmount) && new ManagementSystemDBSupport().putBudget(b);
+	}
 }

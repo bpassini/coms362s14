@@ -48,4 +48,9 @@ public class ManagementSystemController implements ManagementSystemControllerInt
 	public boolean addRevenueToBudget(String budgetId, String revenueName, double revenueAmount) {
 		return new ManagementSystem().addRevenueToBudget(budgetId, revenueName, revenueAmount);
 	}
+	
+	@Override
+	public boolean addExpenseToBudget(String budgetId, String expenseName, double expenseAmount) {
+		return new ManagementSystem().addRevenueToBudget(budgetId, expenseName, expenseAmount);
+	}
 }

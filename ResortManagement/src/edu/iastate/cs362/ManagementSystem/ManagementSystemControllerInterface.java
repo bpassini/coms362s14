@@ -59,4 +59,13 @@ public interface ManagementSystemControllerInterface {
 	 * @return true if the addition occurred successfully, false otherwise.
 	 */
 	boolean addRevenueToBudget(String budgetId, String revenueName, double revenueAmount);
+	
+	/**
+	 * Add a expense to the budget with the given budgetId.
+	 * @param budgetId the budgetId of the budget to add the expense to.
+	 * @param expenseName the name of the expense being added to the budget.
+	 * @param expenseAmount the amount of the expense being added to the budget.
+	 * @return true if the addition occurred successfully, false otherwise.
+	 */
+	boolean addExpenseToBudget(String budgetId, String expenseName, double expenseAmount);
 }
