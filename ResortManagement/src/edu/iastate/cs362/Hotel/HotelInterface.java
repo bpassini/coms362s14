@@ -45,7 +45,7 @@ public interface HotelInterface {
 	 * @param notes - Notes/description associated with the invoice
 	 * @return true if invoice successfully created, false otherwise
 	 */
-	boolean createRoomInvoice(String hid, int rmid, String iid, String notes);
+	boolean createRoomInvoice(int rmid, String iid, String notes);
 	
 	/**
 	 * Creates a room reservation
@@ -54,10 +54,10 @@ public interface HotelInterface {
 	 * @param start - Start date of the reservation
 	 * @param end - End date of the reservation
 	 * @param cust - Customer object who is placing the reservation
-	 * @param attr - Attribute object of minimum desired room attributes
+	 * @param rmid - Room ID
 	 * @return True if room reservation created successfully, false otherwise
 	 */
-	boolean createRoomReservation(String rrid, String hid, DateTime start, DateTime end, Customer cust, Attribute attr);
+	boolean createRoomReservation(String rrid, DateTime start, DateTime end, Customer cust, int rmid);
 	
 	/**
 	 * Updates a certain field of the room reservation object with the given reservation id.

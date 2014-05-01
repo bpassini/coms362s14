@@ -27,7 +27,7 @@ public interface RoomReservationInterface {
 	/**
 	 * Constant used to signal that the attribute variable is the field to be updated.
 	 */
-	static final int UPDATE_ATTRIBUTE = 4;	
+	static final int UPDATE_ROOM_ID = 4;	
 	
 	/**
 	 * Updates a certain field of this room reservation object.

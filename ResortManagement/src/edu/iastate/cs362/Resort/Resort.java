@@ -99,18 +99,18 @@ public class Resort implements ResortInterface {
 		
 		Hotel h = new ResortDBSupport().getHotel(hid);
 		
-		if(h != null && h.createRoomInvoice(hid, rmid, iid, notes) == false)
+		if(h != null && h.createRoomInvoice(rmid, iid, notes) == false)
 			return false;
 		
 		return(new ResortDBSupport().putHotel(h));
 	}
 
 	@Override
-	public boolean createRoomReservation(String rrid, String hid, DateTime start, DateTime end, Customer cust, Attribute attr) {
+	public boolean createRoomReservation(String rrid, String hid, DateTime start, DateTime end, Customer cust, int rmid) {
 		
 		Hotel h = new ResortDBSupport().getHotel(hid);
 		
-		if(h != null && h.createRoomReservation(rrid, hid, start, end, cust, attr) == false)
+		if(h != null && h.createRoomReservation(rrid, start, end, cust, rmid) == false)
 			return false;
 		
 		return(new ResortDBSupport().putHotel(h));

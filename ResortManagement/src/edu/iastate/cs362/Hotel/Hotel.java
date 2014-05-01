@@ -66,7 +66,7 @@ public class Hotel implements HotelInterface{
 	}
 
 	@Override
-	public boolean createRoomInvoice(String hid, int rmid, String iid, String notes) {
+	public boolean createRoomInvoice(int rmid, String iid, String notes) {
 		
 		RoomInvoice ri = new RoomInvoice(hid, rmid, iid, notes);
 		
@@ -74,9 +74,9 @@ public class Hotel implements HotelInterface{
 	}
 
 	@Override
-	public boolean createRoomReservation(String rrid, String hid, DateTime start, DateTime end, Customer cust, Attribute attr) {
+	public boolean createRoomReservation(String rrid, DateTime start, DateTime end, Customer cust, int rmid) {
 			
-		RoomReservation res = new RoomReservation(rrid, hid, start, end, cust, attr);
+		RoomReservation res = new RoomReservation(rrid, hid, start, end, cust, rmid);
 
 		return reservations.add(res);
 	}

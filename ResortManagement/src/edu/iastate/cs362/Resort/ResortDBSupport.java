@@ -12,7 +12,6 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import edu.iastate.cs362.Hotel.Attribute;
 import edu.iastate.cs362.Hotel.Customer;
 import edu.iastate.cs362.Hotel.Hotel;
 import edu.iastate.cs362.Hotel.Room;
@@ -345,25 +344,27 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 						Customer cust = new Customer(rsReservations.getInt("CustomerID"), rsReservations.getString("FirstName"), rsReservations.getString("LastName"));
 						DateTime start = DateTime.parse(rsReservations.getString("StartDate"), f);
 						DateTime end = DateTime.parse(rsReservations.getString("EndDate"), f);
+						int rmid = rsReservations.getInt("RoomID");
 						
-	// prev debug 2 rows below					
+					// No longer need due to modified room reservation creation
+					/*
 						ArrayList<String> bedsReservation = new ArrayList<String>();
 						String[] bedsReservationSplit = rsReservations.getString("BedTypes").split(", ");
 						for(int i=0; i<bedsReservationSplit.length; i++)
 						{
 							bedsReservation.add(bedsReservationSplit[i]);
 						}
-						
+					
 						int numGuests = rsReservations.getInt("NumGuests");
 						
 						Attribute attr = new Attribute(bedsReservation, numGuests);
-						
-						h.createRoomReservation(rsReservations.getString("RoomReservationID"), rsReservations.getString("HotelID"), start, end, cust, attr);
+					*/	
+						h.createRoomReservation(rsReservations.getString("RoomReservationID"), start, end, cust, rmid);
 					}
 					
 					while(rsInvoices.next()) {
 						
-						h.createRoomInvoice(hid, rsInvoices.getInt("RoomID"), rsInvoices.getString("RoomInvoiceID"), rsInvoices.getString("Notes"));
+						h.createRoomInvoice(rsInvoices.getInt("RoomID"), rsInvoices.getString("RoomInvoiceID"), rsInvoices.getString("Notes"));
 					}
 				}
 				
