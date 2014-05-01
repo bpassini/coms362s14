@@ -30,6 +30,21 @@ public class RentalCenterUI {
 		Scanner in = new Scanner(System.in);
 		boolean returnCode = false;
 		while(true) {
+			
+			System.out.println("What would you like to do? \n"+
+				    " 1. Create a Rental Center\n"+
+				    " 2. Create a piece of Equipment to a specific RentalCenter\n"+
+				    " 3. Create an Equipment Invoice to a specific RentalCenter\n" +
+				    " 4. Create a Rental Reservation to a specific RentalCenter\n" +
+				    " 5. Update a piece of Equipment.\n" +
+				    " 6. Update a Rental Center.\n" +
+				    " 7. Checkout a piece of Equipment.\n" +
+				    " 8. Check in a piece of Equipment.\n" +
+				    " 9. Update Equipment Invoice.\n" +
+				    "10. Update Rental Reservation.\n" + 
+				    "11. Search for Equipment.\n" +
+				    "12. Check Equipment Availability.");
+			
 			int inputNum = 0;
 			if(in.hasNextLine()) {
 				inputNum = Integer.parseInt(in.nextLine().trim());
@@ -268,7 +283,7 @@ public class RentalCenterUI {
 		System.out.println("Enter equipment invoice id you wish to update");
 		if(in.hasNextLine())
 			eId = in.nextLine().trim();
-		System.out.println("What would you like to update?" +
+		System.out.println("What would you like to update?\n" +
 				"0. Message\n" +
 				"1. Equipment id\n");
 		
@@ -303,7 +318,7 @@ public class RentalCenterUI {
 		System.out.println("Enter rental reservation id you wish to update");
 		if(in.hasNextLine())
 			resId = in.nextLine().trim();
-		System.out.println("What would you like to update?" +
+		System.out.println("What would you like to update?\n" +
 				"0. Equipment id\n" +
 				"1. Customer\n" +
 				"2. Start date\n" +
@@ -355,7 +370,7 @@ public class RentalCenterUI {
 		System.out.println("Enter rental center id");
 		if(in.hasNextLine())
 			rId = in.nextLine().trim();
-		System.out.println("What would you like to search by\n?" +
+		System.out.println("What would you like to search by?\n" +
 				"1. Equipment id\n" +
 				"2. Type\n" +
 				"3. Cost\n" +

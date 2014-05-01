@@ -70,7 +70,24 @@ public class RentalCenter implements RentalCenterInterface {
 	@Override
 	public boolean createRentalReservation(String rentalId, String eid, Customer cust,
 			DateTime start, DateTime end) {
-		//TODO make sure this is okay to add.
+		List<Equipment> eq = checkEquipmentAvailability(start, end);
+		boolean found = false;
+		for(Equipment e: eq) {
+			if(e.getEquipId().equals(eid)) {
+				found = true;
+				break;
+			}
+		}
+		
+		if(found) {
+			RentalReservation r = new RentalReservation(rentalId, eid, cust, start, end);
+			return reservations.add(r);
+		}
+		else
+			return false;
+	}
+	
+	public boolean addRR(String rentalId, String eid, Customer cust, DateTime start, DateTime end) {
 		RentalReservation r = new RentalReservation(rentalId, eid, cust, start, end);
 		return reservations.add(r);
 	}
