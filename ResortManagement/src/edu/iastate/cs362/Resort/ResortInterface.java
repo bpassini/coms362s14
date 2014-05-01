@@ -5,11 +5,9 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
-import edu.iastate.cs362.Hotel.Attribute;
 import edu.iastate.cs362.Hotel.Customer;
 import edu.iastate.cs362.Hotel.Room;
 import edu.iastate.cs362.RentalCenter.Equipment;
-import edu.iastate.cs362.RentalCenter.RentalCenter;
 
 /**
  * Interface for Resort.
@@ -81,10 +79,10 @@ public interface ResortInterface {
 	 * @param start - the reservation start date
 	 * @param end - the reservation end date
 	 * @param cust - the customer making reservation
-	 * @param attr - the desired room attributes
+	 * @param rmid - Room ID
 	 * @return - true if RoomReservation was added successfully, false otherwise
 	 */
-	boolean createRoomReservation(String rrid, String hid, DateTime start, DateTime end, Customer cust, Attribute attr);
+	boolean createRoomReservation(String rrid, String hid, DateTime start, DateTime end, Customer cust, int rmid);
 	
 	/**
 	 * Creates an EquipmentInvoice for a piece of Equipment in a RentalCenter
