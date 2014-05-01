@@ -513,26 +513,27 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				
 				if(h.getRoomsList().size() - roomCount == 1) {
 					Room r = h.getRoomsList().get(h.getRoomsList().size()-1);
-					stmtRoomWrite.executeUpdate("insert into Rooms values ('"+r.getRoomID()+"','"+h.getID()+"','"+r.getOccupancy()+"','"+r.getBeds().size()+"','"+r.getDescription()+"','"+r.getBeds().toString()+"', '"+r.getStatus()+"')");
+					int occupied = (r.getStatus() == true? 1: 0);
+					stmtRoomWrite.executeUpdate("insert into Rooms values ('"+r.getRoomID()+"','"+h.getID()+"','"+r.getOccupancy()+"','"+r.getBeds().size()+"','"+r.getDescription()+"','"+r.getBeds().toString()+"', '"+ occupied +"')");
 				}
-			/*	
 				else if(h.getRoomsList().size() - roomCount == 0) {
 					Room r = h.getRoomsList().get(h.getRoomsList().size()-1);
+					int occupied = (r.getStatus() == true? 1: 0);
 					stmtRoomWrite.executeUpdate("update Rooms set HotelID='" + h.getID() + "', Occupancy='" + r.getOccupancy() + "', NumBeds='" + r.getBeds().size() + "', Description='" + r.getDescription() + "', BedTypes='"
-					+ r.getBeds().toString().replace("[", "").replace("]", "") + "', CheckedOut='" + r.getStatus() + "', where RoomID='" + r.getRoomID() + "'");
+					+ r.getBeds().toString().replace("[", "").replace("]", "") + "', Occupied='" + occupied + "' where RoomID='" + r.getRoomID() + "'");
 				}
-			*/
+				
 				
 				DateTimeFormatter f = DateTimeFormat.forPattern("MM/dd/yyyy");
 				if(h.getReservationsList().size() - reservCount == 1) {
-					RoomReservation r = h.getReservationsList().get(h.getReservationsList().size()-1);
+					RoomReservation r = h.getReservationsList().get(h.getReservationsList().size()-1);					
 					stmtReservWrite.executeUpdate("insert into RoomReservations values ('"+r.getRoomReservationID()+"','"+r.getStart().toString(f)+"','"+r.getEnd().toString(f)
 					+ "','" + r.getCustomerID()+ "','" + r.getFirstName()+ "','" + r.getLastName()+ "','" + r.getHotelID()+"','" + r.getRoomID() + "')");
 				}
 				else if(h.getReservationsList().size() - reservCount == 0) {
 					RoomReservation r = h.getReservationsList().get(h.getReservationsList().size()-1);
 					stmtReservWrite.executeUpdate("update RoomReservations set StartDate='" + r.getStart().toString(f) + "', EndDate='" + r.getEnd().toString(f) + "', CustomerID='" + r.getCustomerID() + "', FirstName='" + r.getFirstName() +
-							"', LastName='" + r.getLastName() + "', HotelID='" + r.getHotelID() + "', where RoomReservationID='" + r.getRoomReservationID() + "'");
+							"', LastName='" + r.getLastName() + "', HotelID='" + r.getHotelID() + "', RoomID='" + r.getRoomID() + "' where RoomReservationID='" + r.getRoomReservationID() + "'");
 				}
 				
 				if(h.getInvoicesList().size() - invoiceCount == 1) {
