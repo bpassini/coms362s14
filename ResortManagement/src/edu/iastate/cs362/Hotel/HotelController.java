@@ -38,14 +38,14 @@ public class HotelController implements HotelControllerInterface {
 	@Override
 	public boolean createRoomReservation(String rrid, String hid, String start, String end, Customer cust, int rmid) {
 		
-		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
 		
 		return (new Resort().createRoomReservation(rrid, hid, formatter.parseDateTime(start), formatter.parseDateTime(end), cust, rmid));
 	}
 	
 	@Override
-	public boolean updateRoomReservation(String hId, String reservationId, int flag, Object newInfo) {
-		return new Resort().updateRoomReservation(hId, reservationId, flag, newInfo);
+	public boolean updateRoomReservation(String hid, String rrid, int flag, Object newInfo) {
+		return new Resort().updateRoomReservation(hid, rrid, flag, newInfo);
 	}
 
 	@Override
@@ -54,13 +54,13 @@ public class HotelController implements HotelControllerInterface {
 	}
 
 	@Override
-	public boolean checkIntoRoom(String hid, int rid, String rrid) {
-		return new Resort().checkIntoRoom(hid, rid, rrid);
+	public boolean checkIntoRoom(String hid, String rrid) {
+		return new Resort().checkIntoRoom(hid, rrid);
 	}
 
 	@Override
-	public boolean checkOutOfRoom(String hid, int rid, String rrid) {
-		return new Resort().checkOutOfRoom(hid, rid, rrid);
+	public boolean checkOutOfRoom(String hid, String rrid) {
+		return new Resort().checkOutOfRoom(hid, rrid);
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class HotelController implements HotelControllerInterface {
 	@Override
 	public List<Room> checkRoomAvailability(String hid, String start, String end) {
 		
-		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
 		
 		return new Resort().checkRoomAvailability(hid, formatter.parseDateTime(start), formatter.parseDateTime(end));
 	}

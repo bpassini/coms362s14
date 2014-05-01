@@ -1,7 +1,5 @@
 package edu.iastate.cs362.Hotel;
 
-import java.util.ArrayList;
-
 import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -38,11 +36,6 @@ public class RoomReservation implements RoomReservationInterface {
 	 * Customer making reservation
 	 */
 	Customer cust;
-	
-	/**
-	 * Customer's desired room attributes
-	 */
-	Attribute attr;
 	
 	/**
 	 * Room ID
@@ -186,7 +179,7 @@ public class RoomReservation implements RoomReservationInterface {
 	public void setLastName(String name) {
 		this.cust.setLastName(name);
 	}
-	
+/*	
 	public ArrayList<String> getBeds() {
 		return attr.beds;
 	}
@@ -202,5 +195,5 @@ public class RoomReservation implements RoomReservationInterface {
 	public void setNumGuests(int occupancy) {
 		this.attr.occupancy = occupancy;
 	}
-
+*/
 }

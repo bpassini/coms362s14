@@ -59,8 +59,8 @@ public class Hotel implements HotelInterface{
 	@Override
 	public boolean addRoom(ArrayList<String> beds, int occup, String desc, int rmid) {
 		
-		Attribute a = new Attribute(beds, occup);
-		Room rm = new Room(rmid, a, desc);
+//		Attribute a = new Attribute(beds, occup);
+		Room rm = new Room(rmid, occup, beds, desc);
 		
 		return rooms.add(rm);
 	}
@@ -82,10 +82,10 @@ public class Hotel implements HotelInterface{
 	}
 	
 	@Override
-	public boolean updateRoomReservation(String reservationId, int flag, Object newInfo) {
+	public boolean updateRoomReservation(String rrid, int flag, Object newInfo) {
 		RoomReservation temp = null;
 		for(RoomReservation rr : reservations) {
-			if(rr.getRoomReservationID().equals(reservationId)) {
+			if(rr.getRoomReservationID().equals(rrid)) {
 				temp = rr;
 				break;
 			}
@@ -116,16 +116,7 @@ public class Hotel implements HotelInterface{
 
 
 	@Override
-	public boolean checkIntoRoom(int rid, String rrid) {
-		
-		Room temp = null;
-		for(Room r: rooms) {
-			if(r.getRoomID() == rid)
-			{
-				temp = r;
-				break;
-			}
-		}
+	public boolean checkIntoRoom(String rrid) {
 		
 		RoomReservation tempRes = null;
 		for(RoomReservation rr: reservations) {
@@ -135,33 +126,29 @@ public class Hotel implements HotelInterface{
 			}
 		}
 		
-		if(temp == null || tempRes == null) {
+		if(tempRes == null) {
 			return false;
 		}
 		
-		else if(temp.setCheckedOut()) {
-			tempRes.setRoomID(rid);
-			boolean room = rooms.remove(temp) && rooms.add(temp);
-			boolean res = reservations.remove(tempRes) && reservations.add(tempRes);
-			return room && res;
+		boolean room;
+		boolean res;
+		int roomID = tempRes.rmid;
+		for(Room r: rooms) {
+			if(r.getRoomID() == roomID)
+			{
+				r.setCheckedOut();
+				room = rooms.remove(r) && rooms.add(r);
+				res = reservations.remove(tempRes) && reservations.add(tempRes);
+				return room && res;
+			}
 		}
 		
-		else
-			return false;
+		return false;
 	}
 
 
 	@Override
-	public boolean checkOutOfRoom(int rid, String rrid) {
-		
-		Room temp = null;
-		for(Room r: rooms) {
-			if(r.getRoomID() == rid)
-			{
-				temp = r;
-				break;
-			}
-		}
+	public boolean checkOutOfRoom(String rrid) {
 		
 		RoomReservation tempRes = null;
 		for(RoomReservation rr: reservations) {
@@ -171,19 +158,25 @@ public class Hotel implements HotelInterface{
 			}
 		}
 		
-		if(temp == null || tempRes == null) {
+		if(tempRes == null) {
 			return false;
 		}
 		
-		else if(temp.setAvailable()) {
-			tempRes.setRoomID(0);
-			boolean room = rooms.remove(temp) && rooms.add(temp);
-			boolean res = reservations.remove(tempRes) && reservations.add(tempRes);
-			return room && res;
+		boolean room;
+		boolean res;
+		int roomID = tempRes.rmid;
+		for(Room r: rooms) {
+			if(r.getRoomID() == roomID)
+			{
+				r.setAvailable();
+				room = rooms.remove(r) && rooms.add(r);
+				res = reservations.remove(tempRes) && reservations.add(tempRes);
+				return room && res;
+			}
 		}
 		
-		else
-			return false;
+		return false;
+		
 	}
 	
 	
@@ -265,12 +258,11 @@ public class Hotel implements HotelInterface{
 			}
 		}
 		
-		// TODO Later, handle the attribute situation
-		else if(flag == SEARCH_BY_ATTRIBUTE) {
-			if(u instanceof Attribute) {
-				Attribute attr = (Attribute) u;
+		else if(flag == SEARCH_BY_OCCUPANCY) {
+			if(u instanceof Integer) {
+				int i = (Integer) u;
 				for(Room rm : rooms) {
-					if(rm.getAttribute().equals(attr)) {
+					if(rm.getOccupancy() == i) {
 						r.add(rm);
 						found = true;
 					}
@@ -283,6 +275,18 @@ public class Hotel implements HotelInterface{
 				boolean status = (boolean) u;
 				for(Room rm : rooms) {
 					if(rm.getStatus() == status) {
+						r.add(rm);
+						found = true;
+					}
+				}
+			}
+		}
+		
+		else if(flag == SEARCH_BY_NUM_BEDS) {
+			if(u instanceof Integer) {
+				int n = (Integer) u;
+				for(Room rm : rooms) {
+					if(rm.getBeds().size() == n) {
 						r.add(rm);
 						found = true;
 					}

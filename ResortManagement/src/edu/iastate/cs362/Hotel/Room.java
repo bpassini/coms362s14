@@ -16,9 +16,14 @@ public class Room implements RoomInterface {
 	private int rmid;
 	
 	/**
-	 * Attribute object (containing ArrayList<String> beds and int occupancy)
+	 * Max occupancy of room
 	 */
-	private Attribute attr;
+	private int occup;
+	
+	/**
+	 * ArrayList of beds contained in the room, size = number of beds
+	 */
+	private ArrayList<String> beds;
 	
 	/**
 	 * Description of room
@@ -38,10 +43,11 @@ public class Room implements RoomInterface {
 	 * @param attr - Attribute object containing room attributes
 	 * @param desc - Description of room
 	 */
-	public Room(int rmid, Attribute attr, String desc) {
+	public Room(int rmid, int occup, ArrayList<String> beds, String desc) {
 		
 		this.rmid = rmid;
-		this.attr = attr;
+		this.occup = occup;
+		this.beds = beds;
 		this.desc = desc;
 	}
 	
@@ -53,28 +59,20 @@ public class Room implements RoomInterface {
 		this.rmid = rmid;
 	}
 	
-	public Attribute getAttribute() {
-		return attr;
-	}
-	
-	public void setAttribute(Attribute attr) {
-		this.attr = attr;
-	}
-	
 	public int getOccupancy() {
-		return attr.occupancy;
+		return occup;
 	}
 	
-	public void setOccupancy(int occupancy) {
-		this.attr.occupancy = occupancy;
+	public void setOccupancy(int occup) {
+		this.occup = occup;
 	}
 	
 	public ArrayList<String> getBeds() {
-		return attr.beds;
+		return beds;
 	}
 	
 	public void setBeds(ArrayList<String> beds) {
-		this.attr.beds = beds;
+		this.beds = beds;
 	}
 	
 	public String getDescription() {

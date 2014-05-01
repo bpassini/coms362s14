@@ -23,8 +23,9 @@ public interface HotelInterface {
 	 * Constants used to determine which field to search rooms by
 	 */
 	static final int SEARCH_BY_ID = 1;
-	static final int SEARCH_BY_ATTRIBUTE = 2;
+	static final int SEARCH_BY_OCCUPANCY = 2;
 	static final int SEARCH_BY_STATUS = 3;
+	static final int SEARCH_BY_NUM_BEDS = 4;
 	
 	
 	/**
@@ -39,7 +40,6 @@ public interface HotelInterface {
 	
 	/**
 	 * Creates a room invoice
-	 * @param hid - Hotel ID of the current hotel that holds specified room
 	 * @param rmid - Specified room that invoice is being created for
 	 * @param iid - Invoice ID associated with 
 	 * @param notes - Notes/description associated with the invoice
@@ -50,7 +50,6 @@ public interface HotelInterface {
 	/**
 	 * Creates a room reservation
 	 * @param rrid - Room reservation ID associated with this reservation
-	 * @param hid - Hotel ID where the room is to be reserved
 	 * @param start - Start date of the reservation
 	 * @param end - End date of the reservation
 	 * @param cust - Customer object who is placing the reservation
@@ -66,7 +65,7 @@ public interface HotelInterface {
 	 * @param newInfo the updated information.
 	 * @return true if the update was successful, false otherwise.
 	 */
-	boolean updateRoomReservation(String reservationId, int flag, Object newInfo);
+	boolean updateRoomReservation(String rrid, int flag, Object newInfo);
 	
 	/**
 	 * Updates the current hotel object
@@ -82,7 +81,7 @@ public interface HotelInterface {
 	 * @param rrid - the room reservation ID corresponding to this room and reservation
 	 * @return true if room was checked into successfully, false otherwise
 	 */
-	boolean checkIntoRoom(int rid, String rrid);
+	boolean checkIntoRoom(String rrid);
 	
 	/**
 	 * Checks out of hotel room and removes it from corresponding room reservation
@@ -90,7 +89,7 @@ public interface HotelInterface {
 	 * @param rrid - the room reservation ID corresponding to this room and reservation
 	 * @return true if room was checked out of successfully, false otherwise
 	 */
-	boolean checkOutOfRoom(int rid, String rrid);
+	boolean checkOutOfRoom(String rrid);
 	
 	
 	/**

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -442,8 +441,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				for(int j=0; j<h.getReservationsList().size(); j++){
 					RoomReservation r = h.getReservationsList().get(j);
 					qs = "insert into RoomReservations values ('"+r.getRoomReservationID()+"','"+r.getStart().toString(f)+"','"+r.getEnd().toString(f)
-							+ "','" + r.getCustomerID()+ "','" + r.getFirstName()+ "','" + r.getLastName()+ "','" + r.getHotelID()+"','" 
-							+ r.getBeds().size()+"','"+r.getBeds().toString()+"','" +r.getNumGuests()+"')";
+							+ "','" + r.getCustomerID()+ "','" + r.getFirstName()+ "','" + r.getLastName()+ "','" + r.getHotelID()+"','" + r.getRoomID() + "')";
 					stmt.executeUpdate(qs);
 				}
 				
@@ -529,14 +527,12 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				if(h.getReservationsList().size() - reservCount == 1) {
 					RoomReservation r = h.getReservationsList().get(h.getReservationsList().size()-1);
 					stmtReservWrite.executeUpdate("insert into RoomReservations values ('"+r.getRoomReservationID()+"','"+r.getStart().toString(f)+"','"+r.getEnd().toString(f)
-					+ "','" + r.getCustomerID()+ "','" + r.getFirstName()+ "','" + r.getLastName()+ "','" + r.getHotelID()+"','" 
-					+ r.getBeds().size()+"','"+r.getBeds().toString()+"','" +r.getNumGuests()+"')");
+					+ "','" + r.getCustomerID()+ "','" + r.getFirstName()+ "','" + r.getLastName()+ "','" + r.getHotelID()+"','" + r.getRoomID() + "')");
 				}
 				else if(h.getReservationsList().size() - reservCount == 0) {
 					RoomReservation r = h.getReservationsList().get(h.getReservationsList().size()-1);
 					stmtReservWrite.executeUpdate("update RoomReservations set StartDate='" + r.getStart().toString(f) + "', EndDate='" + r.getEnd().toString(f) + "', CustomerID='" + r.getCustomerID() + "', FirstName='" + r.getFirstName() +
-							"', LastName='" + r.getLastName() + "', HotelID='" + r.getHotelID() + "', NumBeds='" + r.getBeds().size() + "', BedTypes='" + r.getBeds().toString().replace("[", "").replace("]", "") + "', NumGuests='" + r.getNumGuests() + 
-							"' where RoomReservationID='" + r.getRoomReservationID() + "'");
+							"', LastName='" + r.getLastName() + "', HotelID='" + r.getHotelID() + "', where RoomReservationID='" + r.getRoomReservationID() + "'");
 				}
 				
 				if(h.getInvoicesList().size() - invoiceCount == 1) {
