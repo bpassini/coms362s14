@@ -78,9 +78,22 @@ public class Payroll implements PayrollInterface {
 		return endDate;
 	}
 	
+	/**
+	 * An overloaded method that allows you to provide all information of the payroll row.  This
+	 * method is useful to have when fetching the payroll from any form of storage.
+	 * @param empName the name of the employee
+	 * @param empId the id of the employee
+	 * @param payRate the pay rate of the employee
+	 * @param regularHours the number of regular hours the employee has worked
+	 * @param overtimeHours the number of overtime hours the employee has worked
+	 */
+	public void addPayrollRow(String empName, String empId, double payRate, double regularHours, double overtimeHours) {
+		payroll.add(new EmployeeInfo(empName, empId, payRate, regularHours, overtimeHours));
+	}
+	
 	@Override
-	public boolean addPayrollRow(String empName, String empId, double payRate, double regularHours, double overtimeHours) {
-		return payroll.add(new EmployeeInfo(empName, empId, payRate, regularHours, overtimeHours));
+	public boolean addPayrollRow(String empId, double regularHours, double overtimeHours) {
+		return payroll.add(new EmployeeInfo("", empId, 0.0, regularHours, overtimeHours));
 	}
 	
 	@Override

@@ -62,11 +62,11 @@ public class ManagementSystem implements ManagementSystemInterface {
 	}
 	
 	@Override
-	public boolean addPayrollRow(String payrollId, String empName, String empId, double payRate, double regularHours, double overtimeHours) {
+	public boolean addPayrollRow(String payrollId, String empId, double regularHours, double overtimeHours) {
 		Payroll p = new ManagementSystemDBSupport().getPayroll(payrollId);
 		if(p == null)
 			return false;
-		return p.addPayrollRow(empName, empId, payRate, regularHours, overtimeHours) && new ManagementSystemDBSupport().putPayroll(p); 
+		return p.addPayrollRow(empId, regularHours, overtimeHours) && new ManagementSystemDBSupport().putPayroll(p); 
 	}
 	
 	@Override
