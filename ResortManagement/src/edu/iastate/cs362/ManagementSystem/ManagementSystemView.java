@@ -115,21 +115,21 @@ public class ManagementSystemView {
 		while(inputNum != -1 && inputNum != 1 && inputNum != 2) {
 			System.out.println("What field of the payroll would you like to update?");
 			System.out.println("\t 1: start date\n\t 2: end date\n\t-1: Stop");
-			if(in.hasNextInt())
-				inputNum = in.nextInt();
+			if(in.hasNextLine())
+				inputNum = Integer.parseInt(in.nextLine());
 		}
 		
 		String info = "";
 		if(inputNum == 1) {
 			System.out.print("Enter the new Start Date of this payroll (MM/dd/yyyy): ");
-			if(in.hasNext())
-				info = in.next().trim();
+			if(in.hasNextLine())
+				info = in.nextLine().trim();
 			return new ManagementSystemController().updatePayroll(payrollId, PayrollInterface.UPDATE_START_DATE, info);
 		}
 		else if(inputNum == 2) {
 			System.out.print("Enter the new End Date of this payroll (MM/dd/yyyy): ");
-			if(in.hasNext())
-				info = in.next().trim();
+			if(in.hasNextLine())
+				info = in.nextLine().trim();
 			return new ManagementSystemController().updatePayroll(payrollId, PayrollInterface.UPDATE_END_DATE, info);
 		}
 		else
@@ -156,14 +156,14 @@ public class ManagementSystemView {
 			boolean success = false;
 			if(inputNum == 1) {
 				System.out.print("Enter the new first name of this employee: ");
-				if(in.hasNext())
-					info = in.next().trim();
+				if(in.hasNextLine())
+					info = in.nextLine().trim();
 				success = new ManagementSystemController().updateEmployee(employeeId, EmployeeInterface.UPDATE_FIRST_NAME, info);
 			}
 			else if(inputNum == 2) {
 				System.out.print("Enter the new last name of this employee: ");
-				if(in.hasNext())
-					info = in.next().trim();
+				if(in.hasNextLine())
+					info = in.nextLine().trim();
 				success = new ManagementSystemController().updateEmployee(employeeId, EmployeeInterface.UPDATE_LAST_NAME, info);
 			}
 			else if(inputNum == 3) {
@@ -174,8 +174,8 @@ public class ManagementSystemView {
 			}
 			else if(inputNum == 4) {
 				System.out.print("Enter the new payrate of this employee: ");
-				if(in.hasNext())
-					info = in.next().trim();
+				if(in.hasNextLine())
+					info = in.nextLine().trim();
 				success = new ManagementSystemController().updateEmployee(employeeId, EmployeeInterface.UPDATE_PAYRATE, Double.parseDouble(info));
 			}
 			
@@ -229,8 +229,8 @@ public class ManagementSystemView {
 					boolean success = false;
 					if(inNum == 1) {
 						System.out.print("Enter the new number of regular hours: ");
-						if(in.hasNext())
-							info = Double.parseDouble(in.next().trim());
+						if(in.hasNextLine())
+							info = Double.parseDouble(in.nextLine().trim());
 						success = new ManagementSystemController().updatePayrollRow(payrollId, employeeId, EmployeeInfoInterface.UPDATE_REGULAR_HOURS, info);
 					}
 					else if(inNum == 2) {
@@ -307,8 +307,8 @@ public class ManagementSystemView {
 	
 	private static boolean addPayrollRow() {
 		Scanner in = new Scanner(System.in);
-		String payrollId, empName, empId = empName = payrollId = "";
-		double payRate, regularHours, overtimeHours = regularHours = payRate = 0.0;
+		String payrollId, empId = payrollId = "";
+		double  regularHours, overtimeHours = regularHours = 0.0;
 		
 		System.out.println("What is the id of the payroll you would like to add a row to?");
 		if(in.hasNextLine())
