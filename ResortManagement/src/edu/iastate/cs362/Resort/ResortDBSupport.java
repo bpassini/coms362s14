@@ -80,7 +80,8 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 						DateTime start = df.parseDateTime((rsR.getString("startDate")));
 						DateTime end = df.parseDateTime((rsR.getString("endDate")));
 						
-						rc.createRentalReservation(rsR.getString("rentalId"), rsR.getString("equipId"), customer, start, end);
+						
+						rc.addRR(rsR.getString("rentalId"), rsR.getString("equipId"), customer, start, end);
 					}
 				}
 				else {
@@ -223,7 +224,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					int status = (e.getStatus() == true? 1: 0);
 					stmtEWrite.executeUpdate("insert into Equipment values ('"+e.getEquipId()+"','"+ e.getEquipType()+"',"+e.getCost() + ",'"+e.getDescription()+"','" + rc.getId()+ "','" + status +"')");
 				}
-				else if(rc.getEquipmentList().size() - eCount == 0) {
+				else if(rc.getEquipmentList().size() - eCount == 0 && rc.getEquipmentList().size() != 0) {
 					Equipment e = rc.getEquipmentList().get(rc.getEquipmentList().size()-1);
 					int status = (e.getStatus() == true? 1: 0);
 					stmtEWrite.executeUpdate("update Equipment set equipType='"+ e.getEquipType() + "', cost='" + e.getCost() + "', description='" + e.getDescription() + "', rId='" + rc.getId() + "', checkedIn=" + status + " where equipId='" + e.getEquipId() + "'");
@@ -234,7 +235,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					EquipmentInvoice i = rc.getInvoicesList().get(rc.getInvoicesList().size()-1);
 					stmtIWrite.executeUpdate("insert into EquipmentInvoice values ('"+i.getInvoiceId()+"','"+ i.getEquipId()+"','"+i.getInvoiceMsg()+"','" + rc.getId() + "')");
 				}
-				else if(rc.getInvoicesList().size() - iCount == 0) {
+				else if(rc.getInvoicesList().size() - iCount == 0 && rc.getInvoicesList().size() != 0) {
 					EquipmentInvoice i = rc.getInvoicesList().get(rc.getInvoicesList().size()-1);
 					stmtIWrite.executeUpdate("update EquipmentInvoice set equipId='"+ i.getEquipId() + "', msg='" + i.getInvoiceMsg() + "', rId='" + rc.getId() + "' where invoiceId='" + i.getInvoiceId() + "'");
 				}
@@ -246,7 +247,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					stmtRWrite.executeUpdate("insert into RentalReservation values ('" +r.getRentalId()+"','" + r.getEquipId()+"','"+r.getCustomer().getCmid()+"','" + r.getCustomer().getFirstName()
 							+ "','" + r.getCustomer().getLastName()+ "','" + r.getStart().toString(df)+"','" + r.getEnd().toString(df)+"','" + rc.getId() + "')");
 				}
-				else if(rc.getReservationsList().size() - rCount == 0) {
+				else if(rc.getReservationsList().size() - rCount == 0 && rc.getReservationsList().size() != 0) {
 					RentalReservation r = rc.getReservationsList().get(rc.getReservationsList().size() - 1);
 					stmtRWrite.executeUpdate("update RentalReservation set equipId='"+ r.getEquipId() + "', cmId='" + r.getCustomer().getCmid() + "', firstName='" + r.getCustomer().getFirstName() + "', lastName='" + r.getCustomer().getLastName() + "', startDate='" + r.getStart().toString(df)
 							+ "', endDate='" + r.getEnd().toString(df) + "', rId='" + rc.getId() + "' where rentalId='" + r.getRentalId() + "'");
