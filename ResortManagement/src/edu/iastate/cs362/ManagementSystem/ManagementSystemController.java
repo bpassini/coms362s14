@@ -43,6 +43,18 @@ public class ManagementSystemController implements ManagementSystemControllerInt
 	public boolean updatePayrollRow(String payrollId, String employeeId, int flag, Object newInfo) {
 		return new ManagementSystem().updatePayrollRow(payrollId, employeeId, flag, newInfo);
 	}
+
+	@Override
+	public boolean assignWorkSchedule(String scheduleId, String date, String employeeId,
+			double start, double hours) {
+		
+		try {
+			DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+			return new ManagementSystem().assignWorkSchedule(scheduleId, formatter.parseDateTime(date),employeeId, start, hours);
+		} catch(IllegalArgumentException e) {
+			return false;
+		}
+	}
 	
 	@Override
 	public boolean addRevenueToBudget(String budgetId, String revenueName, double revenueAmount) {
@@ -55,8 +67,8 @@ public class ManagementSystemController implements ManagementSystemControllerInt
 	}
 	
 	@Override
-	public boolean addPayrollRow(String payrollId, String empName, String empId, double payRate, double regularHours, double overtimeHours) {
-		return new ManagementSystem().addPayrollRow(payrollId, empName, empId, payRate, regularHours, overtimeHours);
+	public boolean addPayrollRow(String payrollId, String empId, double regularHours, double overtimeHours) {
+		return new ManagementSystem().addPayrollRow(payrollId, empId, regularHours, overtimeHours);
 	}
 	
 	@Override

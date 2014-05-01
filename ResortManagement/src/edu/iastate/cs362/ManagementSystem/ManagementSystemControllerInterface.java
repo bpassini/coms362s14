@@ -52,7 +52,18 @@ public interface ManagementSystemControllerInterface {
 	boolean updatePayrollRow(String payrollId, String employeeId, int flag, Object newInfo);
 	
 	/**
-	 * Add a revenue to the budget with the given budgetId.
+	 * Assigns a work schedule
+	 * @param scheduleId - id of the work schedule
+	 * @param date - the date the employee is scheduled to work
+	 * @param employeeId - the id of the specific employee
+	 * @param start - the start time of the shift (0-23.99)
+	 * @param hours - the amount of hours an employee will work
+	 * @return true if it was successfully stored, false otherwise
+	 */
+	boolean assignWorkSchedule(String scheduleId, String date, String employeeId, double start, double hours);
+
+	/**
+	* Add a revenue to the budget with the given budgetId.
 	 * @param budgetId the budgetId of the budget to add the revenue to.
 	 * @param revenueName the name of the revenue being added to the budget.
 	 * @param revenueAmount the amount of the revenue being added to the budget.
@@ -73,14 +84,12 @@ public interface ManagementSystemControllerInterface {
 	 * Adds an employee info object to the payroll list that belongs to the payroll object that has
 	 * the given payrollId.
 	 * @param payrollId the payrollId of the payroll that this employee info is going to be added to.
-	 * @param empName the name of the employee.
 	 * @param empId the id of the employee.
-	 * @param payRate the pay rate of the employee.
 	 * @param regularHours the number of regular hours the employee has worked.
 	 * @param overtimeHours the number of overtime hours this employee has worked.
 	 * @return true if the addition occurred successfully, false otherwise.
 	 */
-	boolean addPayrollRow(String payrollId, String empName, String empId, double payRate, double regularHours, double overtimeHours);
+	boolean addPayrollRow(String payrollId, String empId, double regularHours, double overtimeHours);
 	
 	/**
 	 * Updates a certain field of this employee object.

@@ -1,9 +1,8 @@
 package edu.iastate.cs362.RentalCenter;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import org.joda.time.DateTime;
 
@@ -128,16 +127,9 @@ public class RentalCenter implements RentalCenterInterface {
 	}
 
 	@Override
-	public boolean checkOutEquipment(String eid, String rentalId) {
+	public boolean checkOutEquipment(String rentalId) {
 		
 		
-		Equipment tmp = null;
-		for(Equipment e : equipment) {
-			if(e.getEquipId().equals(eid)) {
-				tmp = e;
-				break;
-			}
-		}
 		RentalReservation tmpr = null;
 		for(RentalReservation r: reservations) {
 			if(r.getRentalId().equals(rentalId)) {
@@ -146,11 +138,19 @@ public class RentalCenter implements RentalCenterInterface {
 			}
 		}
 		
-		if(tmp == null || tmpr == null) {
+		if(tmpr == null) {
 			return false;
 		}
-		else if(tmp.checkOutEquipment()) {
-			tmpr.setEquipId(eid);
+		
+		String eID = tmpr.getEquipId();
+		Equipment tmp = null;
+		for(Equipment e : equipment) {
+			if(e.getEquipId().equals(eID)) {
+				tmp = e;
+				break;
+			}
+		}
+		if(tmp != null && tmp.checkOutEquipment()) {
 			boolean e = equipment.remove(tmp) && equipment.add(tmp);
 			boolean r = reservations.remove(tmpr) && reservations.add(tmpr);
 			return e && r;
@@ -161,15 +161,8 @@ public class RentalCenter implements RentalCenterInterface {
 	}
 
 	@Override
-	public boolean checkInEquipment(String eid, String rentalId) {
+	public boolean checkInEquipment( String rentalId) {
 		
-		Equipment tmp = null;
-		for(Equipment e : equipment) {
-			if(e.getEquipId().equals(eid)) {
-				tmp = e;
-				break;
-			}
-		}
 		RentalReservation tmpr = null;
 		for(RentalReservation r: reservations) {
 			if(r.getRentalId().equals(rentalId)) {
@@ -178,11 +171,20 @@ public class RentalCenter implements RentalCenterInterface {
 			}
 		}
 		
-		if(tmp == null || tmpr == null) {
+		if(tmpr == null) {
 			return false;
 		}
-		else if(tmp.checkInEquipment()) {
-			tmpr.setEquipId(null);
+		
+		String eID = tmpr.getEquipId();
+		Equipment tmp = null;
+		for(Equipment e : equipment) {
+			if(e.getEquipId().equals(eID)) {
+				tmp = e;
+				break;
+			}
+		}
+		
+		if(tmp != null && tmp.checkInEquipment()) {
 			boolean e = equipment.remove(tmp) && equipment.add(tmp);
 			boolean r = reservations.remove(tmpr) && reservations.add(tmpr);
 			return e && r;
@@ -308,5 +310,38 @@ public class RentalCenter implements RentalCenterInterface {
 			return null;
 		else
 			return e;
+	}
+
+	@Override
+	public List<Equipment> checkEquipmentAvailability(DateTime startDate,
+			DateTime endDate) {
+		//contains ids of equipment that are not available
+		List<String> ids = new ArrayList<String>();
+		//be careful here, not sure if it copies it
+		List<Equipment> availEquip = equipment;
+		
+		
+		for(RentalReservation rr: reservations) {
+			if(!(endDate.isBefore(rr.getStart()) || startDate.isAfter(rr.getEnd()))) {
+				
+				if(!ids.contains(rr.getEquipId())) {
+					ids.add(rr.getEquipId());
+				}
+			}
+			else if(ids.contains(rr.getEquipId())) {
+				ids.remove(rr.getEquipId());
+			}
+		}
+		
+		
+		for(String id: ids) {
+			for(Equipment e: equipment) {
+				if(e.getEquipId().equals(id)) {
+					availEquip.remove(e);
+				}
+			}
+		}
+		
+		return availEquip;
 	}
 }

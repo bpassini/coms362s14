@@ -98,7 +98,7 @@ public interface RentalCenterInterface {
 	 * @param rentalId - the rental reservation we wish to correspond this piece with
 	 * @return true if checked out successfully, false otherwise
 	 */
-	boolean checkOutEquipment(String eid, String rentalId);
+	boolean checkOutEquipment(String rentalId);
 	
 	/**
 	 * Checks in a piece of equipment and removes it from the correct reservation
@@ -106,7 +106,7 @@ public interface RentalCenterInterface {
 	 * @param rentalId - the rental reservation we need to remove the equipment from
 	 * @return true if checked in successfully, false otherwise
 	 */
-	boolean checkInEquipment(String eid, String rentalId);
+	boolean checkInEquipment(String rentalId);
 	
 	/**
 	 * Searches equipment of the rental center
@@ -114,5 +114,13 @@ public interface RentalCenterInterface {
 	 * @param flag - the field we wish to search equipment by
 	 */
 	List<Equipment> searchEquipment(Object s, int flag);
+	
+	/**
+	 * Checks for available equipment during a certain time period
+	 * @param startDate - the start time frame
+	 * @param endDate - the end time frame
+	 * @return a list of available equipment
+	 */
+	List<Equipment> checkEquipmentAvailability(DateTime startDate, DateTime endDate);
 
 }

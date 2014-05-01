@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -142,7 +143,8 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				// place Equipment in Database
 				for(int i=0;i<rc.getEquipmentList().size();i++){
 					Equipment e = rc.getEquipmentList().get(i);
-					qs = "insert into Equipment values ('"+e.getEquipId()+"','"+ e.getEquipType()+"',"+e.getCost() + ",'"+e.getDescription()+"','" + rc.getId() + "','" + e.getStatus() + "')";
+					int status = (e.getStatus() == true? 1: 0);
+					qs = "insert into Equipment values ('"+e.getEquipId()+"','"+ e.getEquipType()+"',"+e.getCost() + ",'"+e.getDescription()+"','" + rc.getId() + "','" + status + "')";
 					stmt.executeUpdate(qs);
 				}
 				
@@ -218,11 +220,13 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				//there has been a change to EquipmentList, so add the last one to the Database
 				if(rc.getEquipmentList().size() - eCount == 1) {
 					Equipment e = rc.getEquipmentList().get(rc.getEquipmentList().size()-1);
-					stmtEWrite.executeUpdate("insert into Equipment values ('"+e.getEquipId()+"','"+ e.getEquipType()+"',"+e.getCost() + ",'"+e.getDescription()+"','" + rc.getId()+ "','" + e.getStatus() +"')");
+					int status = (e.getStatus() == true? 1: 0);
+					stmtEWrite.executeUpdate("insert into Equipment values ('"+e.getEquipId()+"','"+ e.getEquipType()+"',"+e.getCost() + ",'"+e.getDescription()+"','" + rc.getId()+ "','" + status +"')");
 				}
 				else if(rc.getEquipmentList().size() - eCount == 0) {
 					Equipment e = rc.getEquipmentList().get(rc.getEquipmentList().size()-1);
-					stmtEWrite.executeUpdate("update Equipment set equipType='"+ e.getEquipType() + "', cost='" + e.getCost() + "', description='" + e.getDescription() + "', rId='" + rc.getId() + "', checkedIn=" + e.getStatus() + " where equipId='" + e.getEquipId() + "'");
+					int status = (e.getStatus() == true? 1: 0);
+					stmtEWrite.executeUpdate("update Equipment set equipType='"+ e.getEquipType() + "', cost='" + e.getCost() + "', description='" + e.getDescription() + "', rId='" + rc.getId() + "', checkedIn=" + status + " where equipId='" + e.getEquipId() + "'");
 				}
 				
 				//there has been a change to InvoicesList, so add the last one to the Database

@@ -9,6 +9,7 @@ import edu.iastate.cs362.Hotel.Attribute;
 import edu.iastate.cs362.Hotel.Customer;
 import edu.iastate.cs362.Hotel.Room;
 import edu.iastate.cs362.RentalCenter.Equipment;
+import edu.iastate.cs362.RentalCenter.RentalCenter;
 
 /**
  * Interface for Resort.
@@ -27,6 +28,7 @@ public interface ResortInterface {
 	 */
 	boolean createRentalCenter(String rId, String name);
 
+	
 	/**
 	 * Creates a new Hotel
 	 * 
@@ -150,20 +152,18 @@ public interface ResortInterface {
 	/**
 	 * Checks out a piece of equipment and matches it to a reservation
 	 * @param rid - the rental center id
-	 * @param eid - the equipment id we wish to check out
 	 * @param rentalId - the rental reservation we wish to correspond this piece with
 	 * @return true if checked out successfully, false otherwise
 	 */
-	boolean checkOutEquipment(String rid, String eid, String rentalId);
+	boolean checkOutEquipment(String rid, String rentalId);
 	
 	/**
 	 * Checks in a piece of equipment and removes it from the correct reservation
 	 * @param rid - the rental center id
-	 * @param eid - the equipment id we wish to check back in
 	 * @param rentalId - the rental reservation we need to remove the equipment from
 	 * @return true if checked in successfully, false otherwise
 	 */
-	boolean checkInEquipment(String rid, String eid, String rentalId);
+	boolean checkInEquipment(String rid, String rentalId);
 	
 	/**
 	 * Updates a certain field of the room reservation object with the given reservation id.  This room reservation to be
@@ -212,6 +212,15 @@ public interface ResortInterface {
 	List<Equipment> searchEquipment(String rid, Object s, int flag);
 	
 	/**
+	 * Checks for available equipment in a specific rental center during a certain time period
+	 * @param rid - the rental center
+	 * @param startDate - the start time frame
+	 * @param endDate - the end time frame
+	 * @return
+	 */
+	List<Equipment> checkEquipmentAvailability(String rid, DateTime startDate, DateTime endDate);
+	
+	/**
 	 * Updates the room invoice of a specific hotel room
 	 * @param hid - hotel id
 	 * @param iid - invoice id
@@ -238,5 +247,4 @@ public interface ResortInterface {
 	 * @return a list of hotel rooms that match the given search parameters
 	 */
 	List<Room> searchRooms(String hid, Object u, int flag);
-	
 }

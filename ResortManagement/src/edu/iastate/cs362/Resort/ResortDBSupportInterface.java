@@ -1,5 +1,6 @@
 package edu.iastate.cs362.Resort;
 
+import java.util.List;
 import java.util.Set;
 
 import edu.iastate.cs362.RentalCenter.Equipment;
@@ -13,12 +14,13 @@ import edu.iastate.cs362.Hotel.*;
  * 
  */
 public interface ResortDBSupportInterface {
+	
 	/**
 	 * Gets the specific RentalCenter from the Database
-	 * @param rId - the RentalCenter id we wish to get by
+	 * @param rid - the RentalCenter id
 	 * @return the correct RentalCenter
 	 */
-	RentalCenter getRentalCenter(String rId);
+	RentalCenter getRentalCenter(String rid);
 	/**
 	 * Puts a RentalCenter into the Database
 	 * @param r - the RentalCenter we wish to place
@@ -41,6 +43,5 @@ public interface ResortDBSupportInterface {
 	 * @return - true if Hotel is successfully placed in database, false otherwise
 	 */
 	boolean putHotel(Hotel h);
-	
 
 }

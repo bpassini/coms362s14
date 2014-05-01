@@ -314,23 +314,17 @@ public class ManagementSystemView {
 		if(in.hasNextLine())
 			payrollId = in.nextLine().trim();
 
-		System.out.println("What is the name of the employee?");
-		if(in.hasNextLine())
-			empName = in.nextLine().trim();
-		System.out.println("What is " + empName + "'s employee ID?");
+		System.out.println("What is the employee ID you would like to add to the payroll?");
 		if(in.hasNextLine())
 			empId = in.nextLine();
-		System.out.println("What is " + empName + "'s hourly pay rate?");
-		if(in.hasNextLine())
-			payRate = Double.parseDouble(in.nextLine().trim());
-		System.out.println("How many hours, of regular pay, has " + empName + " worked?");
+		System.out.println("How many hours, of regular pay, has this employee worked?");
 		if(in.hasNextLine())
 			regularHours = Double.parseDouble(in.nextLine().trim());
-		System.out.println("How many hours, of overtime pay, has " + empName + " worked?");
+		System.out.println("How many hours, of overtime pay, has this employee worked?");
 		if(in.hasNextLine())
 			overtimeHours = Double.parseDouble(in.nextLine().trim());
 		
-		return new ManagementSystemController().addPayrollRow(payrollId, empName, empId, payRate, regularHours, overtimeHours);
+		return new ManagementSystemController().addPayrollRow(payrollId, empId, regularHours, overtimeHours);
 	}
 	
 	private static boolean view(int i) {

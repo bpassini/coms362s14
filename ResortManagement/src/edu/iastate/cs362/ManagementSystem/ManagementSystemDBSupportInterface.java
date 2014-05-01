@@ -1,5 +1,7 @@
 package edu.iastate.cs362.ManagementSystem;
 
+import org.joda.time.DateTime;
+
 /**
  * An interface that define what methods need to be in the ManagementSystemDBSupport class.
  * 
@@ -34,6 +36,17 @@ public interface ManagementSystemDBSupportInterface {
 	Payroll getPayroll(String payrollId);
 	
 	/**
+<<<<<<< HEAD
+	 * Puts a work schedule into the database
+	 * @param date - the date the employee is scheduled to work
+	 * @param employeeId - the id of the specific employee
+	 * @param start - the start time of the shift (0-23.99)
+	 * @param hours - the amount of hours an employee will work
+	 * @return true if it was successfully stored, false otherwise
+	 */
+	boolean putWorkSchedule(WorkSchedule w);
+
+	/**
 	 * Gets the budget object from the database with the given budget id.
 	 * @param budgetId the id of the budget that needs to be retrieved from the database.
 	 * @return the budget object retrieved from the database.
@@ -46,4 +59,5 @@ public interface ManagementSystemDBSupportInterface {
 	 * @return the employee object retrieved from the database.
 	 */
 	Employee getEmployee(String employeeId);
+
 }

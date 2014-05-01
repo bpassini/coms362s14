@@ -149,10 +149,10 @@ public class Resort implements ResortInterface {
 	}
 
 	@Override
-	public boolean checkOutEquipment(String rid, String eid, String rentalId) {
+	public boolean checkOutEquipment(String rid, String rentalId) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
-		if(rc != null && rc.checkOutEquipment(eid, rentalId)) {
+		if(rc != null && rc.checkOutEquipment(rentalId)) {
 			return new ResortDBSupport().putRentalCenter(rc);
 		}
 		else 
@@ -160,10 +160,10 @@ public class Resort implements ResortInterface {
 	}
 
 	@Override
-	public boolean checkInEquipment(String rid, String eid, String rentalId) {
+	public boolean checkInEquipment(String rid, String rentalId) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
-		if(rc != null && rc.checkInEquipment(eid, rentalId)) {
+		if(rc != null && rc.checkInEquipment(rentalId)) {
 			return new ResortDBSupport().putRentalCenter(rc);
 		}
 		else 
@@ -217,6 +217,16 @@ public class Resort implements ResortInterface {
 	}
 
 	@Override
+	public List<Equipment> checkEquipmentAvailability(String rid,
+			DateTime startDate, DateTime endDate) {
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		if(rc != null)
+			return rc.checkEquipmentAvailability(startDate, endDate);
+		else
+			return null;
+	}
+
+	
 	public boolean updateRoomInvoice(String hid, String iid, Object u, int flag) {
 	
 		Hotel h = new ResortDBSupport().getHotel(hid);

@@ -179,6 +179,32 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 		return false;
 	}
 	
+	@Override
+	public boolean putWorkSchedule(WorkSchedule w) {
+		
+		connection = this.getConnection();
+		
+		if(connection == null) {
+			return false;
+		}
+		else {
+			try {
+				Statement query = connection.createStatement();	
+				
+				DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+				EmployeeShift shift = w.getShifts().get(w.getShifts().size() - 1);
+				query.executeUpdate("insert into WorkSchedule(scheduleId, date, EmployeeId, start, hours) values('" + w.getId() + "','" + shift.getDate().toString(formatter) + 
+						"','" + shift.getEmployeeId() + "','" + shift.getStart() + "','" + shift.getHours() + "')");
+			}
+			catch(SQLException e) {
+				System.out.println(e);
+				return false;
+			}
+		}
+		return true;
+	}
+
+	
 	/**
 	 * A private helper method that inserts the given payroll object into the database.
 	 * @param p the new payroll object to be inserted into the database.
@@ -475,4 +501,6 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 		}
 		return connection;
 	}
+
+	
 }

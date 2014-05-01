@@ -44,6 +44,15 @@ public class ManagementSystem implements ManagementSystemInterface {
 			return false;
 		return p.updatePayrollRow(employeeId, flag, newInfo) && new ManagementSystemDBSupport().putPayroll(p); 
 	}
+
+	@Override
+	public boolean assignWorkSchedule(String scheduleId, DateTime date, String employeeId,
+			double start, double hours) {
+		WorkSchedule w = new WorkSchedule(scheduleId);
+		w.addEntry(date, employeeId, start, hours);
+		return new ManagementSystemDBSupport().putWorkSchedule(w);
+	}
+
 	
 	@Override
 	public boolean addRevenueToBudget(String budgetId, String revenueName, double revenueAmount) {
@@ -62,11 +71,11 @@ public class ManagementSystem implements ManagementSystemInterface {
 	}
 	
 	@Override
-	public boolean addPayrollRow(String payrollId, String empName, String empId, double payRate, double regularHours, double overtimeHours) {
+	public boolean addPayrollRow(String payrollId, String empId, double regularHours, double overtimeHours) {
 		Payroll p = new ManagementSystemDBSupport().getPayroll(payrollId);
 		if(p == null)
 			return false;
-		return p.addPayrollRow(empName, empId, payRate, regularHours, overtimeHours) && new ManagementSystemDBSupport().putPayroll(p); 
+		return p.addPayrollRow(empId, regularHours, overtimeHours) && new ManagementSystemDBSupport().putPayroll(p); 
 	}
 	
 	@Override
