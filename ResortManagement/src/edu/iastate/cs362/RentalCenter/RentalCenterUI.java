@@ -13,19 +13,6 @@ public class RentalCenterUI {
 	public static void main(String[] args) {
 		
 		System.out.println("\t\t Rental Center\n");
-		System.out.println("What would you like to do? \n"+
-			    " 1. Create a Rental Center\n"+
-			    " 2. Create a piece of Equipment to a specific RentalCenter\n"+
-			    " 3. Create an Equipment Invoice to a specific RentalCenter\n" +
-			    " 4. Create a Rental Reservation to a specific RentalCenter\n" +
-			    " 5. Update a piece of Equipment.\n" +
-			    " 6. Update a Rental Center.\n" +
-			    " 7. Checkout a piece of Equipment.\n" +
-			    " 8. Check in a piece of Equipment.\n" +
-			    " 9. Update Equipment Invoice.\n" +
-			    "10. Update Rental Reservation.\n" + 
-			    "11. Search for Equipment.\n" +
-			    "12. Check Equipment Availability.");
 		
 		Scanner in = new Scanner(System.in);
 		boolean returnCode = false;
@@ -43,7 +30,8 @@ public class RentalCenterUI {
 				    " 9. Update Equipment Invoice.\n" +
 				    "10. Update Rental Reservation.\n" + 
 				    "11. Search for Equipment.\n" +
-				    "12. Check Equipment Availability.");
+				    "12. Check Equipment Availability.\n" +
+				    "-1. Exit.");
 			
 			int inputNum = 0;
 			if(in.hasNextLine()) {
@@ -73,8 +61,10 @@ public class RentalCenterUI {
 				returnCode = searchEquipment();
 			else if(inputNum == 12)
 				returnCode = checkAvailability();
-			else
+			else if(inputNum == -1)
 				break;
+			else
+				continue;
 			
 			if(!returnCode) {
 				System.out.println("Operation failed, please try again.");
@@ -83,7 +73,6 @@ public class RentalCenterUI {
 				System.out.println("Operation succeeded!");
 			}
 		}
-		in.close();
 	}
 
 	private static boolean createRC() {
