@@ -61,7 +61,6 @@ public class ManagementSystemView {
 					" 5: update employee\n\t 6: update payroll row\n\t 7: add revenues to a budget\n\t 8: add expenses to budget\n\t" +
 					" 9: add payroll row to a payroll\n\t10: view a budget\n\t11: view a payroll\n\t12: assign a work schedule\n\t-1: Exit");
 		}
-		in.close();
 	}
 
 	private static boolean createBudget() {

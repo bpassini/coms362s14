@@ -79,7 +79,6 @@ public class HotelView {
 				    "11. Check for Room Availability" +
 				    "12. Exit");
 		}
-		in.close();
 	}
 
 	private static boolean createHotel() {
