@@ -49,7 +49,7 @@ public class RoomInvoice implements RoomInvoiceInterface {
 	@Override
 	public boolean updateRoomInvoice(Object newInfo, int flag) {
 		
-		if(!(newInfo instanceof String))
+		if(!(newInfo instanceof String || newInfo instanceof Integer))
 			return false;
 		
 		switch(flag) {

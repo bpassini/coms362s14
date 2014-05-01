@@ -90,7 +90,7 @@ public class Hotel implements HotelInterface{
 				break;
 			}
 		}
-		//An room reservation with the given invoiceId was not found.
+		// A room reservation with the given reservationID was not found.
 		if(temp == null)
 			return false;
 		if(temp.updateRoomReservation(flag, newInfo)) {
