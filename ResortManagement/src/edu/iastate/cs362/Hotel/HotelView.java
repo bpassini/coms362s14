@@ -65,7 +65,7 @@ public class HotelView {
 				System.out.println("Operation succeeded!");
 			}
 			
-			System.out.println("What would you like to do? \n"+
+			System.out.println("\nWhat would you like to do? \n"+
 				    " 1. Create a Hotel\n"+
 				    " 2. Create a Room for a specific Hotel\n"+
 				    " 3. Create a Room Invoice for a specific Hotel\n" +
@@ -401,10 +401,11 @@ public class HotelView {
 			System.out.println("There are no rooms that meet that criteria.");
 			return true;
 		}
+		// (flag == 3 ? 
 		
-		System.out.println("ID \t OCCUPANCY \t CHECKEDIN" + (flag == 3 ? "\tBEDS" : ""));
+		System.out.println("ID \t MAX OCCUPANCY \t CURRENTLY OCCUPIED? \t BEDS");
 		for(Room r: results) {
-			System.out.println(r.getRoomID() + "\t " + r.getOccupancy() + "\t\t" + r.getStatus() + (flag == 3 ? "\t\t" + r.getBeds().toString() : ""));
+			System.out.println(r.getRoomID() + "\t" + r.getOccupancy() + "\t\t" + r.getStatus() + "\t\t" + r.getBeds().toString());
 		}
 		
 		return true;
@@ -427,14 +428,14 @@ public class HotelView {
 		
 		List<Room> results = null;
 		results = new HotelController().checkRoomAvailability(hId, start, end);
-		if(results == null) {
+		if(results == null || results.size() == 0) {
 			System.out.println("There are no available rooms.");
 			return true;
 		}
 		System.out.println("Available Rooms between " + start + " and " + end);
-		System.out.println("ID \t OCCUPANCY \t CHECKEDIN \t BEDS");
+		System.out.println("ID \t MAX OCCUPANCY \t CURRENTLY OCCUPIED? \t BEDS");
 		for(Room r: results) {
-			System.out.println(r.getRoomID() + "\t " + r.getOccupancy() + "\t\t" + r.getStatus() + "\t\t" + r.getBeds().toString());
+			System.out.println(r.getRoomID() + "\t\t" + r.getOccupancy() + "\t\t" + r.getStatus() + "\t\t" + r.getBeds().toString());
 		}
 		
 		return true;

@@ -207,13 +207,13 @@ public class Hotel implements HotelInterface{
 
 	public List<Room> checkRoomAvailability(DateTime start, DateTime end) {
 		
-		// TODO Test this, should work
 		List<Room> r = getRoomsList();
 		
 		for(RoomReservation rsv : reservations) {
 	
 			if( start.isEqual(rsv.getStart()) || (start.isAfter(rsv.getStart()) && start.isBefore(rsv.getEnd())) || 
-					end.isEqual(rsv.getEnd()) || (end.isAfter(rsv.getStart()) && end.isBefore(rsv.getEnd())) )
+					end.isEqual(rsv.getEnd()) || (end.isAfter(rsv.getStart()) && end.isBefore(rsv.getEnd())) || 
+						(start.isBefore(rsv.getStart()) && end.isAfter(rsv.getEnd())) )
 			{
 				int rmid = rsv.getRoomID();
 				
@@ -261,7 +261,7 @@ public class Hotel implements HotelInterface{
 			if(u instanceof Integer) {
 				int i = (Integer) u;
 				for(Room rm : rooms) {
-					if(rm.getOccupancy() == i) {
+					if(rm.getOccupancy() >= i) {
 						r.add(rm);
 						found = true;
 					}
@@ -285,7 +285,7 @@ public class Hotel implements HotelInterface{
 			if(u instanceof Integer) {
 				int n = (Integer) u;
 				for(Room rm : rooms) {
-					if(rm.getBeds().size() == n) {
+					if(rm.getBeds().size() >= n) {
 						r.add(rm);
 						found = true;
 					}
