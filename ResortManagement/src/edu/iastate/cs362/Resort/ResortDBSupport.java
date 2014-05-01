@@ -514,7 +514,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					int occupied = (r.getStatus() == true? 1: 0);
 					stmtRoomWrite.executeUpdate("insert into Rooms values ('"+r.getRoomID()+"','"+h.getID()+"','"+r.getOccupancy()+"','"+r.getBeds().size()+"','"+r.getDescription()+"','"+r.getBeds().toString()+"', '"+ occupied +"')");
 				}
-				else if(h.getRoomsList().size() - roomCount == 0) {
+				else if(h.getRoomsList().size() - roomCount == 0 && h.getRoomsList().size() != 0) {
 					Room r = h.getRoomsList().get(h.getRoomsList().size()-1);
 					int occupied = (r.getStatus() == true? 1: 0);
 					stmtRoomWrite.executeUpdate("update Rooms set HotelID='" + h.getID() + "', Occupancy='" + r.getOccupancy() + "', NumBeds='" + r.getBeds().size() + "', Description='" + r.getDescription() + "', BedTypes='"
@@ -528,7 +528,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					stmtReservWrite.executeUpdate("insert into RoomReservations values ('"+r.getRoomReservationID()+"','"+r.getStart().toString(f)+"','"+r.getEnd().toString(f)
 					+ "','" + r.getCustomerID()+ "','" + r.getFirstName()+ "','" + r.getLastName()+ "','" + r.getHotelID()+"','" + r.getRoomID() + "')");
 				}
-				else if(h.getReservationsList().size() - reservCount == 0) {
+				else if(h.getReservationsList().size() - reservCount == 0 && h.getReservationsList().size() != 0) {
 					RoomReservation r = h.getReservationsList().get(h.getReservationsList().size()-1);
 					stmtReservWrite.executeUpdate("update RoomReservations set StartDate='" + r.getStart().toString(f) + "', EndDate='" + r.getEnd().toString(f) + "', CustomerID='" + r.getCustomerID() + "', FirstName='" + r.getFirstName() +
 							"', LastName='" + r.getLastName() + "', HotelID='" + r.getHotelID() + "', RoomID='" + r.getRoomID() + "' where RoomReservationID='" + r.getRoomReservationID() + "'");
@@ -538,7 +538,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					RoomInvoice i = h.getInvoicesList().get(h.getInvoicesList().size()-1);
 					stmtInvoiceWrite.executeUpdate("insert into RoomInvoices values ('"+i.getHotelID()+"','"+ i.getRoomID()+"','"+i.getRoomInvoiceID()+"','"+ i.getNotes()+"')");
 				}
-				else if(h.getInvoicesList().size() - invoiceCount == 0) {
+				else if(h.getInvoicesList().size() - invoiceCount == 0 && h.getInvoicesList().size() != 0) {
 					RoomInvoice i = h.getInvoicesList().get(h.getInvoicesList().size()-1);
 					stmtInvoiceWrite.executeUpdate("update RoomInvoices set RoomID='"+ i.getHotelID() + "', Notes='" + i.getNotes() + "', RoomID='" + i.getRoomID() + "' where RoomInvoiceID='" + i.getRoomInvoiceID() + "'");
 				}
