@@ -285,7 +285,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				return;
 			else{
 				Statement stmt = connection.createStatement();
-				stmt.executeUpdate("update RentalCenter set rName='"+ rc.getName() + "'");
+				stmt.executeUpdate("update RentalCenter set rName='"+ rc.getName() + "' where rId='" + rc.getId() + "'");
 			}
 		}
 		 catch (SQLException sqle){
@@ -345,19 +345,6 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 						DateTime end = DateTime.parse(rsReservations.getString("EndDate"), f);
 						int rmid = rsReservations.getInt("RoomID");
 						
-					// No longer need due to modified room reservation creation
-					/*
-						ArrayList<String> bedsReservation = new ArrayList<String>();
-						String[] bedsReservationSplit = rsReservations.getString("BedTypes").split(", ");
-						for(int i=0; i<bedsReservationSplit.length; i++)
-						{
-							bedsReservation.add(bedsReservationSplit[i]);
-						}
-					
-						int numGuests = rsReservations.getInt("NumGuests");
-						
-						Attribute attr = new Attribute(bedsReservation, numGuests);
-					*/	
 						h.createRoomReservation(rsReservations.getString("RoomReservationID"), start, end, cust, rmid);
 					}
 					
@@ -501,6 +488,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 				ResultSet rsReservRead = stmtReservRead.executeQuery("select count(*) as count2 from RoomReservations where HotelId='" + h.getID() + "'");
 				ResultSet rsInvoiceRead = stmtInvoiceRead.executeQuery("select count(*) as count3 from RoomInvoices where HotelId='" + h.getID() + "'");
 
+				stmt.executeUpdate("update Hotel set HotelName='" + h.getName() + "' where HotelID='" + h.getID() + "'");
 				
 				rsRoomRead.next();
 				int roomCount = rsRoomRead.getInt("count1");
