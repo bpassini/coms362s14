@@ -347,7 +347,7 @@ public class HotelView {
 		System.out.println("Enter hotel id");
 		if(in.hasNextLine())
 			hId = in.nextLine().trim();
-		System.out.println("What would you like to search by\n?" +
+		System.out.println("What would you like to search by?\n" +
 				"1. Room id\n" +
 				"2. Room Occupancy\n" +
 				"3. Number of beds\n" +
@@ -357,9 +357,9 @@ public class HotelView {
 		List<Room> results = null;
 		if(flag == 1) {
 			System.out.println("What id do you want to search by?");
-			String id = "";
+			int id = -1;
 			if(in.hasNextLine())
-				id = in.nextLine().trim();
+				id = Integer.parseInt(in.nextLine().trim());
 			results = new HotelController().searchRooms(hId, id, HotelInterface.SEARCH_BY_ID);
 		}
 		else if(flag == 2) {
@@ -393,9 +393,14 @@ public class HotelView {
 		else 
 			return false;
 		
-		System.out.println("ID \t TYPE \t OCCUPANCY \t CHECKEDIN" + (flag == 3 ? "BEDS" : ""));
+		if(results == null) {
+			System.out.println("There are no rooms that meet that criteria.");
+			return true;
+		}
+		
+		System.out.println("ID \t OCCUPANCY \t CHECKEDIN" + (flag == 3 ? "\tBEDS" : ""));
 		for(Room r: results) {
-			System.out.println(r.getRoomID() + "\t " + r.getOccupancy() + "\t" + r.getStatus() + (flag == 3 ? "\t" + r.getBeds().toString() : ""));
+			System.out.println(r.getRoomID() + "\t " + r.getOccupancy() + "\t\t" + r.getStatus() + (flag == 3 ? "\t\t" + r.getBeds().toString() : ""));
 		}
 		
 		return true;
@@ -419,13 +424,13 @@ public class HotelView {
 		List<Room> results = null;
 		results = new HotelController().checkRoomAvailability(hId, start, end);
 		if(results == null) {
-			System.out.println("There are no available room.");
-			return false;
+			System.out.println("There are no available rooms.");
+			return true;
 		}
 		System.out.println("Available Rooms between " + start + " and " + end);
-		System.out.println("ID \t TYPE \t OCCUPANCY \t CHECKEDIN \t BEDS");
+		System.out.println("ID \t OCCUPANCY \t CHECKEDIN \t BEDS");
 		for(Room r: results) {
-			System.out.println(r.getRoomID() + "\t " + r.getOccupancy() + "\t" + r.getStatus() + "\t" + r.getBeds().toString());
+			System.out.println(r.getRoomID() + "\t " + r.getOccupancy() + "\t\t" + r.getStatus() + "\t\t" + r.getBeds().toString());
 		}
 		
 		return true;
