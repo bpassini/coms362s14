@@ -326,9 +326,9 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					ResultSet rsReservations = stmtInvoice.executeQuery("select * from RoomReservations where HotelId='" + hid + "' order by RoomReservationID");
 					ResultSet rsInvoices = stmtReserv.executeQuery("select * from RoomInvoices where HotelId='" + hid + "' order by RoomInvoiceID");						
 					
-					ArrayList<String> beds = new ArrayList<String>();
-					if(rsRooms.next())
+					while(rsRooms.next())
 					{
+						ArrayList<String> beds = new ArrayList<String>();
 						String[] bedsSplit = rsRooms.getString("BedTypes").split(", ");
 						for(int i=0; i<bedsSplit.length; i++)
 						{

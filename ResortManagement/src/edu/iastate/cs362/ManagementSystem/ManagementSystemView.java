@@ -64,13 +64,22 @@ public class ManagementSystemView {
 	}
 
 	private static boolean createBudget() {
-		return new ManagementSystemController().createBudget("bud" + System.currentTimeMillis() + "");
+		Scanner in = new Scanner(System.in);
+		String bId = "";
+		System.out.println("What is the id of the new budget?");
+		if(in.hasNextLine())
+			bId = in.nextLine().trim();
+		return new ManagementSystemController().createBudget(bId);
 	}
 	
 	private static boolean createPayroll() {
 		Scanner in = new Scanner(System.in);
 		String start, end = start = "";
 		
+		String pId = "";
+		System.out.println("What is the id of the new payroll?");
+		if(in.hasNextLine())
+			pId = in.nextLine().trim();
 		System.out.println("What is the start date of this payroll? (MM/dd/yyyy)");
 		if(in.hasNextLine())
 			start = in.nextLine().trim();
@@ -78,7 +87,7 @@ public class ManagementSystemView {
 		if(in.hasNextLine())
 			end = in.nextLine().trim();
 		
-		return new ManagementSystemController().createPayroll("pay" + System.currentTimeMillis() + "", start, end);
+		return new ManagementSystemController().createPayroll(pId, start, end);
 	}
 	
 	private static boolean addEmployee() {
@@ -86,6 +95,10 @@ public class ManagementSystemView {
 		String fname, lname, type = lname = fname = "";
 		double payRate = 0.0;
 		
+		String eId = "";
+		System.out.println("What is the id of the new employee?");
+		if(in.hasNextLine())
+			eId = in.nextLine().trim();
 		System.out.println("What is the first name of your new employee?");
 		if(in.hasNextLine())
 			fname = in.nextLine().trim();
@@ -99,7 +112,7 @@ public class ManagementSystemView {
 		if(in.hasNextLine())
 			payRate = Double.parseDouble(in.nextLine().trim());
 		
-		return new ManagementSystemController().createEmployee(fname, lname, type, "pay" + System.currentTimeMillis() + "", payRate);
+		return new ManagementSystemController().createEmployee(fname, lname, type, eId, payRate);
 	}
 	
 	private static boolean updatePayroll() {

@@ -76,7 +76,7 @@ public class HotelView {
 				    " 8. Update a Room Invoice\n" +
 				    " 9. Update a Room Reservation\n" +
 				    "10. Search for Rooms\n" + 
-				    "11. Check for Room Availability" +
+				    "11. Check for Room Availability\n" +
 				    "12. Exit");
 		}
 	}
@@ -104,7 +104,7 @@ public class HotelView {
 		System.out.println("Enter hotel id");
 		if(in.hasNextLine())
 				hid = in.nextLine().trim();
-		System.out.println("Enter room id");
+		System.out.println("Enter room id (Integer)");
 		if(in.hasNextLine())
 			rmid = Integer.parseInt(in.nextLine().trim());
 		System.out.println("Enter room occupancy");
@@ -166,7 +166,10 @@ public class HotelView {
 		System.out.println("Enter room reservation id");
 		if(in.hasNextLine())
 			rrId = in.nextLine().trim();
-		System.out.println("Enter customer id");
+		System.out.println("Enter room id");
+		if(in.hasNextLine())
+			rmid = Integer.parseInt(in.nextLine().trim());
+		System.out.println("Enter customer id (Integer)");
 		if(in.hasNextLine())
 			cId = Integer.parseInt(in.nextLine().trim());
 		System.out.println("Enter customer's first name");
@@ -175,10 +178,10 @@ public class HotelView {
 		System.out.println("Enter customer's last name");
 		if(in.hasNextLine())
 			lname = in.nextLine().trim();
-		System.out.println("Enter start date and time (MM/dd/yyyy)");
+		System.out.println("Enter start date (MM/dd/yyyy)");
 		if(in.hasNextLine())
 			start = in.nextLine().trim();
-		System.out.println("Enter end date and time (MM/dd/yyyy)");
+		System.out.println("Enter end date (MM/dd/yyyy)");
 		if(in.hasNextLine())
 			end = in.nextLine().trim();
 
@@ -248,7 +251,7 @@ public class HotelView {
 		System.out.println("Enter room invoice id you wish to update");
 		if(in.hasNextLine())
 			riId = in.nextLine().trim();
-		System.out.println("What would you like to update?" +
+		System.out.println("What would you like to update?\n" +
 				"0. Notes\n" +
 				"1. Room id\n");
 		
@@ -264,10 +267,10 @@ public class HotelView {
 		}
 		else if(flag == 1) {
 			System.out.println("Enter in the new room id.");
-			String rId = "";
+			int rId = -1;
 			if(in.hasNextLine())
-				rId = in.nextLine().trim();
-			return new HotelController().updateRoomInvoice(rId, riId, rId, RoomInvoice.UPDATE_ROOM_ID);
+				rId = Integer.parseInt(in.nextLine().trim());
+			return new HotelController().updateRoomInvoice(hId, riId, rId, RoomInvoice.UPDATE_ROOM_ID);
 		}
 		else
 			return false;
@@ -284,20 +287,20 @@ public class HotelView {
 		System.out.println("Enter room reservation id you wish to update");
 		if(in.hasNextLine())
 			rrId = in.nextLine().trim();
-		System.out.println("What would you like to update?" +
+		System.out.println("What would you like to update?\n" +
 				"0. Hotel id\n" +
 				"1. Customer\n" +
 				"2. Start date\n" +
 				"3. End date\n" +
-				"4. Room");
+				"4. Room id");
 		if(in.hasNextLine())
 			choice = Integer.parseInt(in.nextLine().trim());
 		
 		if(choice == 0) {
-			int newId = -1;
+			String newId = "";
 			System.out.println("Enter the new hotel id");
 			if(in.hasNextLine())
-				newId = Integer.parseInt(in.nextLine().trim());
+				newId = (in.nextLine().trim());
 			return new HotelController().updateRoomReservation(hId, rrId, RoomReservation.UPDATE_HOTEL_ID, newId);	
 		}
 		else if(choice == 1) {
@@ -316,24 +319,24 @@ public class HotelView {
 			return new HotelController().updateRoomReservation(hId, rrId, RoomReservation.UPDATE_CUSTOMER, c);
 		}
 		else if(choice == 2) {
-			System.out.println("Enter new start date.(MM/dd/yyyy)");
+			System.out.println("Enter new start date (MM/dd/yyyy)");
 			String start = "";
 			if(in.hasNextLine())
 				start = in.nextLine().trim();
 			return new HotelController().updateRoomReservation(hId, rrId, RoomReservation.UPDATE_START_DATE, start);
 		}
 		else if(choice == 3) {
-			System.out.println("Enter new end date.(MM/dd/yyyy)");
+			System.out.println("Enter new end date (MM/dd/yyyy)");
 			String end = "";
 			if(in.hasNextLine())
 				end = in.nextLine().trim();
 			return new HotelController().updateRoomReservation(hId, rrId, RoomReservation.UPDATE_END_DATE, end);
 		}
 		else if(choice == 4) {
-			String rId = "";
+			int rId = -1;
 			System.out.println("Enter new room id");
 			if(in.hasNextLine())
-				rId = in.nextLine().trim();
+				rId = Integer.parseInt(in.nextLine().trim());
 			return new HotelController().updateRoomReservation(hId, rrId, RoomReservation.UPDATE_ROOM_ID, rId);
 		}
 		else
@@ -378,7 +381,7 @@ public class HotelView {
 			results = new HotelController().searchRooms(hId, new Integer(numBeds), HotelInterface.SEARCH_BY_NUM_BEDS);
 		}
 		else if(flag == 4) {
-			System.out.println("What status do you want to search by (1 for checkedIn, 0 for checkedOut)?");
+			System.out.println("What status do you want to search by (1 for occupied, 0 for empty)?");
 			int incoming = -1;
 			boolean stat = false;
 			if(in.hasNextLine()) {
@@ -415,10 +418,10 @@ public class HotelView {
 		System.out.println("Enter hotel id");
 		if(in.hasNextLine())
 			hId = in.nextLine().trim();
-		System.out.println("Enter start date and time (MM/dd/yyyy)");
+		System.out.println("Enter start date (MM/dd/yyyy)");
 		if(in.hasNextLine())
 			start = in.nextLine().trim();
-		System.out.println("Enter end date and time (MM/dd/yyyy)");
+		System.out.println("Enter end date (MM/dd/yyyy)");
 		if(in.hasNextLine())
 			end = in.nextLine().trim();
 		

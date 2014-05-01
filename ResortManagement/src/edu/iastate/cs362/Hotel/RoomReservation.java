@@ -73,7 +73,7 @@ public class RoomReservation implements RoomReservationInterface {
 			hid = (String) newInfo;
 			break;
 		case UPDATE_START_DATE:
-			if(!(newInfo instanceof DateTime))
+			if(!(newInfo instanceof String))
 				return false;
 			try {
 				start = formatter.parseDateTime((String) newInfo);
@@ -83,7 +83,7 @@ public class RoomReservation implements RoomReservationInterface {
 			}
 			break;
 		case UPDATE_END_DATE:
-			if(!(newInfo instanceof DateTime))
+			if(!(newInfo instanceof String))
 				return false;
 			try {
 				end = formatter.parseDateTime((String) newInfo);

@@ -142,7 +142,6 @@ public class Hotel implements HotelInterface{
 				return room && res;
 			}
 		}
-		
 		return false;
 	}
 
