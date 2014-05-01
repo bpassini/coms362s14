@@ -19,7 +19,8 @@ public class HotelView {
 			    " 8. Update a Room Invoice\n" +
 			    " 9. Update a Room Reservation\n" +
 			    "10. Search for Rooms\n" + 
-			    "11. Check for Room Availability");
+			    "11. Check for Room Availability\n" +
+			    "12. Exit");
 		
 		Scanner in = new Scanner(System.in);
 		boolean returnCode = false;
@@ -54,7 +55,7 @@ public class HotelView {
 				returnCode = searchRooms();
 			else if(inputNum == 11)
 				returnCode = checkRoomAvailability();
-			else
+			else 
 				break;
 			
 			if(!returnCode) {
@@ -75,7 +76,8 @@ public class HotelView {
 				    " 8. Update a Room Invoice\n" +
 				    " 9. Update a Room Reservation\n" +
 				    "10. Search for Rooms\n" + 
-				    "11. Check for Room Availability");
+				    "11. Check for Room Availability" +
+				    "12. Exit");
 		}
 		in.close();
 	}
