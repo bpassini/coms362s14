@@ -79,15 +79,21 @@ public class Payroll implements PayrollInterface {
 	}
 	
 	/**
-	 * Adds an employee info object to the payroll list.
-	 * @param empName the name of the employee.
-	 * @param empId the id of the employee.
-	 * @param payRate the pay rate of the employee.
-	 * @param regularHours the number of regular hours the employee has worked.
-	 * @param overtimeHours the number of overtime hours this employee has worked.
+	 * An overloaded method that allows you to provide all information of the payroll row.  This
+	 * method is useful to have when fetching the payroll from any form of storage.
+	 * @param empName the name of the employee
+	 * @param empId the id of the employee
+	 * @param payRate the pay rate of the employee
+	 * @param regularHours the number of regular hours the employee has worked
+	 * @param overtimeHours the number of overtime hours the employee has worked
 	 */
-	public void addEmployeeInfo(String empName, String empId, double payRate, double regularHours, double overtimeHours) {
+	public void addPayrollRow(String empName, String empId, double payRate, double regularHours, double overtimeHours) {
 		payroll.add(new EmployeeInfo(empName, empId, payRate, regularHours, overtimeHours));
+	}
+	
+	@Override
+	public boolean addPayrollRow(String empId, double regularHours, double overtimeHours) {
+		return payroll.add(new EmployeeInfo("", empId, 0.0, regularHours, overtimeHours));
 	}
 	
 	@Override
@@ -132,5 +138,23 @@ public class Payroll implements PayrollInterface {
 			return payroll.remove(temp) && payroll.add(temp);
 		}
 		return false;
+	}
+	
+	@Override
+	public String view() {
+		DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+		String toRet = "----------------------------------------------------------------------------------------------------------------\n";
+		toRet += "Payroll ID: " + payrollId + "\n\n";
+		toRet += "Start Date: " + startDate.toString(formatter) + " End Date: " + endDate.toString(formatter) + "\n\n";
+		
+		toRet += "\t" + String.format("%-25s", "Employee Name") + String.format("%-25s", "Employee ID") + String.format("%-20s", "Payrate") + 
+						String.format("%-20s", "Regular Hours") + String.format("%-20s", "Overtime Hours") + "\n";
+		for(EmployeeInfo ei : payroll) {
+			toRet += "\t" + String.format("%-25s", ei.getEmployeeName()) + String.format("%-25s", ei.getEmployeeId()) + String.format("%-20s", "$" + ei.getPayRate()) + 
+					String.format("%-20s", ei.getRegularHours() + " hrs") + String.format("%-20s", ei.getOvertimeHours() + " hrs") + "\n";
+		}
+		toRet += "----------------------------------------------------------------------------------------------------------------";
+
+		return toRet;
 	}
 }

@@ -32,4 +32,18 @@ public interface PayrollInterface {
 	 * @return true if the update was successful, false otherwise.
 	 */
 	boolean updatePayrollRow(String employeeId, int flag, Object newInfo);
+	
+	/**
+	 * Adds an employee info object to the payroll list.
+	 * @param empId the id of the employee.
+	 * @param regularHours the number of regular hours the employee has worked.
+	 * @param overtimeHours the number of overtime hours this employee has worked.
+	 */
+	boolean addPayrollRow(String empId, double regularHours, double overtimeHours);
+	
+	/**
+	 * Returns a String representation of this payroll.
+	 * @return the String representation of this payroll.
+	 */
+	String view();
 }

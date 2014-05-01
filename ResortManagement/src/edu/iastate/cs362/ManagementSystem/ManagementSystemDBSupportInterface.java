@@ -36,6 +36,7 @@ public interface ManagementSystemDBSupportInterface {
 	Payroll getPayroll(String payrollId);
 	
 	/**
+<<<<<<< HEAD
 	 * Puts a work schedule into the database
 	 * @param date - the date the employee is scheduled to work
 	 * @param employeeId - the id of the specific employee
@@ -44,4 +45,19 @@ public interface ManagementSystemDBSupportInterface {
 	 * @return true if it was successfully stored, false otherwise
 	 */
 	boolean putWorkSchedule(WorkSchedule w);
+
+	/**
+	 * Gets the budget object from the database with the given budget id.
+	 * @param budgetId the id of the budget that needs to be retrieved from the database.
+	 * @return the budget object retrieved from the database.
+	 */
+	Budget getBudget(String budgetId);
+	
+	/**
+	 * Gets the employee object from the database with the given employee id.
+	 * @param employeeId the id of the employee that needs to be retrieved from the database.
+	 * @return the employee object retrieved from the database.
+	 */
+	Employee getEmployee(String employeeId);
+
 }

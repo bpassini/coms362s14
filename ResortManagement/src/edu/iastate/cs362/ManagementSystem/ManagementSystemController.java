@@ -55,4 +55,34 @@ public class ManagementSystemController implements ManagementSystemControllerInt
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean addRevenueToBudget(String budgetId, String revenueName, double revenueAmount) {
+		return new ManagementSystem().addRevenueToBudget(budgetId, revenueName, revenueAmount);
+	}
+	
+	@Override
+	public boolean addExpenseToBudget(String budgetId, String expenseName, double expenseAmount) {
+		return new ManagementSystem().addExpenseToBudget(budgetId, expenseName, expenseAmount);
+	}
+	
+	@Override
+	public boolean addPayrollRow(String payrollId, String empId, double regularHours, double overtimeHours) {
+		return new ManagementSystem().addPayrollRow(payrollId, empId, regularHours, overtimeHours);
+	}
+	
+	@Override
+	public boolean updateEmployee(String empId, int flag, Object newInfo) {
+		return new ManagementSystem().updateEmployee(empId, flag, newInfo);
+	}
+	
+	@Override
+	public String viewBudget(String budgetId) {
+		return new ManagementSystem().viewBudget(budgetId);
+	}
+	
+	@Override
+	public String viewPayroll(String payrollId) {
+		return new ManagementSystem().viewPayroll(payrollId);
+	}
 }

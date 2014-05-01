@@ -31,6 +31,16 @@ public class Budget implements BudgetInterface {
 		expenses = new ArrayList<Category>();
 	}
 	
+	@Override
+	public boolean addRevenue(String revenueName, double revenueAmount) {
+		return revenues.add(new Category(revenueName, revenueAmount));
+	}
+	
+	@Override
+	public boolean addExpense(String expenseName, double expenseAmount) {
+		return expenses.add(new Category(expenseName, expenseAmount));
+	}
+	
 	/**
 	 * Returns the id of this budget.
 	 * @return the id of this budget.
@@ -53,5 +63,32 @@ public class Budget implements BudgetInterface {
 	 */
 	public ArrayList<Category> getExpenses() {
 		return expenses;
+	}
+	
+	@Override
+	public String view() {
+		String toRet = "----------------------------------------------------------------\n";
+		toRet += "Budget ID: " + budgetId + "\n";
+		
+		toRet += "\tExpenses:\n";
+		double totalExpenses = 0.0;
+		for(Category exp : expenses) {
+			toRet += "\t\t" + String.format("%-20s", exp.getCategoryName()) + String.format("%20s", exp.getCategoryValue()) + "\n";
+			totalExpenses += exp.getCategoryValue();
+		}
+		toRet += "\t\t-----------------------------------------\n";
+		toRet += "\t\t" + String.format("%40s", "Total Exenses: $" + totalExpenses);
+		
+		toRet += "\n\tRevenues:\n";
+		double totalRevenues = 0.0;
+		for(Category rev : revenues) {
+			toRet += "\t\t" + String.format("%-20s", rev.getCategoryName()) + String.format("%20s", rev.getCategoryValue()) + "\n";
+			totalRevenues += rev.getCategoryValue();
+		}
+		toRet += "\t\t-----------------------------------------\n";
+		toRet += "\t\t" + String.format("%40s", "Total Revenues: $" + totalRevenues);
+		toRet += "\n----------------------------------------------------------------";
+		
+		return toRet;
 	}
 }

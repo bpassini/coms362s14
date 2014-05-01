@@ -38,42 +38,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 	 */
 	private Connection connection = null;
 	
-	public List<RentalCenter> getRentalCenters() {
-		List<RentalCenter> rcs = new ArrayList<RentalCenter>();
-		
-		try {
-			connection = this.getConnection();
-			if(connection == null) {
-				rcs = null;
-			}
-			else {
-				Statement stmt = connection.createStatement();
-				ResultSet rs = stmt.executeQuery("select * from RentalCenter"); //TODO
-				
-				while(rs.next()) {
-					String id = rs.getString("rId");
-					RentalCenter rc = this.getRentalCenter(id);
-					rcs.add(rc);
-				}
-				
-			}
-		}
-		catch (SQLException sqle) {
-			rcs=null;
-			sqle.printStackTrace();			
-			while (sqle != null) {
-				String logMessage = "\n SQL Error: "+
-				  sqle.getMessage() + "\n\t\t"+
-				  "Error code: "+sqle.getErrorCode() + 
-                                               "\n\t\t"+
-				  "SQLState: "+sqle.getSQLState()+"\n";
-		        System.out.println(logMessage);
-		        sqle = sqle.getNextException();
-			}
-		}	
-		
-		return rcs;		
-	}
+	
 	@Override
 	public RentalCenter getRentalCenter(String rId) {
 		

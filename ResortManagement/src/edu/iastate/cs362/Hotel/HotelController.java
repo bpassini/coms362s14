@@ -1,6 +1,7 @@
 package edu.iastate.cs362.Hotel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.joda.time.format.DateTimeFormat;
 
@@ -61,7 +62,23 @@ public class HotelController implements HotelControllerInterface {
 	public boolean checkOutOfRoom(String hid, int rid, String rrid) {
 		return new Resort().checkOutOfRoom(hid, rid, rrid);
 	}
-	
-	
+
+	@Override
+	public boolean updateRoomInvoice(String hid, String iid, Object u, int flag) {
+		return new Resort().updateRoomInvoice(hid, iid, u, flag);
+	}
+
+	@Override
+	public List<Room> checkRoomAvailability(String hid, String start, String end) {
+		
+		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+		
+		return new Resort().checkRoomAvailability(hid, formatter.parseDateTime(start), formatter.parseDateTime(end));
+	}
+
+	@Override
+	public List<Room> searchRooms(String hid, Object u, int flag) {
+		return new Resort().searchRooms(hid, u, flag);
+	}
 	
 }

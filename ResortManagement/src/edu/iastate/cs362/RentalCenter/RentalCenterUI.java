@@ -13,11 +13,6 @@ public class RentalCenterUI {
 	public static void main(String[] args) {
 		
 		System.out.println("\t\t Rental Center\n");
-//		List<RentalCenter> rcs = new Resort().getRentalCenters();
-//		for(RentalCenter rc: rcs) {
-//			System.out.println("\t rId: " + rc.getId() + "    \"" + rc.getName() + "\"");
-//		}
-		//Print out all rental centers
 		System.out.println("What would you like to do? \n"+
 			    " 1. Create a Rental Center\n"+
 			    " 2. Create a piece of Equipment to a specific RentalCenter\n"+

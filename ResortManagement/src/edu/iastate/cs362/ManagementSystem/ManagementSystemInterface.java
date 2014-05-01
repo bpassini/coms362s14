@@ -54,7 +54,6 @@ public interface ManagementSystemInterface {
 	 */
 	boolean updatePayrollRow(String payrollId, String employeeId, int flag, Object newInfo);
 	
-	
 	/**
 	 * Assigns a work schedule 
 	 * @param scheduleId - id of the work schedule
@@ -65,4 +64,56 @@ public interface ManagementSystemInterface {
 	 * @return true if it was successfully stored, false otherwise
 	 */
 	boolean assignWorkSchedule(String scheduleId, DateTime date, String employeeId, double start, double hours);
+
+	/**
+	 * Add a revenue to the budget with the given budgetId.
+	 * @param budgetId the budgetId of the budget to add the revenue to.
+	 * @param revenueName the name of the revenue being added to the budget.
+	 * @param revenueAmount the amount of the revenue being added to the budget.
+	 * @return true if the addition occurred successfully, false otherwise.
+	 */
+	boolean addRevenueToBudget(String budgetId, String revenueName, double revenueAmount);
+	
+	/**
+	 * Add a expense to the budget with the given budgetId.
+	 * @param budgetId the budgetId of the budget to add the expense to.
+	 * @param expenseName the name of the expense being added to the budget.
+	 * @param expenseAmount the amount of the expense being added to the budget.
+	 * @return true if the addition occurred successfully, false otherwise.
+	 */
+	boolean addExpenseToBudget(String budgetId, String expenseName, double expenseAmount);
+	
+	/**
+	 * Adds an employee info object to the payroll list that belongs to the payroll object that has
+	 * the given payrollId.
+	 * @param payrollId the payrollId of the payroll that this employee info is going to be added to.
+	 * @param empId the id of the employee.
+	 * @param regularHours the number of regular hours the employee has worked.
+	 * @param overtimeHours the number of overtime hours this employee has worked.
+	 * @return true if the addition occurred successfully, false otherwise.
+	 */
+	boolean addPayrollRow(String payrollId, String empId, double regularHours, double overtimeHours);
+	
+	/**
+	 * Updates a certain field of this employee object.
+	 * @param empId the empId of the employee that is to be updated.
+	 * @param flag the flag used to identify what field is being updated.
+	 * @param newInfo the update information.
+	 * @return true if the update was successful, false otherwise.
+	 */
+	boolean updateEmployee(String empId, int flag, Object newInfo);
+	
+	/**
+	 * Returns a String representation of the budget that has the given budgetId.
+	 * @param budgetId the budgetId of the budget that this String representation is returned for.
+	 * @return the String representation of the budget.
+	 */
+	String viewBudget(String budgetId);
+	
+	/**
+	 * Returns a String representation of the payroll that has the given payrollId.
+	 * @param payrollId the payrollId of the payroll that this String representation is returned for.
+	 * @return the String representation of the payroll.
+	 */
+	String viewPayroll(String payrollId);
 }

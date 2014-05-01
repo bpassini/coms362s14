@@ -32,12 +32,16 @@ public class ManagementSystem implements ManagementSystemInterface {
 	@Override
 	public boolean updatePayroll(String payrollId, int flag, Object newInfo) {
 		Payroll p = new ManagementSystemDBSupport().getPayroll(payrollId);
+		if(p == null)
+			return false;
 		return p.updatePayroll(flag, newInfo) && new ManagementSystemDBSupport().putPayroll(p);
 	}
 	
 	@Override
 	public boolean updatePayrollRow(String payrollId, String employeeId, int flag, Object newInfo) {
 		Payroll p = new ManagementSystemDBSupport().getPayroll(payrollId);
+		if(p == null)
+			return false;
 		return p.updatePayrollRow(employeeId, flag, newInfo) && new ManagementSystemDBSupport().putPayroll(p); 
 	}
 
@@ -47,5 +51,54 @@ public class ManagementSystem implements ManagementSystemInterface {
 		WorkSchedule w = new WorkSchedule(scheduleId);
 		w.addEntry(date, employeeId, start, hours);
 		return new ManagementSystemDBSupport().putWorkSchedule(w);
+	}
+
+	
+	@Override
+	public boolean addRevenueToBudget(String budgetId, String revenueName, double revenueAmount) {
+		Budget b = new ManagementSystemDBSupport().getBudget(budgetId);
+		if(b == null)
+			return false;
+		return b.addRevenue(revenueName, revenueAmount) && new ManagementSystemDBSupport().putBudget(b);
+	}
+	
+	@Override
+	public boolean addExpenseToBudget(String budgetId, String expenseName, double expenseAmount) {
+		Budget b = new ManagementSystemDBSupport().getBudget(budgetId);
+		if(b == null)
+			return false;
+		return b.addExpense(expenseName, expenseAmount) && new ManagementSystemDBSupport().putBudget(b);
+	}
+	
+	@Override
+	public boolean addPayrollRow(String payrollId, String empId, double regularHours, double overtimeHours) {
+		Payroll p = new ManagementSystemDBSupport().getPayroll(payrollId);
+		if(p == null)
+			return false;
+		return p.addPayrollRow(empId, regularHours, overtimeHours) && new ManagementSystemDBSupport().putPayroll(p); 
+	}
+	
+	@Override
+	public boolean updateEmployee(String empId, int flag, Object newInfo) {
+		Employee e = new ManagementSystemDBSupport().getEmployee(empId);
+		if(e == null)
+			return false;
+		return e.updateEmployee(flag, newInfo) && new ManagementSystemDBSupport().putEmployee(e);
+	}
+	
+	@Override
+	public String viewBudget(String budgetId) {
+		Budget b = new ManagementSystemDBSupport().getBudget(budgetId);
+		if(b == null)
+			return "";
+		return b.view();
+	}
+	
+	@Override
+	public String viewPayroll(String payrollId) {
+		Payroll p = new ManagementSystemDBSupport().getPayroll(payrollId);
+		if(p == null)
+			return "";
+		return p.view();
 	}
 }

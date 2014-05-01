@@ -82,4 +82,33 @@ public class Employee implements EmployeeInterface {
 	public double getPayRate() {
 		return payRate;
 	}
+	
+	@Override
+	public boolean updateEmployee(int flag, Object newInfo) {
+		switch(flag) {
+		case UPDATE_FIRST_NAME:
+			if(!(newInfo instanceof String))
+				return false;
+			fName = (String) newInfo;
+			break;
+		case UPDATE_LAST_NAME:
+			if(!(newInfo instanceof String))
+				return false;
+			lName = (String) newInfo;
+			break;
+		case UPDATE_TYPE:
+			if(!(newInfo instanceof String))
+				return false;
+			type = (String) newInfo;
+			break;
+		case UPDATE_PAYRATE:
+			if(!(newInfo instanceof Double))
+				return false;
+			payRate = (Double) newInfo;
+			break;
+		default: 
+			return false;
+		}
+		return true;
+	}
 }
