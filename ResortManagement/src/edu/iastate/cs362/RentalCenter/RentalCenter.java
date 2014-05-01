@@ -335,7 +335,8 @@ public class RentalCenter implements RentalCenterInterface {
 		//contains ids of equipment that are not available
 		List<String> ids = new ArrayList<String>();
 		//be careful here, not sure if it copies it
-		List<Equipment> availEquip = equipment;
+		List<Equipment> availEquip = new ArrayList<Equipment>();
+		availEquip.addAll(equipment);
 		
 		
 		for(RentalReservation rr: reservations) {
