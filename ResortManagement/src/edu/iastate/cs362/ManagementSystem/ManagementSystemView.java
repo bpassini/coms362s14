@@ -3,7 +3,7 @@ package edu.iastate.cs362.ManagementSystem;
 import java.util.Scanner;
 
 public class ManagementSystemView {
-	public static void main(String args[]) throws InterruptedException {
+	public static void main(String args[]) {
 		System.out.println("Welcome to the Resort Management System!");
 		System.out.println("What would you like to do?");
 		System.out.println("\t 1: create budget\n\t 2: create payroll\n\t 3: add employee\n\t 4: update payroll\n\t" +

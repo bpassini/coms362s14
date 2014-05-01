@@ -48,10 +48,6 @@ public class RentalCenterUI {
 			int inputNum = 0;
 			if(in.hasNextLine()) {
 				inputNum = Integer.parseInt(in.nextLine().trim());
-				if(inputNum < 0 || inputNum > 12) {
-					System.out.println("Input invalid, please try again.");
-					continue;
-				}
 			}
 			if(inputNum == 1)
 				returnCode = createRC();

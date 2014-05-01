@@ -423,8 +423,6 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 		// false if there is an SQL error (exception).
 		
 		try {
-			
-			System.out.println("WRITING RENTAL CENTER.");
 			connection=this.getConnection();
 	           
 	            String qs = "insert into Hotel values ('"+ h.getID() +"',"+"'"+ h.getName() +"')";
