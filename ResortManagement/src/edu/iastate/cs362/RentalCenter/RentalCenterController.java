@@ -69,17 +69,31 @@ public class RentalCenterController implements RentalCenterControllerInterface {
 	}
 
 	@Override
-	public boolean checkOutEquipment(String rid, String eid, String rentalId) {
-		return new Resort().checkOutEquipment(rid, eid, rentalId);
+	public boolean checkOutEquipment(String rid, String rentalId) {
+		return new Resort().checkOutEquipment(rid, rentalId);
 	}
 
 	@Override
-	public boolean checkInEquipment(String rid, String eid, String rentalId) {
-		return new Resort().checkInEquipment(rid, eid, rentalId);
+	public boolean checkInEquipment(String rid, String rentalId) {
+		return new Resort().checkInEquipment(rid, rentalId);
 	}
 	
 	@Override
 	public List<Equipment> searchEquipment(String rid, Object s, int flag) {
 		return new Resort().searchEquipment(rid, s, flag);
+	}
+
+	@Override
+	public List<Equipment> checkEquipmentAvailability(String rid,
+			String startDate, String endDate) {
+		try {
+			DateTimeFormatter df =  DateTimeFormat.forPattern("MM/dd/yyyy");
+			DateTime start = df.parseDateTime(startDate);
+			DateTime end = df.parseDateTime(endDate);
+			return (new Resort().checkEquipmentAvailability(rid, start, end));
+		}
+		catch(IllegalArgumentException iae) {
+			return null;
+		}
 	}
 }

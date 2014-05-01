@@ -216,4 +216,19 @@ public class Resort implements ResortInterface {
 		else 
 			return null;
 	}
+
+	@Override
+	public List<Equipment> checkEquipmentAvailability(String rid,
+			DateTime startDate, DateTime endDate) {
+		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
+		if(rc != null)
+			return rc.checkEquipmentAvailability(startDate, endDate);
+		else
+			return null;
+	}
+
+	@Override
+	public List<RentalCenter> getRentalCenters() {
+		return new ResortDBSupport().getRentalCenters();
+	}
 }

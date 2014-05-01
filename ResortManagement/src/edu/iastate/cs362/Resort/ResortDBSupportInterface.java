@@ -1,5 +1,6 @@
 package edu.iastate.cs362.Resort;
 
+import java.util.List;
 import java.util.Set;
 
 import edu.iastate.cs362.RentalCenter.Equipment;
@@ -42,5 +43,10 @@ public interface ResortDBSupportInterface {
 	 */
 	boolean putHotel(Hotel h);
 	
+	/**
+	 * Gets all Rental Centers
+	 * @return a list of Rental Centers
+	 */
+	public List<RentalCenter> getRentalCenters();
 
 }
