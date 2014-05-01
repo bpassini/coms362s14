@@ -150,10 +150,10 @@ public class Resort implements ResortInterface {
 	}
 
 	@Override
-	public boolean checkOutEquipment(String rid, String eid, String rentalId) {
+	public boolean checkOutEquipment(String rid, String rentalId) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
-		if(rc != null && rc.checkOutEquipment(eid, rentalId)) {
+		if(rc != null && rc.checkOutEquipment(rentalId)) {
 			return new ResortDBSupport().putRentalCenter(rc);
 		}
 		else 
@@ -161,10 +161,10 @@ public class Resort implements ResortInterface {
 	}
 
 	@Override
-	public boolean checkInEquipment(String rid, String eid, String rentalId) {
+	public boolean checkInEquipment(String rid, String rentalId) {
 		
 		RentalCenter rc = new ResortDBSupport().getRentalCenter(rid);
-		if(rc != null && rc.checkInEquipment(eid, rentalId)) {
+		if(rc != null && rc.checkInEquipment(rentalId)) {
 			return new ResortDBSupport().putRentalCenter(rc);
 		}
 		else 
