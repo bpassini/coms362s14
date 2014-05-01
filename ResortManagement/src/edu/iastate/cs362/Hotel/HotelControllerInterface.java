@@ -62,7 +62,7 @@ public interface HotelControllerInterface {
 	 * @param newInfo the updated information.
 	 * @return true if the update was successful, false otherwise.
 	 */
-	boolean updateRoomReservation(String hId, String reservationId, int flag, Object newInfo);
+	boolean updateRoomReservation(String hid, String rrid, int flag, Object newInfo);
 	
 	/**
 	 * Updates the hotel
@@ -76,20 +76,18 @@ public interface HotelControllerInterface {
 	/**
 	 * Check into hotel room and associate room with RoomReservation
 	 * @param hid - Hotel ID of hotel that holds room
-	 * @param rid - Room ID of room being checked into
 	 * @param rrid - RoomReservation ID of reservation associated with this check in
 	 * @return True if successfully checked into room, false otherwise
 	 */
-	boolean checkIntoRoom(String hid, int rid, String rrid);
+	boolean checkIntoRoom(String hid, String rrid);
 	
 	/**
 	 * Checks out of hotel room and removes it from corresponding room reservation
 	 * @param hid - Hotel ID of hotel that holds room
-	 * @param rid - the room ID of the room being checked out of
 	 * @param rrid - the room reservation ID corresponding to this room and reservation
 	 * @return true if room was checked out of successfully, false otherwise
 	 */
-	boolean checkOutOfRoom(String hid, int rid, String rrid);
+	boolean checkOutOfRoom(String hid, String rrid);
 
 	/**
 	 * Updates the room invoice of a specific hotel room

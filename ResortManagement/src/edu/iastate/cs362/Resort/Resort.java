@@ -117,9 +117,9 @@ public class Resort implements ResortInterface {
 	}
 	
 	@Override
-	public boolean updateRoomReservation(String hId, String reservationId, int flag, Object newInfo) {
+	public boolean updateRoomReservation(String hid, String reservationId, int flag, Object newInfo) {
 		
-		Hotel h = new ResortDBSupport().getHotel(hId);
+		Hotel h = new ResortDBSupport().getHotel(hid);
 		if(h != null && h.updateRoomReservation(reservationId, flag, newInfo)) //TODO
 			return new ResortDBSupport().putHotel(h);
 		else
@@ -182,10 +182,10 @@ public class Resort implements ResortInterface {
 	}
 
 	@Override
-	public boolean checkIntoRoom(String hid, int rid, String rrid) {
+	public boolean checkIntoRoom(String hid, String rrid) {
 		
 		Hotel h = new ResortDBSupport().getHotel(hid);
-		if(h != null && h.checkIntoRoom(rid, rrid)) {
+		if(h != null && h.checkIntoRoom(rrid)) {
 			return new ResortDBSupport().putHotel(h);
 		}
 		
@@ -194,10 +194,10 @@ public class Resort implements ResortInterface {
 	}
 
 	@Override
-	public boolean checkOutOfRoom(String hid, int rid, String rrid) {
+	public boolean checkOutOfRoom(String hid, String rrid) {
 		
 		Hotel h = new ResortDBSupport().getHotel(hid);
-		if(h != null && h.checkOutOfRoom(rid, rrid)) {
+		if(h != null && h.checkOutOfRoom(rrid)) {
 			return new ResortDBSupport().putHotel(h);
 		}
 		
