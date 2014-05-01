@@ -36,12 +36,8 @@ public interface ManagementSystemDBSupportInterface {
 	Payroll getPayroll(String payrollId);
 	
 	/**
-<<<<<<< HEAD
 	 * Puts a work schedule into the database
-	 * @param date - the date the employee is scheduled to work
-	 * @param employeeId - the id of the specific employee
-	 * @param start - the start time of the shift (0-23.99)
-	 * @param hours - the amount of hours an employee will work
+	 * @param w - the WorkSchedule to place into the database
 	 * @return true if it was successfully stored, false otherwise
 	 */
 	boolean putWorkSchedule(WorkSchedule w);

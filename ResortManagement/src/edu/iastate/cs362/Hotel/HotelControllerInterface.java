@@ -47,10 +47,10 @@ public interface HotelControllerInterface {
 	 * @param start - Start date of reservation
 	 * @param end - End date of reservation
 	 * @param cust - Customer who placed reservation
-	 * @param attr - Attribute object of desired room attributes
+	 * @param rmid - Room ID
 	 * @return True if reservation successfully created, false otherwise
 	 */
-	boolean createRoomReservation(String rrid, String hid, String start, String end, Customer cust, Attribute attr);
+	boolean createRoomReservation(String rrid, String hid, String start, String end, Customer cust, int rmid);
 	
 	
 	/**

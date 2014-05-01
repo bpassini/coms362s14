@@ -45,9 +45,9 @@ public class RoomReservation implements RoomReservationInterface {
 	Attribute attr;
 	
 	/**
-	 * Room ID of room that is available and fits customer's requirements
+	 * Room ID
 	 */
-	int rid;
+	int rmid;
 	
 	
 	/**
@@ -58,16 +58,16 @@ public class RoomReservation implements RoomReservationInterface {
 	 * @param start - start date
 	 * @param end - end date
 	 * @param cust - customer object
-	 * @param attr - attribute object with desired room attributes
+	 * @param rmid - Room ID
 	 */
-	public RoomReservation(String rrid, String hid, DateTime start, DateTime end, Customer cust, Attribute attr) {
+	public RoomReservation(String rrid, String hid, DateTime start, DateTime end, Customer cust, int rmid) {
 		
 		this.rrid = rrid;
 		this.hid = hid;
 		this.start = start;
 		this.end = end;
 		this.cust = cust;
-		this.attr = attr;
+		this.rmid = rmid;
 	}
 	
 	@Override
@@ -104,10 +104,10 @@ public class RoomReservation implements RoomReservationInterface {
 				return false;
 			cust = (Customer) newInfo;
 			break;
-		case UPDATE_ATTRIBUTE:
-			if(!(newInfo instanceof Attribute))
+		case UPDATE_ROOM_ID:
+			if(!(newInfo instanceof Integer))
 				return false;
-			attr = (Attribute) newInfo;
+			rmid = (Integer) newInfo;
 			break;
 		default:
 			return false;
@@ -131,12 +131,12 @@ public class RoomReservation implements RoomReservationInterface {
 		this.hid = hid;
 	}
 	
-	public void setRoomID(int rid) {
-		this.rid = rid;
+	public void setRoomID(int rmid) {
+		this.rmid = rmid;
 	}
 	
 	public int getRoomID()	{
-		return rid;
+		return rmid;
 	}
 	
 	public DateTime getStart() {

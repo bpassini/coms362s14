@@ -36,11 +36,11 @@ public class HotelController implements HotelControllerInterface {
 	}
 
 	@Override
-	public boolean createRoomReservation(String rrid, String hid, String start, String end, Customer cust, Attribute attr) {
+	public boolean createRoomReservation(String rrid, String hid, String start, String end, Customer cust, int rmid) {
 		
 		org.joda.time.format.DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
 		
-		return (new Resort().createRoomReservation(rrid, hid, formatter.parseDateTime(start), formatter.parseDateTime(end), cust, attr));
+		return (new Resort().createRoomReservation(rrid, hid, formatter.parseDateTime(start), formatter.parseDateTime(end), cust, rmid));
 	}
 	
 	@Override

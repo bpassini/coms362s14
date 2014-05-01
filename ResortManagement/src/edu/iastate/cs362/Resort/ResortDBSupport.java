@@ -12,7 +12,6 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import edu.iastate.cs362.Hotel.Attribute;
 import edu.iastate.cs362.Hotel.Customer;
 import edu.iastate.cs362.Hotel.Hotel;
 import edu.iastate.cs362.Hotel.Room;
@@ -306,6 +305,7 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 	public Hotel getHotel(String hid) {
 		
 		Hotel h = null;
+		DateTimeFormatter f = DateTimeFormat.forPattern("MM/dd/yyyy");
 		
 		try {
 			connection = this.getConnection();
@@ -341,27 +341,29 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					while(rsReservations.next()) {
 						
 						Customer cust = new Customer(rsReservations.getInt("CustomerID"), rsReservations.getString("FirstName"), rsReservations.getString("LastName"));
-						DateTime start = DateTime.parse(rsReservations.getString("StartDate"));
-						DateTime end = DateTime.parse(rsReservations.getString("EndDate"));
+						DateTime start = DateTime.parse(rsReservations.getString("StartDate"), f);
+						DateTime end = DateTime.parse(rsReservations.getString("EndDate"), f);
+						int rmid = rsReservations.getInt("RoomID");
 						
-						
+					// No longer need due to modified room reservation creation
+					/*
 						ArrayList<String> bedsReservation = new ArrayList<String>();
 						String[] bedsReservationSplit = rsReservations.getString("BedTypes").split(", ");
 						for(int i=0; i<bedsReservationSplit.length; i++)
 						{
 							bedsReservation.add(bedsReservationSplit[i]);
 						}
-						
+					
 						int numGuests = rsReservations.getInt("NumGuests");
 						
 						Attribute attr = new Attribute(bedsReservation, numGuests);
-						
-						h.createRoomReservation(rsReservations.getString("RoomReservationID"), rsReservations.getString("HotelID"), start, end, cust, attr);
+					*/	
+						h.createRoomReservation(rsReservations.getString("RoomReservationID"), start, end, cust, rmid);
 					}
 					
 					while(rsInvoices.next()) {
 						
-						h.createRoomInvoice(hid, rsInvoices.getInt("RoomID"), rsInvoices.getString("RoomInvoiceID"), rsInvoices.getString("Notes"));
+						h.createRoomInvoice(rsInvoices.getInt("RoomID"), rsInvoices.getString("RoomInvoiceID"), rsInvoices.getString("Notes"));
 					}
 				}
 				
@@ -514,6 +516,13 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					Room r = h.getRoomsList().get(h.getRoomsList().size()-1);
 					stmtRoomWrite.executeUpdate("insert into Rooms values ('"+r.getRoomID()+"','"+h.getID()+"','"+r.getOccupancy()+"','"+r.getBeds().size()+"','"+r.getDescription()+"','"+r.getBeds().toString()+"', '"+r.getStatus()+"')");
 				}
+			/*	
+				else if(h.getRoomsList().size() - roomCount == 0) {
+					Room r = h.getRoomsList().get(h.getRoomsList().size()-1);
+					stmtRoomWrite.executeUpdate("update Rooms set HotelID='" + h.getID() + "', Occupancy='" + r.getOccupancy() + "', NumBeds='" + r.getBeds().size() + "', Description='" + r.getDescription() + "', BedTypes='"
+					+ r.getBeds().toString().replace("[", "").replace("]", "") + "', CheckedOut='" + r.getStatus() + "', where RoomID='" + r.getRoomID() + "'");
+				}
+			*/
 				
 				DateTimeFormatter f = DateTimeFormat.forPattern("MM/dd/yyyy");
 				if(h.getReservationsList().size() - reservCount == 1) {
@@ -522,10 +531,20 @@ public class ResortDBSupport implements ResortDBSupportInterface {
 					+ "','" + r.getCustomerID()+ "','" + r.getFirstName()+ "','" + r.getLastName()+ "','" + r.getHotelID()+"','" 
 					+ r.getBeds().size()+"','"+r.getBeds().toString()+"','" +r.getNumGuests()+"')");
 				}
+				else if(h.getReservationsList().size() - reservCount == 0) {
+					RoomReservation r = h.getReservationsList().get(h.getReservationsList().size()-1);
+					stmtReservWrite.executeUpdate("update RoomReservations set StartDate='" + r.getStart().toString(f) + "', EndDate='" + r.getEnd().toString(f) + "', CustomerID='" + r.getCustomerID() + "', FirstName='" + r.getFirstName() +
+							"', LastName='" + r.getLastName() + "', HotelID='" + r.getHotelID() + "', NumBeds='" + r.getBeds().size() + "', BedTypes='" + r.getBeds().toString().replace("[", "").replace("]", "") + "', NumGuests='" + r.getNumGuests() + 
+							"' where RoomReservationID='" + r.getRoomReservationID() + "'");
+				}
 				
 				if(h.getInvoicesList().size() - invoiceCount == 1) {
 					RoomInvoice i = h.getInvoicesList().get(h.getInvoicesList().size()-1);
 					stmtInvoiceWrite.executeUpdate("insert into RoomInvoices values ('"+i.getHotelID()+"','"+ i.getRoomID()+"','"+i.getRoomInvoiceID()+"','"+ i.getNotes()+"')");
+				}
+				else if(h.getInvoicesList().size() - invoiceCount == 0) {
+					RoomInvoice i = h.getInvoicesList().get(h.getInvoicesList().size()-1);
+					stmtInvoiceWrite.executeUpdate("update RoomInvoices set RoomID='"+ i.getHotelID() + "', Notes='" + i.getNotes() + "', RoomID='" + i.getRoomID() + "' where RoomInvoiceID='" + i.getRoomInvoiceID() + "'");
 				}
 				
 				stmt.close();
