@@ -18,7 +18,7 @@ public class ManagementSystemView {
 				inputNum = Integer.parseInt(in.nextLine().trim());
 				if(inputNum != 1 && inputNum != 2 && inputNum != 3 && inputNum != 4 && inputNum != -1 && 
 						inputNum != 5 && inputNum != 6 && inputNum != 7 && inputNum != 8 && inputNum != 9 &&
-						inputNum != 10 && inputNum != 11) {
+						inputNum != 10 && inputNum != 11 && inputNum != 12) {
 					System.out.println("Input invalid, please try again.");
 					continue;
 				}
@@ -345,7 +345,84 @@ public class ManagementSystemView {
 	}
 	
 	private static boolean assignWorkSchedule() {
-		//CAM PUT YOUR CODE HERE!!
-		return false;
+		
+		Scanner in = new Scanner(System.in);
+		String date, empId, scheduleId = empId = date = "";
+		double start, hours = start = 0.0;
+		
+		System.out.println("Enter a new schedule id.");
+		if(in.hasNextLine())
+			scheduleId = in.nextLine().trim();
+		
+		while(true) {
+			System.out.println("What date would you like to add a shift to? (MM/dd/yyyy)");
+			
+			if(in.hasNextLine())
+				date = in.nextLine().trim();
+			System.out.println("Enter the employee id to schedule work for.");
+			if(in.hasNextLine())
+				empId = in.nextLine().trim();
+			
+			System.out.println("Enter the start time of the shift. (hh:mm) am/pm");
+			
+			if(in.hasNextLine()) {
+				String s = in.nextLine();
+				
+				double add = 0;
+				
+				String time = s.split(" ")[1];
+				s = s.split(" ")[0];
+				
+				String[] arr = s.split(":");
+				if(arr.length == 2) {
+					start += Double.parseDouble(arr[0]);
+					if((start != 12 && time.equalsIgnoreCase("pm"))) {
+						add = 12;
+					}
+					start += Double.parseDouble(arr[1])/60.0;
+					
+					start += add;
+				}
+			}
+			
+			System.out.println("Enter the end time of the shift. (hh:mm) am/pm");
+			
+			double end = 0;
+			if(in.hasNextLine()) {
+				String s = in.nextLine();
+				double add = 0;
+				
+				String time = s.split(" ")[1];
+				
+				s = s.split(" ")[0];
+				
+				String[] arr = s.split(":");
+				if(arr.length == 2) {
+					end += Double.parseDouble(arr[0]);
+					if((end != 12 && time.equalsIgnoreCase("pm"))) {
+						add = 12;
+					}
+					end += Double.parseDouble(arr[1])/60.0;
+					end += add;
+				}
+			}
+			
+			hours = Math.abs(end - start);
+			
+			boolean b = new ManagementSystemController().assignWorkSchedule(scheduleId, date, empId, start, hours);
+			String ans = "";
+			if(b) {
+				System.out.println("Would you like to add another shift? (y/n)");
+				if(in.hasNextLine())
+					ans = in.nextLine().trim();
+				if(!(ans.equalsIgnoreCase("y") || ans.startsWith("y") || ans.startsWith("Y")))
+					break;
+			}
+			else
+				return false;
+			
+		}
+		
+		return true;
 	}
 }
