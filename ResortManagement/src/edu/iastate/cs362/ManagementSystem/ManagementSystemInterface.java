@@ -53,4 +53,16 @@ public interface ManagementSystemInterface {
 	 * @return true if the update was successful, false otherwise.
 	 */
 	boolean updatePayrollRow(String payrollId, String employeeId, int flag, Object newInfo);
+	
+	
+	/**
+	 * Assigns a work schedule 
+	 * @param scheduleId - id of the work schedule
+	 * @param date - the date the employee is scheduled to work
+	 * @param employeeId - the id of the specific employee
+	 * @param start - the start time of the shift (0-23.99)
+	 * @param hours - the amount of hours an employee will work
+	 * @return true if it was successfully stored, false otherwise
+	 */
+	boolean assignWorkSchedule(String scheduleId, DateTime date, String employeeId, double start, double hours);
 }

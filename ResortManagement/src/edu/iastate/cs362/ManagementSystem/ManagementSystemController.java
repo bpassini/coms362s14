@@ -43,4 +43,16 @@ public class ManagementSystemController implements ManagementSystemControllerInt
 	public boolean updatePayrollRow(String payrollId, String employeeId, int flag, Object newInfo) {
 		return new ManagementSystem().updatePayrollRow(payrollId, employeeId, flag, newInfo);
 	}
+
+	@Override
+	public boolean assignWorkSchedule(String scheduleId, String date, String employeeId,
+			double start, double hours) {
+		
+		try {
+			DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+			return new ManagementSystem().assignWorkSchedule(scheduleId, formatter.parseDateTime(date),employeeId, start, hours);
+		} catch(IllegalArgumentException e) {
+			return false;
+		}
+	}
 }

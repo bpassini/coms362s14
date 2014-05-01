@@ -158,6 +158,31 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 		
 		return true;
 	}
+	
+	@Override
+	public boolean putWorkSchedule(WorkSchedule w) {
+		
+		connection = this.getConnection();
+		
+		if(connection == null) {
+			return false;
+		}
+		else {
+			try {
+				Statement query = connection.createStatement();	
+				
+				DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy");
+				EmployeeShift shift = w.getShifts().get(w.getShifts().size() - 1);
+				query.executeUpdate("insert into WorkSchedule(scheduleId, date, EmployeeId, start, hours) values('" + w.getId() + "','" + shift.getDate().toString(formatter) + 
+						"','" + shift.getEmployeeId() + "','" + shift.getStart() + "','" + shift.getHours() + "')");
+			}
+			catch(SQLException e) {
+				System.out.println(e);
+				return false;
+			}
+		}
+		return true;
+	}
 
 	
 	/**
@@ -274,4 +299,6 @@ public class ManagementSystemDBSupport implements ManagementSystemDBSupportInter
 		}
 		return connection;
 	}
+
+	
 }

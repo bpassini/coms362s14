@@ -40,4 +40,12 @@ public class ManagementSystem implements ManagementSystemInterface {
 		Payroll p = new ManagementSystemDBSupport().getPayroll(payrollId);
 		return p.updatePayrollRow(employeeId, flag, newInfo) && new ManagementSystemDBSupport().putPayroll(p); 
 	}
+
+	@Override
+	public boolean assignWorkSchedule(String scheduleId, DateTime date, String employeeId,
+			double start, double hours) {
+		WorkSchedule w = new WorkSchedule(scheduleId);
+		w.addEntry(date, employeeId, start, hours);
+		return new ManagementSystemDBSupport().putWorkSchedule(w);
+	}
 }
