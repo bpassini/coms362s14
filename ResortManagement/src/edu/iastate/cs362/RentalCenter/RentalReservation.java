@@ -118,7 +118,7 @@ public class RentalReservation implements RentalReservationInterface {
 			customer = (Customer) newInfo;
 			break;
 		case UPDATE_START:
-			if(!(newInfo instanceof DateTime))
+			if(!(newInfo instanceof String))
 				return false;
 			try {
 				start = formatter.parseDateTime((String) newInfo);
@@ -128,7 +128,7 @@ public class RentalReservation implements RentalReservationInterface {
 			}
 			break;
 		case UPDATE_END:
-			if(!(newInfo instanceof DateTime))
+			if(!(newInfo instanceof String))
 				return false;
 			try {
 				end = formatter.parseDateTime((String) newInfo);

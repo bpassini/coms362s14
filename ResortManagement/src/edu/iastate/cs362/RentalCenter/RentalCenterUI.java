@@ -400,11 +400,14 @@ public class RentalCenterUI {
 		}
 		else 
 			return false;
-		
-		System.out.println("ID \t TYPE \t COST \t CHECKEDIN");
-		for(Equipment e: results) {
-			System.out.println(e.getEquipId() + "\t " + e.getEquipType() + "\t" + e.getCost() + "\t" + e.getStatus());
+		if(results != null && results.size() > 0) {
+			System.out.println("ID \t TYPE \t COST \t CHECKEDIN");
+			for(Equipment e: results) {
+				System.out.println(e.getEquipId() + "\t " + e.getEquipType() + "\t" + e.getCost() + "\t" + e.getStatus());
+			}
 		}
+		else
+			System.out.println("No equipment matching search params.");
 		
 		return true;
 	}
@@ -424,15 +427,16 @@ public class RentalCenterUI {
 			end = in.nextLine().trim();
 		List<Equipment> results = null;
 		results = new RentalCenterController().checkEquipmentAvailability(rId, start, end);
-		if(results == null) {
+		
+		if(results != null && results.size() > 0) {
+			System.out.println("Available Equipment between " + start + " and " + end);
+			System.out.println("ID \t TYPE \t COST \t CHECKEDIN");
+			for(Equipment e: results) {
+				System.out.println(e.getEquipId() + "\t " + e.getEquipType() + "\t" + e.getCost() + "\t" + e.getStatus());
+			}
+		}
+		else
 			System.out.println("There was no available equipment.");
-			return false;
-		}
-		System.out.println("Available Equipment between " + start + " and " + end);
-		System.out.println("ID \t TYPE \t COST \t CHECKEDIN");
-		for(Equipment e: results) {
-			System.out.println(e.getEquipId() + "\t " + e.getEquipType() + "\t" + e.getCost() + "\t" + e.getStatus());
-		}
 		
 		return true;
 	}

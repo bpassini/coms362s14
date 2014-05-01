@@ -339,7 +339,10 @@ public class RentalCenter implements RentalCenterInterface {
 		
 		
 		for(RentalReservation rr: reservations) {
-			if(!(endDate.isBefore(rr.getStart()) || startDate.isAfter(rr.getEnd()))) {
+			
+			if( startDate.isEqual(rr.getStart()) || (startDate.isAfter(rr.getStart()) && startDate.isBefore(rr.getEnd())) || 
+					endDate.isEqual(rr.getEnd()) || (endDate.isAfter(rr.getStart()) && endDate.isBefore(rr.getEnd())) || 
+						(startDate.isBefore(rr.getStart()) && endDate.isAfter(rr.getEnd())) ) {
 				
 				if(!ids.contains(rr.getEquipId())) {
 					ids.add(rr.getEquipId());
