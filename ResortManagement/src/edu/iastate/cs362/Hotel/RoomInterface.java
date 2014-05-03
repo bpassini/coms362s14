@@ -8,4 +8,15 @@ package edu.iastate.cs362.Hotel;
  */
 public interface RoomInterface {
 
+	/**
+	 * Sets room to checked out.
+	 * @return true if successful, false otherwise
+	 */
+	boolean setCheckedOut();
+	
+	/**
+	 * Sets room to available.
+	 * @return true if successful, false otherwise
+	 */
+	boolean setAvailable();
 }

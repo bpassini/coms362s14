@@ -83,11 +83,13 @@ public class Room implements RoomInterface {
 		this.desc = desc;
 	}
 	
+	@Override
 	public boolean setCheckedOut() {
 		this.checkedOut = true;
 		return true;
 	}
 	
+	@Override
 	public boolean setAvailable()	{
 		this.checkedOut = false;
 		return true;
